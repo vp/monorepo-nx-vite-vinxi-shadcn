@@ -1,0 +1,12 @@
+{
+  "name": "my-app-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "projectType": "application",
+    "sourceRoot": "apps/my-app-e2e/src",
+    "implicitDependencies": [
+      "@workspace/my-app"
+    ]
+  }
+}
