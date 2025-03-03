@@ -2,11 +2,16 @@
   "name": "@pnpm-vinxi-monorepo/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "npx nx affected -t build",
+    "dev": "npx nx affected -t dev",
+    "lint": "npx nx affected -t lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@nx/js": "20.4.6",
+    "@nx/vite": "^20.4.6",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
@@ -14,5 +19,6 @@
     "prettier": "^2.6.2",
     "tslib": "^2.3.0",
     "typescript": "~5.7.2"
-  }
+  },
+  "packageManager": "pnpm@10.5.2+sha256.79a98daa90248b50815e31460790f118c56fe099113370826caa0153be6daba5"
 }
