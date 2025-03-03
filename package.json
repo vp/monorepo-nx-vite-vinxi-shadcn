@@ -1,5 +1,5 @@
 {
-  "name": "@pnpm-vinxi-monorepo/source",
+  "name": "@workspace/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -10,15 +10,30 @@
   },
   "private": true,
   "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@nx/eslint": "20.4.6",
+    "@nx/eslint-plugin": "20.4.6",
     "@nx/js": "20.4.6",
     "@nx/vite": "^20.4.6",
+    "@nx/web": "20.4.6",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/node": "18.16.9",
+    "@vitest/coverage-v8": "^1.0.4",
+    "@vitest/ui": "^1.3.1",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.0.0",
+    "jsdom": "~22.1.0",
     "nx": "20.4.6",
     "prettier": "^2.6.2",
     "tslib": "^2.3.0",
-    "typescript": "~5.7.2"
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.19.0",
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "~3.8.1",
+    "vitest": "^1.3.1"
   },
-  "packageManager": "pnpm@10.5.2+sha256.79a98daa90248b50815e31460790f118c56fe099113370826caa0153be6daba5"
+  "packageManager": "pnpm@10.5.2+sha256.79a98daa90248b50815e31460790f118c56fe099113370826caa0153be6daba5",
+  "dependencies": {}
 }
