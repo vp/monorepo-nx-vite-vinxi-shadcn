@@ -1,4 +1,5 @@
 {
+  
   "files": [],
   "include": [],
   "references": [
@@ -7,7 +8,17 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.ui.json"
     }
   ],
-  "extends": "../../tsconfig.base.json"
+  "extends": "@workspace/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@workspace/ui/*": ["../../packages/ui/src/*"]
+    },
+  },
 }

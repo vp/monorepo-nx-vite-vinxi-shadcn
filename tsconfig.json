@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "@workspace/typescript-config/base.json",
   "compileOnSave": false,
   "files": [],
   "references": [
@@ -7,10 +7,10 @@
       "path": "./packages/utils"
     },
     {
-      "path": "./apps/my-app-e2e"
+      "path": "./apps/my-app"
     },
     {
-      "path": "./apps/my-app"
+      "path": "./packages/ui"
     }
   ]
 }

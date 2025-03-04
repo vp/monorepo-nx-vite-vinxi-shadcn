@@ -1,0 +1,14 @@
+{
+  "extends": "@workspace/typescript-config/lib-react.json",
+  "include": [
+  "**/*.ts",
+  "**/*.tsx",
+],
+  "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+          "@/*": ["./*"],
+          "@workspace/ui/*": ["../../packages/ui/src/*"]
+      }
+  }
+}
