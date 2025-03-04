@@ -16,6 +16,15 @@ packages:
   - 'apps/*'
 ```
 
+## tsconfig as package
+
+tsconfig base etc mover to typescrip-config package
+
+## integrated shadcn to monorepo
+
+- [Shadcn next monorepo](https://ui.shadcn.com/docs/monorepo)
+- [How to add shadcn UI into monorepo](https://pustelto.com/blog/adding-shadcnui-to-nx-monorepo/)
+
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
