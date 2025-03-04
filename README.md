@@ -1,4 +1,6 @@
-# PnpmVinxiMonorepo
+# WIP nx, pnpm workspaces, vite, vinxi, shadcn ui
+
+Experimental nx monorepo with shadcn integration
 
 ```sh
 pnpm dlx create-nx-workspace@latest pnpm-vinxi-monorepo --preset=ts --workspaces --pm=pnpm
