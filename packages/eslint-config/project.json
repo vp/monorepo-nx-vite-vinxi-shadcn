@@ -1,0 +1,7 @@
+{
+  "targets": {
+    "lint": {
+      "executor": "nx:noop"
+    }
+  }
+}
