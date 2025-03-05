@@ -1,5 +1,5 @@
 {
-    "extends": "./lib.json",
+    "extends": "./base.json",
     "compilerOptions": {
       "baseUrl": ".",
       "rootDir": "src",
@@ -10,4 +10,3 @@
       "types": ["node", "vite/client"]
     }
 }
-  
