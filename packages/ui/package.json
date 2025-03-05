@@ -4,7 +4,7 @@
   "private": "true",
   "type": "module",
   "scripts": {
-     "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest"
+    "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.1",
@@ -19,11 +19,12 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@workspace/typescript-config": "workspace:*",
-    "@workspace/eslint-config": "workspace:*",
     "@types/node": "^22.9.0",
-    "@types/react":  "^19.0.0",
-    "@types/react-dom":  "^19.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/tailwindcss": "^3.1.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
