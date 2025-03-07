@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "rootDir": "src"
+    "rootDir": "src",
+    "paths": {
+      "@/*": ["./src/*"],
+    }
   },
   "extends": "@workspace/typescript-config/app.json",
   "exclude": [
