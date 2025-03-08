@@ -4,7 +4,7 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/my-app"
+      "path": "./apps/vite-app"
     },
     {
       "path": "./packages/ui"
