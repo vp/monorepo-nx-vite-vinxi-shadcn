@@ -8,7 +8,7 @@
     "dev": "vite",
     "lint": "eslint .",
     "test": "vitest",
-    "shadcn": "TS_NODE_PROJECT=tsconfig.app.json pnpx shadcn@latest",
+    "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest",
     "preview": "vite preview"
   },
   "dependencies": {

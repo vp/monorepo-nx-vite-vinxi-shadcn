@@ -5,8 +5,10 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
-    }
+      ],
+    },
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./dist/tsconfig.app.tsbuildinfo"
   },
   "exclude": [
     "out-tsc",
