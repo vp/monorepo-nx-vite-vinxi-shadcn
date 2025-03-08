@@ -1,5 +1,11 @@
 {
-  "extends": "@workspace/typescript-config/base.json",
+  "extends": "@workspace/typescript-config/lib-react.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "paths": {
+      "@/*": ["./src/*"],
+    }
+  },
   "include": [
     "vite.config.ts",
     "vite.config.mts",

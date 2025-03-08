@@ -12,5 +12,12 @@
     {
       "path": "./tsconfig.ui.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
+  }
 }

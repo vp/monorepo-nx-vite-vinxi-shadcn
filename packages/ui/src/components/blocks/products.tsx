@@ -1,4 +1,4 @@
-import { ProductsTable } from "./products-table"
+import { ProductsTable } from "@workspace/ui/components/blocks/products-table"
 
 
 // Load from database.

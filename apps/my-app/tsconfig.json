@@ -1,5 +1,4 @@
 {
-  
   "files": [],
   "include": [],
   "references": [
@@ -15,10 +14,6 @@
   ],
   "extends": "@workspace/typescript-config/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"],
-      "@workspace/ui/*": ["./../../packages/ui/src/*"]
-    },
-  },
+    "baseUrl": "."
+  }
 }

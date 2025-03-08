@@ -34,6 +34,7 @@ export default defineConfig({
     },
   },
   test: {
+    setupFiles: ['./vitest-setup.mjs'],
     watch: false,
     globals: true,
     environment: 'jsdom',
