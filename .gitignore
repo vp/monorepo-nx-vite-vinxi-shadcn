@@ -46,3 +46,5 @@ vitest.config.*.timestamp*
 test-output
 .idea
 .verdaccio
+.vinxi
+.output
