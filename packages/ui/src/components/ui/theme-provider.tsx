@@ -10,18 +10,31 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('system');
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme') as Theme;
+      return storedTheme || 'system';
+    }
+    
+    return 'system';
+  });
 
   useEffect(() => {
+    if (typeof window === 'undefined' || !window)  {
+      return;
+    }
+
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
 
-    if (theme === 'system') {
+    if (theme === 'system' ) {
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       root.classList.add(systemTheme);
     } else {
       root.classList.add(theme);
     }
+
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   return (
