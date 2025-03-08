@@ -13,7 +13,6 @@ import DashboardPage from '@workspace/ui/components/blocks/dashboard-page';
 import { SonnerDemo } from '@/components/sonner-demo';
 import { Toaster } from '@workspace/ui/components/ui/sonner';
 
-
 function App() {
   return (
     <ThemeProvider>

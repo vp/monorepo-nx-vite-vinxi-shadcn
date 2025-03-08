@@ -3,17 +3,17 @@ import {
   EllipsisVerticalIcon,
   ListFilterIcon,
   PlusIcon,
-} from "lucide-react"
+} from 'lucide-react';
 
-import { Badge } from "@workspace/ui/components/ui/badge"
-import { Button } from "@workspace/ui/components/ui/button"
-import { Checkbox } from "@workspace/ui/components/ui/checkbox"
+import { Badge } from '@workspace/ui/components/ui/badge';
+import { Button } from '@workspace/ui/components/ui/button';
+import { Checkbox } from '@workspace/ui/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/ui/dropdown-menu"
+} from '@workspace/ui/components/ui/dropdown-menu';
 import {
   Pagination,
   PaginationContent,
@@ -22,14 +22,14 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@workspace/ui/components/ui/pagination"
+} from '@workspace/ui/components/ui/pagination';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@workspace/ui/components/ui/select"
+} from '@workspace/ui/components/ui/select';
 import {
   Table,
   TableBody,
@@ -37,20 +37,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@workspace/ui/components/ui/table"
-import { Tabs, TabsList, TabsTrigger } from "@workspace/ui/components/ui/tabs"
+} from '@workspace/ui/components/ui/table';
+import { Tabs, TabsList, TabsTrigger } from '@workspace/ui/components/ui/tabs';
 
 export function ProductsTable({
   products,
 }: {
   products: {
-    id: string
-    name: string
-    price: number
-    stock: number
-    dateAdded: string
-    status: string
-  }[]
+    id: string;
+    name: string;
+    price: number;
+    stock: number;
+    dateAdded: string;
+    status: string;
+  }[];
 }) {
   return (
     <div className="flex w-full flex-col gap-4">
@@ -143,19 +143,19 @@ export function ProductsTable({
                   <Badge
                     variant="secondary"
                     className={
-                      product.status === "Low Stock"
-                        ? "border-orange-500 bg-transparent text-orange-500 dark:border-orange-500 dark:bg-transparent dark:text-orange-500"
-                        : "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+                      product.status === 'Low Stock'
+                        ? 'border-orange-500 bg-transparent text-orange-500 dark:border-orange-500 dark:bg-transparent dark:text-orange-500'
+                        : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
                     }
                   >
                     {product.status}
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  {new Date(product.dateAdded).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
+                  {new Date(product.dateAdded).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
                   })}
                 </TableCell>
                 <TableCell>
@@ -205,5 +205,5 @@ export function ProductsTable({
         </Pagination>
       </div>
     </div>
-  )
+  );
 }

@@ -6,7 +6,11 @@ export function ThemeToggle() {
   return (
     <select
       value={theme}
-      onChange={(e) => setTheme((e.target as HTMLSelectElement).value as 'light' | 'dark' | 'system')}
+      onChange={(e) =>
+        setTheme(
+          (e.target as HTMLSelectElement).value as 'light' | 'dark' | 'system'
+        )
+      }
       className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded px-2 py-1"
     >
       <option value="light">Light</option>

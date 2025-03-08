@@ -1,8 +1,20 @@
 {
-  "extends": "@workspace/typescript-config/lib-react.json",
+  "extends": "../typescript-config/tsconfig.lib-react.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src"
+    "rootDir": "src",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "paths": {
+      "@workspace/ui/*": [
+        "./src/*"
+      ]
+    },
+    "outDir": "./out-tsc",
+    "tsBuildInfoFile": "./out-tsc/tsconfig.lib.tsbuildinfo"
   },
   "exclude": [
     "out-tsc",
@@ -31,5 +43,10 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
 }

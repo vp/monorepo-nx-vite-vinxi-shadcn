@@ -2,7 +2,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/ui/avatar"
+} from '@workspace/ui/components/ui/avatar';
 
 export function RecentSales() {
   return (
@@ -67,5 +67,5 @@ export function RecentSales() {
         <div className="ml-auto font-medium">+$39.00</div>
       </div>
     </div>
-  )
+  );
 }

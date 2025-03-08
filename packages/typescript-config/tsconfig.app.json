@@ -1,5 +1,5 @@
 {
-    "extends": "./base.json",
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
       "outDir": "out-tsc/my-app",
       "tsBuildInfoFile": "out-tsc/my-app/tsconfig.app.tsbuildinfo",
@@ -15,4 +15,3 @@
       "moduleResolution": "bundler"
     }
   }
-  

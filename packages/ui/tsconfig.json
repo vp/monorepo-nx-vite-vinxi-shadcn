@@ -1,5 +1,5 @@
 {
-  "extends": "@workspace/typescript-config/base.json",
+  "extends": "../typescript-config/tsconfig.base.json",
   "files": [],
   "include": [],
   "references": [
@@ -8,9 +8,6 @@
     },
     {
       "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./tsconfig.ui.json"
     }
   ],
   "compilerOptions": {

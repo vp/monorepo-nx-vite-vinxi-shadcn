@@ -8,7 +8,8 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.mjs"
+      "!{projectRoot}/eslint.config.mjs",
+      "!{projectRoot}/vitest-setup.mjs"
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
@@ -72,5 +73,8 @@
         "linter": "eslint"
       }
     }
+  },
+  "sync": {
+    "disabledTaskSyncGenerators": ["@nx/js:typescript-sync"]
   }
 }

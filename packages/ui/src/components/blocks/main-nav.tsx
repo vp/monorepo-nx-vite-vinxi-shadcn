@@ -1,4 +1,4 @@
-import { cn } from "@workspace/ui/lib/utils"
+import { cn } from '@workspace/ui/lib/utils';
 
 export function MainNav({
   className,
@@ -6,7 +6,7 @@ export function MainNav({
 }: React.HTMLAttributes<HTMLElement>) {
   return (
     <nav
-      className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+      className={cn('flex items-center space-x-4 lg:space-x-6', className)}
       {...props}
     >
       <a
@@ -34,5 +34,5 @@ export function MainNav({
         Settings
       </a>
     </nav>
-  )
+  );
 }

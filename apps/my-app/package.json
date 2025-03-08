@@ -8,7 +8,7 @@
     "dev": "vite",
     "lint": "eslint .",
     "test": "vitest",
-    "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest",
+    "shadcn": "TS_NODE_PROJECT=tsconfig.app.json pnpx shadcn@latest",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -39,12 +39,14 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
     "@eslint/js": "^9.21.0",
     "@types/node": "^22.13.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.21.0",
+    "eslint": "^9.22.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",

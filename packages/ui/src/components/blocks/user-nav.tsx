@@ -2,8 +2,8 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@workspace/ui/components/ui/avatar"
-import { Button } from "@workspace/ui/components/ui/button"
+} from '@workspace/ui/components/ui/avatar';
+import { Button } from '@workspace/ui/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/ui/dropdown-menu"
+} from '@workspace/ui/components/ui/dropdown-menu';
 
 export function UserNav() {
   return (
@@ -58,5 +58,5 @@ export function UserNav() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

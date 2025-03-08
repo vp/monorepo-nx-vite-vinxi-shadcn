@@ -1,9 +1,12 @@
 {
-  "extends": "@workspace/typescript-config/lib-react.json",
+  "extends": "@workspace/typescript-config/tsconfig.spec.json",
   "compilerOptions": {
     "rootDir": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
