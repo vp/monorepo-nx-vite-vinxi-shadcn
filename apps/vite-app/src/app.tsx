@@ -1,5 +1,5 @@
-import { ThemeProvider } from '@workspace/ui/components/ui/theme-provider';
-import { ThemeToggle } from '@workspace/ui/components/ui/theme-toggle';
+import { ThemeProvider } from '@workspace/ui/components/blocks/theme-provider';
+import { ThemeToggle } from '@workspace/ui/components/blocks/theme-toggle';
 import {
   Card,
   CardHeader,

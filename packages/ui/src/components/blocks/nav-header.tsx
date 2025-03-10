@@ -4,9 +4,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from '@workspace/ui/components/ui/navigation-menu';
+import { useState } from 'react';
 
 export function NavHeader() {
-  const pathname:string = '';
+  const [pathname] = useState<string>('');
 
   return (
     <NavigationMenu>

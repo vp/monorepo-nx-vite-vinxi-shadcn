@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MoonIcon, SunIcon } from 'lucide-react';
-import { useTheme } from '@workspace/ui/components/ui/theme-provider';
+import { useTheme } from '@workspace/ui/components/blocks/theme-provider';
 import {
   META_THEME_COLORS,
   useMetaColor,

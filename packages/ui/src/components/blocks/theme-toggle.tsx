@@ -1,4 +1,4 @@
-import { useTheme } from '@workspace/ui/components/ui/theme-provider';
+import { useTheme } from '@workspace/ui/components/blocks/theme-provider';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
