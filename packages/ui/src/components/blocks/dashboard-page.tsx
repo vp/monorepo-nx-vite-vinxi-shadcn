@@ -12,20 +12,40 @@ import {
   TabsList,
   TabsTrigger,
 } from '@workspace/ui/components/ui/tabs';
-import TeamSwitcher from '@workspace/ui/components/blocks/team-switcher';
-import { Search } from 'lucide-react';
+import { TeamSwitcher } from '@workspace/ui/components/blocks/team-switcher';
+import { AudioWaveform, Command, GalleryVerticalEnd, Search } from 'lucide-react';
 import { CalendarDateRangePicker } from '@workspace/ui/components/blocks/date-range-picker';
 import { MainNav } from '@workspace/ui/components/blocks/main-nav';
 import { Overview } from '@workspace/ui/components/blocks/overview';
 import { RecentSales } from '@workspace/ui/components/blocks/recent-sales';
 import { UserNav } from '@workspace/ui/components/blocks/user-nav';
+import { SidebarProvider } from '@workspace/ui/components/ui/sidebar';
+
+const teams = [
+  {
+    name: 'Acme Inc',
+    logo: GalleryVerticalEnd,
+    plan: 'Enterprise',
+  },
+  {
+    name: 'Acme Corp.',
+    logo: AudioWaveform,
+    plan: 'Startup',
+  },
+  {
+    name: 'Evil Corp.',
+    logo: Command,
+    plan: 'Free',
+  },
+];
 
 export default function DashboardPage() {
   return (
+    <SidebarProvider>
     <div className="flex h-full flex-1 flex-col rounded-xl">
       <div className="border-b">
         <div className="flex h-16 items-center px-4">
-          <TeamSwitcher />
+          <TeamSwitcher teams={teams} />
           <MainNav className="mx-6" />
           <div className="ml-auto flex items-center space-x-4">
             <Search />
@@ -183,5 +203,6 @@ export default function DashboardPage() {
         </Tabs>
       </div>
     </div>
+    </SidebarProvider>
   );
 }
