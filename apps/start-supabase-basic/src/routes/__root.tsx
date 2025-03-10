@@ -1,29 +1,31 @@
 import {
+  createRootRoute,
   HeadContent,
   Link,
   Outlet,
   Scripts,
-  createRootRoute,
-} from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import { createServerFn } from '@tanstack/react-start'
-import * as React from 'react'
-import { DefaultCatchBoundary } from '../components/DefaultCatchBoundary'
-import { NotFound } from '../components/NotFound'
-import appCss from '../styles/app.css?url'
-import { seo } from '../utils/seo'
-import { getSupabaseServerClient } from '../utils/supabase'
+} from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { createServerFn } from '@tanstack/react-start';
+import * as React from 'react';
+import { DefaultCatchBoundary } from '../components/DefaultCatchBoundary';
+import { NotFound } from '../components/NotFound';
+import { seo } from '../utils/seo';
+import { getSupabaseServerClient } from '../utils/supabase';
+import { ThemeProvider } from '@workspace/ui/components/blocks/theme-provider';
+import { Layout } from '@workspace/ui/components/blocks/layout';
+import '@workspace/ui/globals.css';
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
-  const supabase = await getSupabaseServerClient()
-  const { data, error: _error } = await supabase.auth.getUser()
+  const supabase = await getSupabaseServerClient();
+  const { data, error: _error } = await supabase.auth.getUser();
 
   if (!data.user?.email) {
-    return null
+    return null;
   }
 
-  return data.user
-})
+  return data.user;
+});
 
 export const Route = createRootRoute({
   head: () => ({
@@ -42,7 +44,6 @@ export const Route = createRootRoute({
       }),
     ],
     links: [
-      { rel: 'stylesheet', href: appCss },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
@@ -65,33 +66,33 @@ export const Route = createRootRoute({
     ],
   }),
   beforeLoad: async () => {
-    const user = await fetchUser()
+    const user = await fetchUser();
 
     return {
       user,
-    }
+    };
   },
   errorComponent: (props) => {
     return (
       <RootDocument>
         <DefaultCatchBoundary {...props} />
       </RootDocument>
-    )
+    );
   },
   notFoundComponent: () => <NotFound />,
   component: RootComponent,
-})
+});
 
 function RootComponent() {
   return (
     <RootDocument>
       <Outlet />
     </RootDocument>
-  )
+  );
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  const { user } = Route.useRouteContext()
+  const { user } = Route.useRouteContext();
 
   return (
     <html>
@@ -99,40 +100,45 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <div className="p-2 flex gap-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold',
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>{' '}
-          <Link
-            to="/posts"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Posts
-          </Link>
-          <div className="ml-auto">
-            {user ? (
-              <>
-                <span className="mr-2">{user.email}</span>
-                <Link to="/logout">Logout</Link>
-              </>
-            ) : (
-              <Link to="/login">Login</Link>
-            )}
-          </div>
-        </div>
-        <hr />
-        {children}
+        <ThemeProvider>
+          <Layout>
+            <div className="p-2 flex gap-2 text-lg">
+              <Link
+                to="/"
+                activeProps={{
+                  className: 'font-bold',
+                }}
+                activeOptions={{ exact: true }}
+              >
+                Home
+              </Link>{' '}
+              <Link
+                to="/posts"
+                activeProps={{
+                  className: 'font-bold',
+                }}
+              >
+                Posts
+              </Link>
+              <div className="ml-auto">
+                {user ? (
+                  <>
+                    <span className="mr-2">{user.email}</span>
+                    <Link to="/logout">Logout</Link>
+                  </>
+                ) : (
+                  <Link to="/login">Login</Link>
+                )}
+              </div>
+            </div>
+            <hr />
+            {children}
+          </Layout>
+        </ThemeProvider>
+
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
