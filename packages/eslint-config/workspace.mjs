@@ -5,7 +5,7 @@ const base = [
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
   {
-    ignores: ['**/dist'],
+    ignores: ['**/dist', '**/.vinxi', '**/.output'],
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],

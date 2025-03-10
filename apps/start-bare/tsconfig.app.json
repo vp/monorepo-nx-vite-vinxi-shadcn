@@ -11,6 +11,8 @@
     "tsBuildInfoFile": "./dist/tsconfig.app.tsbuildinfo"
   },
   "exclude": [
+    ".output",
+    ".vinxi",
     "out-tsc",
     "dist",
     "src/**/*.spec.ts",

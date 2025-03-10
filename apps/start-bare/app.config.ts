@@ -9,7 +9,7 @@ export default defineConfig({
   vite: {
     plugins: [
       tsConfigPaths({
-        projects: ['./tsconfig.json'],
+        projects: ['./tsconfig.app.json'],
       }),
       tailwindcss(),
     ],

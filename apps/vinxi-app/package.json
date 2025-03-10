@@ -4,12 +4,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "vinxi build --config vinxi.app.ts",
-    "dev": "vinxi dev --config vinxi.app.ts",
+    "build": "vinxi build --config app.config.ts",
+    "dev": "vinxi dev --config app.config.ts",
     "lint": "eslint .",
     "test": "vitest",
     "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest",
-    "preview": "vinxi start --config vinxi.app.ts"
+    "preview": "vinxi start --config app.config.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.11",

@@ -21,7 +21,7 @@
     "src/**/*.test.js",
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx",
-    "vinxi.app.ts",
+    "app.config.ts",
     "vite.config.ts",
     "vite.config.mts",
     "vitest.config.ts",
