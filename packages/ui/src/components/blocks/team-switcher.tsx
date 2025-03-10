@@ -74,7 +74,7 @@ type PopoverTriggerProps = React.ComponentPropsWithoutRef<
 
 type TeamSwitcherProps = PopoverTriggerProps;
 
-export default function TeamSwitcher({ className }: TeamSwitcherProps) {
+export function TeamSwitcher({ className }: TeamSwitcherProps) {
   const [open, setOpen] = React.useState(false);
   const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false);
   const [selectedTeam, setSelectedTeam] = React.useState<Team>(
@@ -208,3 +208,5 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
     </Dialog>
   );
 }
+
+export default TeamSwitcher;
