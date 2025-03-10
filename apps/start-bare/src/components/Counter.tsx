@@ -1,15 +1,13 @@
 import { useState } from 'react'
-import './Counter.css'
+import { Button } from '@workspace/ui/components/ui/button';
 
 export default function Counter() {
   const [count, setCount] = useState(0)
   return (
-    <button
-      className="increment"
+    <Button
       onClick={() => setCount(count + 1)}
-      type="button"
     >
       Clicks: {count}
-    </button>
+    </Button>
   )
 }

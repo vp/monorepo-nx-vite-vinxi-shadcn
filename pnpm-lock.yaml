@@ -147,6 +147,9 @@ importers:
       '@tanstack/react-start':
         specifier: ^1.114.12
         version: 1.114.12(@tanstack/react-router@1.114.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(db0@0.3.1)(encoding@0.1.13)(ioredis@5.6.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(webpack@5.98.0(@swc/core@1.5.29(@swc/helpers@0.5.15)))(yaml@2.7.0)
+      '@workspace/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -172,6 +175,12 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.3
         version: 19.0.4(@types/react@19.0.10)
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       tailwindcss:
         specifier: ^4.0.8
         version: 4.0.12
