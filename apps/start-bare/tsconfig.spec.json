@@ -1,5 +1,5 @@
 {
-  "extends": "@workspace/typescript-config/tsconfig.spec.json",
+  "extends": "../../packages/typescript-config/tsconfig.spec.json",
   "compilerOptions": {
     "rootDir": "src",
     "baseUrl": ".",

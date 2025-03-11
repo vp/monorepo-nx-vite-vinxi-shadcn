@@ -1,41 +1,41 @@
-import { useRouter } from '@tanstack/react-router'
-import { useServerFn } from '@tanstack/react-start'
-import { useMutation } from '../hooks/useMutation'
-import { loginFn } from '../routes/_authed'
-import { signupFn } from '../routes/signup'
-import { Auth } from './Auth'
+import { Link, useRouter } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { useMutation } from '~/hooks/useMutation';
+import { loginFn } from '~/routes/_authed';
+import { signupFn } from '~/routes/signup';
+import { AuthForm } from '~/components/AuthForm';
+import {
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@workspace/ui/components/ui/card';
 
 export function Login() {
-  const router = useRouter()
+  const router = useRouter();
 
   const loginMutation = useMutation({
     fn: loginFn,
     onSuccess: async (ctx) => {
       if (!ctx.data?.error) {
-        await router.invalidate()
-        router.navigate({ to: '/' })
-        return
+        await router.invalidate();
+        router.navigate({ to: '/' });
+        return;
       }
     },
-  })
+  });
 
   const signupMutation = useMutation({
     fn: useServerFn(signupFn),
-  })
+  });
 
   return (
-    <Auth
+    <AuthForm
       actionText="Login"
       status={loginMutation.status}
-      onSubmit={(e) => {
-        const formData = new FormData(e.target as HTMLFormElement)
-
+      onSubmit={(data) => {
         loginMutation.mutate({
-          data: {
-            email: formData.get('email') as string,
-            password: formData.get('password') as string,
-          },
-        })
+          data,
+        });
       }}
       afterSubmit={
         loginMutation.data ? (
@@ -48,15 +48,15 @@ export function Login() {
                   className="text-blue-500"
                   onClick={(e) => {
                     const formData = new FormData(
-                      (e.target as HTMLButtonElement).form!,
-                    )
+                      (e.target as HTMLButtonElement).form!
+                    );
 
                     signupMutation.mutate({
                       data: {
                         email: formData.get('email') as string,
                         password: formData.get('password') as string,
                       },
-                    })
+                    });
                   }}
                   type="button"
                 >
@@ -67,6 +67,22 @@ export function Login() {
           </>
         ) : null
       }
+      header={
+        <CardHeader>
+          <CardTitle>Login to your account</CardTitle>
+          <CardDescription>
+            Enter your email below to login to your account
+          </CardDescription>
+        </CardHeader>
+      }
+      footer={
+        <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{' '}
+          <Link to="/signup" className="underline underline-offset-4">
+            Sign up
+          </Link>
+        </div>
+      }
     />
-  )
+  );
 }

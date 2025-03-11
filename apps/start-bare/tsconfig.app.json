@@ -1,5 +1,5 @@
 {
-  "extends": "@workspace/typescript-config/tsconfig.app.json",
+  "extends": "../../packages/typescript-config/tsconfig.app.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -36,6 +36,7 @@
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "app.config.ts"
   ]
 }

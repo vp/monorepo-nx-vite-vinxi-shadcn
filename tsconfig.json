@@ -7,6 +7,12 @@
       "path": "./apps/vite-app"
     },
     {
+      "path": "./apps/start-supabase-basic",
+    },
+    {
+      "path": "./apps/start-bare"
+    },
+    {
       "path": "./packages/ui"
     }
   ]

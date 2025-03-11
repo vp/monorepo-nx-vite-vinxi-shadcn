@@ -1,6 +1,9 @@
 {
-  "extends": "@workspace/typescript-config/tsconfig.app.json",
+  "extends": "../../packages/typescript-config/tsconfig.app.json",
   "compilerOptions": {
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
     "baseUrl": ".",
     "paths": {
       "~/*": [
@@ -11,8 +14,8 @@
     "tsBuildInfoFile": "./dist/tsconfig.app.tsbuildinfo"
   },
   "exclude": [
-    "out-tsc",
-    "dist",
+    ".output",
+    ".vinxi",
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/**/*.spec.tsx",
@@ -21,7 +24,6 @@
     "src/**/*.test.js",
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx",
-    "vinxi.app.ts",
     "vite.config.ts",
     "vite.config.mts",
     "vitest.config.ts",
@@ -34,6 +36,7 @@
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "app.config.ts"
   ]
 }

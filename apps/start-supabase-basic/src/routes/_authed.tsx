@@ -1,36 +1,41 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-import { Login } from '../components/Login'
-import { getSupabaseServerClient } from '../utils/supabase'
+import { createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { Login } from '~/components/Login';
+import { getSupabaseServerClient } from '~/utils/supabase';
 
 export const loginFn = createServerFn()
-  .validator((d) => d as { email: string; password: string })
+  .validator((d: unknown) => d as { email: string; password: string })
   .handler(async ({ data }) => {
-    const supabase = await getSupabaseServerClient()
+    const supabase = await getSupabaseServerClient();
     const { error } = await supabase.auth.signInWithPassword({
       email: data.email,
       password: data.password,
-    })
+    });
 
     if (error) {
       return {
         error: true,
         message: error.message,
-      }
+      };
     }
-  })
+
+    return {
+      error: false,
+      message: 'Logged in',
+    };
+  });
 
 export const Route = createFileRoute('/_authed')({
   beforeLoad: ({ context }) => {
     if (!context.user) {
-      throw new Error('Not authenticated')
+      throw new Error('Not authenticated');
     }
   },
   errorComponent: ({ error }) => {
     if (error.message === 'Not authenticated') {
-      return <Login />
+      return <Login />;
     }
 
-    throw error
+    throw error;
   },
-})
+});
