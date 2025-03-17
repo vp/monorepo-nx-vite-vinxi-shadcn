@@ -15,6 +15,7 @@ const events = [
     offlineParticipants: 199,
     onlineParticipants: 23,
     speaker: 'John Doe',
+    imageUrl: "/images/hare-9457418_1280.jpg"
   },
   {
     title: 'Learn how to use shared components',
@@ -25,6 +26,7 @@ const events = [
     offlineParticipants: 199,
     onlineParticipants: 23,
     speaker: 'Jane Doe',
+    imageUrl: "/images/green-cabbage-7769954_1280.jpg"
   },
   {
     title: 'Learn how to use nx for monorepos',
@@ -35,6 +37,7 @@ const events = [
     offlineParticipants: 199,
     onlineParticipants: 23,
     speaker: 'Gerald Doe',
+    imageUrl: "/images/cabbage-3722498_1280.jpg"
   },
 ];
 
