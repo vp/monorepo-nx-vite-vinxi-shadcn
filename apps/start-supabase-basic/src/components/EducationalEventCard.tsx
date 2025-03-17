@@ -23,9 +23,18 @@ export default function EducationalEventCard({
     <Card className="overflow-hidden py-0">
       <div className="flex flex-col md:flex-row">
         <div className="md:w-2/5 relative h-[300px] md:h-auto bg-blue-50">
-          <Image src={imageUrl} alt={title} />
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={title}
+              className="w-full h-full object-cover"
+              style={{ aspectRatio: '600/400', objectFit: 'cover' }}
+            />
+          ) : (
+            <Image />
+          )}
           {/* Overlay text to simulate the presentation slide text */}
-          <div className="absolute top-10 left-10 right-10 text-rose-300 font-medium text-lg">
+          <div className="absolute top-10 left-10 right-10 text-white dark:text-white font-bold text-lg">
             {title}
           </div>
         </div>
