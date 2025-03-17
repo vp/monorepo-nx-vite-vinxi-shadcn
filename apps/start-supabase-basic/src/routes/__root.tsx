@@ -97,8 +97,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <title>Start Supabase Basic</title>
         <HeadContent />
       </head>
-      <body>
+      <body className="bg-background overscroll-none font-sans antialiased theme-default">
         <Layout>{children}</Layout>
+
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>
