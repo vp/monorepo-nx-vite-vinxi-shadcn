@@ -4,7 +4,7 @@ import { NotFound } from '~/components/NotFound';
 import { fetchPost } from '~/utils/posts';
 import { PostsArticle } from '~/components/posts/PostsArticle';
 
-export const Route = createFileRoute('/_authed/posts/$postId')({
+export const Route = createFileRoute('/_authed/posts-sidebar/$postId')({
   loader: ({ params: { postId } }) => fetchPost({ data: postId }),
   errorComponent: PostErrorComponent,
   component: PostComponent,

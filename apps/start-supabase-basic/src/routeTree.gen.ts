@@ -16,9 +16,12 @@ import { Route as LogoutImport } from './routes/logout'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthedPostsSidebarImport } from './routes/_authed/posts-sidebar'
 import { Route as AuthedPostsImport } from './routes/_authed/posts'
 import { Route as AuthedPostsIndexImport } from './routes/_authed/posts.index'
+import { Route as AuthedPostsSidebarIndexImport } from './routes/_authed/posts-sidebar.index'
 import { Route as AuthedPostsPostIdImport } from './routes/_authed/posts.$postId'
+import { Route as AuthedPostsSidebarPostIdImport } from './routes/_authed/posts-sidebar.$postId'
 
 // Create/Update Routes
 
@@ -51,6 +54,12 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthedPostsSidebarRoute = AuthedPostsSidebarImport.update({
+  id: '/posts-sidebar',
+  path: '/posts-sidebar',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
 const AuthedPostsRoute = AuthedPostsImport.update({
   id: '/posts',
   path: '/posts',
@@ -63,10 +72,22 @@ const AuthedPostsIndexRoute = AuthedPostsIndexImport.update({
   getParentRoute: () => AuthedPostsRoute,
 } as any)
 
+const AuthedPostsSidebarIndexRoute = AuthedPostsSidebarIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthedPostsSidebarRoute,
+} as any)
+
 const AuthedPostsPostIdRoute = AuthedPostsPostIdImport.update({
   id: '/$postId',
   path: '/$postId',
   getParentRoute: () => AuthedPostsRoute,
+} as any)
+
+const AuthedPostsSidebarPostIdRoute = AuthedPostsSidebarPostIdImport.update({
+  id: '/$postId',
+  path: '/$postId',
+  getParentRoute: () => AuthedPostsSidebarRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -115,12 +136,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedPostsImport
       parentRoute: typeof AuthedImport
     }
+    '/_authed/posts-sidebar': {
+      id: '/_authed/posts-sidebar'
+      path: '/posts-sidebar'
+      fullPath: '/posts-sidebar'
+      preLoaderRoute: typeof AuthedPostsSidebarImport
+      parentRoute: typeof AuthedImport
+    }
+    '/_authed/posts-sidebar/$postId': {
+      id: '/_authed/posts-sidebar/$postId'
+      path: '/$postId'
+      fullPath: '/posts-sidebar/$postId'
+      preLoaderRoute: typeof AuthedPostsSidebarPostIdImport
+      parentRoute: typeof AuthedPostsSidebarImport
+    }
     '/_authed/posts/$postId': {
       id: '/_authed/posts/$postId'
       path: '/$postId'
       fullPath: '/posts/$postId'
       preLoaderRoute: typeof AuthedPostsPostIdImport
       parentRoute: typeof AuthedPostsImport
+    }
+    '/_authed/posts-sidebar/': {
+      id: '/_authed/posts-sidebar/'
+      path: '/'
+      fullPath: '/posts-sidebar/'
+      preLoaderRoute: typeof AuthedPostsSidebarIndexImport
+      parentRoute: typeof AuthedPostsSidebarImport
     }
     '/_authed/posts/': {
       id: '/_authed/posts/'
@@ -148,12 +190,27 @@ const AuthedPostsRouteWithChildren = AuthedPostsRoute._addFileChildren(
   AuthedPostsRouteChildren,
 )
 
+interface AuthedPostsSidebarRouteChildren {
+  AuthedPostsSidebarPostIdRoute: typeof AuthedPostsSidebarPostIdRoute
+  AuthedPostsSidebarIndexRoute: typeof AuthedPostsSidebarIndexRoute
+}
+
+const AuthedPostsSidebarRouteChildren: AuthedPostsSidebarRouteChildren = {
+  AuthedPostsSidebarPostIdRoute: AuthedPostsSidebarPostIdRoute,
+  AuthedPostsSidebarIndexRoute: AuthedPostsSidebarIndexRoute,
+}
+
+const AuthedPostsSidebarRouteWithChildren =
+  AuthedPostsSidebarRoute._addFileChildren(AuthedPostsSidebarRouteChildren)
+
 interface AuthedRouteChildren {
   AuthedPostsRoute: typeof AuthedPostsRouteWithChildren
+  AuthedPostsSidebarRoute: typeof AuthedPostsSidebarRouteWithChildren
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedPostsRoute: AuthedPostsRouteWithChildren,
+  AuthedPostsSidebarRoute: AuthedPostsSidebarRouteWithChildren,
 }
 
 const AuthedRouteWithChildren =
@@ -166,7 +223,10 @@ export interface FileRoutesByFullPath {
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
   '/posts': typeof AuthedPostsRouteWithChildren
+  '/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
+  '/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/posts-sidebar/': typeof AuthedPostsSidebarIndexRoute
   '/posts/': typeof AuthedPostsIndexRoute
 }
 
@@ -176,7 +236,9 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
+  '/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/posts-sidebar': typeof AuthedPostsSidebarIndexRoute
   '/posts': typeof AuthedPostsIndexRoute
 }
 
@@ -188,7 +250,10 @@ export interface FileRoutesById {
   '/logout': typeof LogoutRoute
   '/signup': typeof SignupRoute
   '/_authed/posts': typeof AuthedPostsRouteWithChildren
+  '/_authed/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
+  '/_authed/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/_authed/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/_authed/posts-sidebar/': typeof AuthedPostsSidebarIndexRoute
   '/_authed/posts/': typeof AuthedPostsIndexRoute
 }
 
@@ -201,10 +266,22 @@ export interface FileRouteTypes {
     | '/logout'
     | '/signup'
     | '/posts'
+    | '/posts-sidebar'
+    | '/posts-sidebar/$postId'
     | '/posts/$postId'
+    | '/posts-sidebar/'
     | '/posts/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/login' | '/logout' | '/signup' | '/posts/$postId' | '/posts'
+  to:
+    | '/'
+    | ''
+    | '/login'
+    | '/logout'
+    | '/signup'
+    | '/posts-sidebar/$postId'
+    | '/posts/$postId'
+    | '/posts-sidebar'
+    | '/posts'
   id:
     | '__root__'
     | '/'
@@ -213,7 +290,10 @@ export interface FileRouteTypes {
     | '/logout'
     | '/signup'
     | '/_authed/posts'
+    | '/_authed/posts-sidebar'
+    | '/_authed/posts-sidebar/$postId'
     | '/_authed/posts/$postId'
+    | '/_authed/posts-sidebar/'
     | '/_authed/posts/'
   fileRoutesById: FileRoutesById
 }
@@ -257,7 +337,8 @@ export const routeTree = rootRoute
     "/_authed": {
       "filePath": "_authed.tsx",
       "children": [
-        "/_authed/posts"
+        "/_authed/posts",
+        "/_authed/posts-sidebar"
       ]
     },
     "/login": {
@@ -277,9 +358,25 @@ export const routeTree = rootRoute
         "/_authed/posts/"
       ]
     },
+    "/_authed/posts-sidebar": {
+      "filePath": "_authed/posts-sidebar.tsx",
+      "parent": "/_authed",
+      "children": [
+        "/_authed/posts-sidebar/$postId",
+        "/_authed/posts-sidebar/"
+      ]
+    },
+    "/_authed/posts-sidebar/$postId": {
+      "filePath": "_authed/posts-sidebar.$postId.tsx",
+      "parent": "/_authed/posts-sidebar"
+    },
     "/_authed/posts/$postId": {
       "filePath": "_authed/posts.$postId.tsx",
       "parent": "/_authed/posts"
+    },
+    "/_authed/posts-sidebar/": {
+      "filePath": "_authed/posts-sidebar.index.tsx",
+      "parent": "/_authed/posts-sidebar"
     },
     "/_authed/posts/": {
       "filePath": "_authed/posts.index.tsx",

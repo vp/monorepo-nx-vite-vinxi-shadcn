@@ -6,6 +6,8 @@ import {
   NavigationMenuList,
 } from '@workspace/ui/components/ui/navigation-menu';
 
+const regexPosts = /^\/posts(?:\/.*)?$/;
+
 export function TopNavigationMenu() {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
@@ -20,8 +22,13 @@ export function TopNavigationMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink asChild data-active={pathname === '/about'}>
+          <NavigationMenuLink asChild data-active={regexPosts.test(pathname)}>
             <Link to="/posts">Posts</Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild data-active={pathname.startsWith('/posts-sidebar')}>
+            <Link to="/posts-sidebar">Posts with sidebar</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
