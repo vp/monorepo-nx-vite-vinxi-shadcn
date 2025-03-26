@@ -2,6 +2,12 @@ import { ThemeToggle } from '@workspace/ui/components/blocks/theme-toggle';
 import { ThemeProvider } from '@workspace/ui/components/blocks/theme-provider';
 import { Layout } from '@workspace/ui/components/blocks/layout';
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('TEST', process.env.TEST);
+console.log('import.meta.env.MODE', import.meta.env.MODE);
+console.log('import.meta.env.VITE_TEST', import.meta.env.VITE_TEST);
+console.log('import.meta.env.NITRO_TEST', import.meta.env.NITRO_TEST);
+
 export function App() {
   return (
     <ThemeProvider>

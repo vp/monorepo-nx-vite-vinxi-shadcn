@@ -1,8 +1,8 @@
-import type { ErrorComponentProps } from '@tanstack/react-router';
-import { createFileRoute, ErrorComponent } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { NotFound } from '~/components/NotFound';
 import { fetchPost } from '~/utils/posts';
 import { PostsArticle } from '~/components/posts/PostsArticle';
+import { PostErrorComponent } from '~/components/posts/PostErrorComponent';
 
 export const Route = createFileRoute('/_authed/posts-sidebar/$postId')({
   loader: ({ params: { postId } }) => fetchPost({ data: postId }),
@@ -12,10 +12,6 @@ export const Route = createFileRoute('/_authed/posts-sidebar/$postId')({
     return <NotFound>Post not found</NotFound>;
   },
 });
-
-export function PostErrorComponent({ error }: ErrorComponentProps) {
-  return <ErrorComponent error={error} />;
-}
 
 function PostComponent() {
   const post = Route.useLoaderData();
