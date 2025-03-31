@@ -1,0 +1,21 @@
+{
+  "name": "supabase-cli",
+  "private": true,
+  "devDependencies": {
+    "@nrwl/workspace": "^19.8.4",
+    "supabase": "^2.20.5",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "supabase:start": "nx run supabase-cli:start",
+    "supabase:stop": "nx run supabase-cli:stop",
+    "supabase:functions:new": "nx g @nrwl/workspace:run-commands --command=\"supabase functions new\" --cwd=apps/supabase-cli",
+    "supabase:functions:serve": "nx run supabase-cli:serve-functions",
+    "supabase:db:push": "nx run supabase-cli:db-push",
+    "start": "supabase start",
+    "stop": "supabase stop",
+    "serve-functions": "supabase functions serve",
+    "db-push": "supabase db push",
+    "lint-functions": "deno lint supabase/functions/"
+  }
+}

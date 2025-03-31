@@ -12,6 +12,7 @@
   },
   "private": true,
   "devDependencies": {
+    "@nrwl/deno": "^17.2.3",
     "@nx/devkit": "^20.5.0",
     "@nx/eslint": "^20.5.0",
     "@nx/eslint-plugin": "^20.5.0",
