@@ -7,7 +7,7 @@
       "path": "./apps/vite-app"
     },
     {
-      "path": "./apps/start-supabase-basic",
+      "path": "./apps/tanstack-start-app"
     },
     {
       "path": "./apps/start-bare"

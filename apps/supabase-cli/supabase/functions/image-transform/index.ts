@@ -1,14 +1,14 @@
 // supabase/functions/image-transform/index.ts
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "npm:@supabase/supabase-js@2.38.4";
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { createClient } from 'npm:@supabase/supabase-js@2.38.4';
 
 import {
   ImageMagick,
-  initializeImageMagick
-} from "npm:@imagemagick/magick-wasm";
+  initializeImageMagick,
+} from 'npm:@imagemagick/magick-wasm';
 
 const wasmBytes = await Deno.readFile(
-  new URL("magick.wasm", import.meta.resolve("npm:@imagemagick/magick-wasm"))
+  new URL('magick.wasm', import.meta.resolve('npm:@imagemagick/magick-wasm'))
 );
 
 await initializeImageMagick(wasmBytes);
@@ -23,8 +23,8 @@ serve(async (req) => {
     return new Response("Width and height are required", { status: 400 });
   }
 
-  const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
-  const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
+  const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+  const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
 
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -37,7 +37,7 @@ serve(async (req) => {
   if (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 400,
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -45,13 +45,14 @@ serve(async (req) => {
 
   let result = ImageMagick.read(new Uint8Array(arrayBuffer), (img) => {
     img.resize(width, height); // Resize
+
     return img.write((data) => data);
   });
 
   return new Response(result, {
     headers: {
       "Content-Type": "image/jpeg",
-      "Cache-Control": "public, max-age=31536000"
-    }
+      "Cache-Control": "public, max-age=31536000",
+    },
   });
 });

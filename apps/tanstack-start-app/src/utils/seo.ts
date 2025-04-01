@@ -9,7 +9,7 @@ export const seo = ({
   image?: string
   keywords?: string
 }) => {
-  const tags = [
+  return [
     { title },
     { name: 'description', content: description },
     { name: 'keywords', content: keywords },
@@ -27,7 +27,5 @@ export const seo = ({
           { name: 'og:image', content: image },
         ]
       : []),
-  ]
-
-  return tags
+  ];
 }
