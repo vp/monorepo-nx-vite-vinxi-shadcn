@@ -1,11 +1,11 @@
-# users serivce
+# users supabase
 
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Building
 
-Run `nx build users-service` to build the library.
+Run `nx build users-supabase` to build the library.
 
 ## Running unit tests
 

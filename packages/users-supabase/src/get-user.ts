@@ -8,8 +8,9 @@ export const getUser = async (supabase: SupabaseClient) => {
   }
 
   return {
+    id: data.user.id,
     email: data.user.email,
-    firstName: data.user.user_metadata.first_name,
-    lastName: data.user.user_metadata.last_name,
+    firstName: data.user.user_metadata.first_name as string,
+    lastName: data.user.user_metadata.last_name as string,
   };
 };

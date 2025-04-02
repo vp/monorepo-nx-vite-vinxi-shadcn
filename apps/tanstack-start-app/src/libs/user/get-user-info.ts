@@ -1,6 +1,10 @@
 import { createServerFn } from '@tanstack/react-start';
-import { usersService } from '~/utils/users-service';
+import { usersMiddleware } from '~/libs/user/users-middleware';
 
-export const getUserInfo = createServerFn({ method: 'GET' }).handler(async () => {
-  return await usersService.getUser();
-});
+export const getUserInfo = createServerFn({ method: 'GET' })
+  .middleware([usersMiddleware])
+  .handler(async ({ context }) => {
+    const { usersService } = context;
+
+    return await usersService.getUser();
+  });

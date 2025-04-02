@@ -43,7 +43,7 @@ serve(async (req) => {
 
   const arrayBuffer = await data.arrayBuffer();
 
-  let result = ImageMagick.read(new Uint8Array(arrayBuffer), (img) => {
+  const result = ImageMagick.read(new Uint8Array(arrayBuffer), (img) => {
     img.resize(width, height); // Resize
 
     return img.write((data) => data);

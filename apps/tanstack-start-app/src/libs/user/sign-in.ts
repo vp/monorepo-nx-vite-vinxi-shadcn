@@ -1,8 +1,11 @@
 import { createServerFn } from '@tanstack/react-start';
-import { usersService } from '~/utils/users-service';
+import { usersMiddleware } from '~/libs/user/users-middleware';
 
 export const signIn = createServerFn()
+  .middleware([usersMiddleware])
   .validator((d: unknown) => d as { email: string; password: string })
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
+    const { usersService } = context;
+
     return await usersService.signIn(data);
   });
