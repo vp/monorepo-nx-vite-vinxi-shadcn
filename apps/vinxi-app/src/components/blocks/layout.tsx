@@ -4,9 +4,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@workspace/ui/components/ui/sidebar';
-import { AppSidebar } from '@workspace/ui/components/blocks/app-sidebar';
+import { AppSidebar } from '@/components/blocks/app-sidebar';
 import { Separator } from '@workspace/ui/components/ui/separator';
-import { NavHeader } from '@workspace/ui/components/blocks/nav-header';
+import { NavHeader } from '@/components/blocks/nav-header';
 import { ModeSwitcher } from '@workspace/ui/components/blocks/mode-switcher';
 
 export function Layout({ children }: PropsWithChildren) {

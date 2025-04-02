@@ -1,15 +1,14 @@
 import { ThemeProvider } from '@workspace/ui/components/blocks/theme-provider';
-import { ThemeToggle } from '@workspace/ui/components/blocks/theme-toggle';
 import {
   Card,
+  CardContent,
   CardHeader,
   CardTitle,
-  CardContent,
 } from '@workspace/ui/components/ui/card';
-import { AccordionDemo } from '@workspace/ui/components/blocks/accordion-demo';
-import { ComponentWrapper } from '@workspace/ui/components/blocks/component-wrapper';
-import Products from '@workspace/ui/components/blocks/products';
-import DashboardPage from '@workspace/ui/components/blocks/dashboard-page';
+import { AccordionDemo } from '@/components/accordion-demo';
+import { ComponentWrapper } from '@/components/component-wrapper';
+import Products from '@/components/products';
+import DashboardPage from '@/components/dashboard-page';
 import { SonnerDemo } from '@/components/sonner-demo';
 import { Toaster } from '@workspace/ui/components/ui/sonner';
 
@@ -17,9 +16,7 @@ function App() {
   return (
     <ThemeProvider>
       <div className="bg-background relative flex w-full flex-1 flex-col md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2">
-        <header className="p-4">
-          <ThemeToggle /> Welcome @workspace/my-app
-        </header>
+        <header className="p-4">Welcome @workspace/my-app</header>
 
         <main className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

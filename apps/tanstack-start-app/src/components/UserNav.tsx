@@ -50,6 +50,9 @@ export function UserNav() {
         <DropdownMenuItem asChild>
           <Link to="/logout">Logout</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/profile">Profile</Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (

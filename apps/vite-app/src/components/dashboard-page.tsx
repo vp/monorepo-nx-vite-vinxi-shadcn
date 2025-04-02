@@ -12,13 +12,13 @@ import {
   TabsList,
   TabsTrigger,
 } from '@workspace/ui/components/ui/tabs';
-import { TeamSwitcher } from '@workspace/ui/components/blocks/team-switcher';
+import { TeamSwitcher } from '../../../vinxi-app/src/components/blocks/team-switcher';
 import { AudioWaveform, Command, GalleryVerticalEnd, Search } from 'lucide-react';
 import { CalendarDateRangePicker } from '@workspace/ui/components/blocks/date-range-picker';
-import { MainNav } from '@workspace/ui/components/blocks/main-nav';
-import { Overview } from '@workspace/ui/components/blocks/overview';
-import { RecentSales } from '@workspace/ui/components/blocks/recent-sales';
-import { UserNav } from '@workspace/ui/components/blocks/user-nav';
+import { MainNav } from '@/components/main-nav';
+import { Overview } from '@/components/overview';
+import { RecentSales } from '@/components/recent-sales';
+import { UserNav } from '@/components/user-nav';
 import { SidebarProvider } from '@workspace/ui/components/ui/sidebar';
 
 const teams = [

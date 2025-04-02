@@ -2,18 +2,17 @@ import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupContent, SidebarGroupLabel,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
 } from '@workspace/ui/components/ui/sidebar';
-import { Link } from '@tanstack/react-router';
+import { Link, LinkProps } from '@tanstack/react-router';
 
 export type PostsSidebarItem = {
   title: string;
-  to: string;
-  params: { postId: string };
-};
+} & LinkProps;
 
 export const PostsSidebar = ({ items }: { items: PostsSidebarItem[] }) => {
   return (

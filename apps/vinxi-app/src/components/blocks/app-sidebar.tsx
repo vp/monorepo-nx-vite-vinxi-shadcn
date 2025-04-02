@@ -10,8 +10,8 @@ import {
   SquareTerminal,
 } from 'lucide-react';
 
-import { NavUser } from '@workspace/ui/components/blocks/nav-user';
-import { TeamSwitcher } from '@workspace/ui/components/blocks/team-switcher';
+import { NavUser } from '@/components/blocks/nav-user';
+import { TeamSwitcher } from '@/components/blocks/team-switcher';
 import {
   Collapsible,
   CollapsibleContent,

@@ -1,4 +1,4 @@
-import { ProductsTable } from '@workspace/ui/components/blocks/products-table';
+import { ProductsTable } from '@/components/products-table';
 
 // Load from database.
 const products = [

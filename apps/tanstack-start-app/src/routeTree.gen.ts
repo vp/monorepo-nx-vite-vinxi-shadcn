@@ -18,6 +18,7 @@ import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthedPostsSidebarImport } from './routes/_authed/posts-sidebar'
 import { Route as AuthedPostsImport } from './routes/_authed/posts'
+import { Route as AuthedProfileIndexImport } from './routes/_authed/profile/index'
 import { Route as AuthedPostsIndexImport } from './routes/_authed/posts.index'
 import { Route as AuthedPostsSidebarIndexImport } from './routes/_authed/posts-sidebar.index'
 import { Route as AuthedPostsPostIdImport } from './routes/_authed/posts.$postId'
@@ -63,6 +64,12 @@ const AuthedPostsSidebarRoute = AuthedPostsSidebarImport.update({
 const AuthedPostsRoute = AuthedPostsImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedProfileIndexRoute = AuthedProfileIndexImport.update({
+  id: '/profile/',
+  path: '/profile/',
   getParentRoute: () => AuthedRoute,
 } as any)
 
@@ -171,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedPostsIndexImport
       parentRoute: typeof AuthedPostsImport
     }
+    '/_authed/profile/': {
+      id: '/_authed/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthedProfileIndexImport
+      parentRoute: typeof AuthedImport
+    }
   }
 }
 
@@ -206,11 +220,13 @@ const AuthedPostsSidebarRouteWithChildren =
 interface AuthedRouteChildren {
   AuthedPostsRoute: typeof AuthedPostsRouteWithChildren
   AuthedPostsSidebarRoute: typeof AuthedPostsSidebarRouteWithChildren
+  AuthedProfileIndexRoute: typeof AuthedProfileIndexRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedPostsRoute: AuthedPostsRouteWithChildren,
   AuthedPostsSidebarRoute: AuthedPostsSidebarRouteWithChildren,
+  AuthedProfileIndexRoute: AuthedProfileIndexRoute,
 }
 
 const AuthedRouteWithChildren =
@@ -228,6 +244,7 @@ export interface FileRoutesByFullPath {
   '/posts/$postId': typeof AuthedPostsPostIdRoute
   '/posts-sidebar/': typeof AuthedPostsSidebarIndexRoute
   '/posts/': typeof AuthedPostsIndexRoute
+  '/profile': typeof AuthedProfileIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -240,6 +257,7 @@ export interface FileRoutesByTo {
   '/posts/$postId': typeof AuthedPostsPostIdRoute
   '/posts-sidebar': typeof AuthedPostsSidebarIndexRoute
   '/posts': typeof AuthedPostsIndexRoute
+  '/profile': typeof AuthedProfileIndexRoute
 }
 
 export interface FileRoutesById {
@@ -255,6 +273,7 @@ export interface FileRoutesById {
   '/_authed/posts/$postId': typeof AuthedPostsPostIdRoute
   '/_authed/posts-sidebar/': typeof AuthedPostsSidebarIndexRoute
   '/_authed/posts/': typeof AuthedPostsIndexRoute
+  '/_authed/profile/': typeof AuthedProfileIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -271,6 +290,7 @@ export interface FileRouteTypes {
     | '/posts/$postId'
     | '/posts-sidebar/'
     | '/posts/'
+    | '/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -282,6 +302,7 @@ export interface FileRouteTypes {
     | '/posts/$postId'
     | '/posts-sidebar'
     | '/posts'
+    | '/profile'
   id:
     | '__root__'
     | '/'
@@ -295,6 +316,7 @@ export interface FileRouteTypes {
     | '/_authed/posts/$postId'
     | '/_authed/posts-sidebar/'
     | '/_authed/posts/'
+    | '/_authed/profile/'
   fileRoutesById: FileRoutesById
 }
 
@@ -338,7 +360,8 @@ export const routeTree = rootRoute
       "filePath": "_authed.tsx",
       "children": [
         "/_authed/posts",
-        "/_authed/posts-sidebar"
+        "/_authed/posts-sidebar",
+        "/_authed/profile/"
       ]
     },
     "/login": {
@@ -381,6 +404,10 @@ export const routeTree = rootRoute
     "/_authed/posts/": {
       "filePath": "_authed/posts.index.tsx",
       "parent": "/_authed/posts"
+    },
+    "/_authed/profile/": {
+      "filePath": "_authed/profile/index.tsx",
+      "parent": "/_authed"
     }
   }
 }
