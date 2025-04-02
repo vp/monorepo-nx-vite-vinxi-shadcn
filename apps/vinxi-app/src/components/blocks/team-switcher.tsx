@@ -17,14 +17,16 @@ import {
 } from "@workspace/ui/components/ui/sidebar"
 import React from 'react';
 
+export type Team = {
+  name: string
+  logo: React.ElementType
+  plan: string
+}
+
 export function TeamSwitcher({
                                teams,
                              }: {
-  teams: {
-    name: string
-    logo: React.ElementType
-    plan: string
-  }[]
+  teams: Team[]
 }) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
