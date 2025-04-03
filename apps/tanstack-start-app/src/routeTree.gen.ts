@@ -16,11 +16,14 @@ import { Route as LogoutImport } from './routes/logout'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
+import { Route as AuthedProfileImport } from './routes/_authed/profile'
 import { Route as AuthedPostsSidebarImport } from './routes/_authed/posts-sidebar'
 import { Route as AuthedPostsImport } from './routes/_authed/posts'
 import { Route as AuthedProfileIndexImport } from './routes/_authed/profile/index'
 import { Route as AuthedPostsIndexImport } from './routes/_authed/posts.index'
 import { Route as AuthedPostsSidebarIndexImport } from './routes/_authed/posts-sidebar.index'
+import { Route as AuthedProfileSettingsImport } from './routes/_authed/profile/settings'
+import { Route as AuthedProfileNotificationsImport } from './routes/_authed/profile/notifications'
 import { Route as AuthedPostsPostIdImport } from './routes/_authed/posts.$postId'
 import { Route as AuthedPostsSidebarPostIdImport } from './routes/_authed/posts-sidebar.$postId'
 
@@ -55,6 +58,12 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthedProfileRoute = AuthedProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
 const AuthedPostsSidebarRoute = AuthedPostsSidebarImport.update({
   id: '/posts-sidebar',
   path: '/posts-sidebar',
@@ -68,9 +77,9 @@ const AuthedPostsRoute = AuthedPostsImport.update({
 } as any)
 
 const AuthedProfileIndexRoute = AuthedProfileIndexImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => AuthedRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthedProfileRoute,
 } as any)
 
 const AuthedPostsIndexRoute = AuthedPostsIndexImport.update({
@@ -84,6 +93,20 @@ const AuthedPostsSidebarIndexRoute = AuthedPostsSidebarIndexImport.update({
   path: '/',
   getParentRoute: () => AuthedPostsSidebarRoute,
 } as any)
+
+const AuthedProfileSettingsRoute = AuthedProfileSettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthedProfileRoute,
+} as any)
+
+const AuthedProfileNotificationsRoute = AuthedProfileNotificationsImport.update(
+  {
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthedProfileRoute,
+  } as any,
+)
 
 const AuthedPostsPostIdRoute = AuthedPostsPostIdImport.update({
   id: '/$postId',
@@ -150,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedPostsSidebarImport
       parentRoute: typeof AuthedImport
     }
+    '/_authed/profile': {
+      id: '/_authed/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthedProfileImport
+      parentRoute: typeof AuthedImport
+    }
     '/_authed/posts-sidebar/$postId': {
       id: '/_authed/posts-sidebar/$postId'
       path: '/$postId'
@@ -163,6 +193,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/posts/$postId'
       preLoaderRoute: typeof AuthedPostsPostIdImport
       parentRoute: typeof AuthedPostsImport
+    }
+    '/_authed/profile/notifications': {
+      id: '/_authed/profile/notifications'
+      path: '/notifications'
+      fullPath: '/profile/notifications'
+      preLoaderRoute: typeof AuthedProfileNotificationsImport
+      parentRoute: typeof AuthedProfileImport
+    }
+    '/_authed/profile/settings': {
+      id: '/_authed/profile/settings'
+      path: '/settings'
+      fullPath: '/profile/settings'
+      preLoaderRoute: typeof AuthedProfileSettingsImport
+      parentRoute: typeof AuthedProfileImport
     }
     '/_authed/posts-sidebar/': {
       id: '/_authed/posts-sidebar/'
@@ -180,10 +224,10 @@ declare module '@tanstack/react-router' {
     }
     '/_authed/profile/': {
       id: '/_authed/profile/'
-      path: '/profile'
-      fullPath: '/profile'
+      path: '/'
+      fullPath: '/profile/'
       preLoaderRoute: typeof AuthedProfileIndexImport
-      parentRoute: typeof AuthedImport
+      parentRoute: typeof AuthedProfileImport
     }
   }
 }
@@ -217,16 +261,32 @@ const AuthedPostsSidebarRouteChildren: AuthedPostsSidebarRouteChildren = {
 const AuthedPostsSidebarRouteWithChildren =
   AuthedPostsSidebarRoute._addFileChildren(AuthedPostsSidebarRouteChildren)
 
+interface AuthedProfileRouteChildren {
+  AuthedProfileNotificationsRoute: typeof AuthedProfileNotificationsRoute
+  AuthedProfileSettingsRoute: typeof AuthedProfileSettingsRoute
+  AuthedProfileIndexRoute: typeof AuthedProfileIndexRoute
+}
+
+const AuthedProfileRouteChildren: AuthedProfileRouteChildren = {
+  AuthedProfileNotificationsRoute: AuthedProfileNotificationsRoute,
+  AuthedProfileSettingsRoute: AuthedProfileSettingsRoute,
+  AuthedProfileIndexRoute: AuthedProfileIndexRoute,
+}
+
+const AuthedProfileRouteWithChildren = AuthedProfileRoute._addFileChildren(
+  AuthedProfileRouteChildren,
+)
+
 interface AuthedRouteChildren {
   AuthedPostsRoute: typeof AuthedPostsRouteWithChildren
   AuthedPostsSidebarRoute: typeof AuthedPostsSidebarRouteWithChildren
-  AuthedProfileIndexRoute: typeof AuthedProfileIndexRoute
+  AuthedProfileRoute: typeof AuthedProfileRouteWithChildren
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedPostsRoute: AuthedPostsRouteWithChildren,
   AuthedPostsSidebarRoute: AuthedPostsSidebarRouteWithChildren,
-  AuthedProfileIndexRoute: AuthedProfileIndexRoute,
+  AuthedProfileRoute: AuthedProfileRouteWithChildren,
 }
 
 const AuthedRouteWithChildren =
@@ -240,11 +300,14 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/posts': typeof AuthedPostsRouteWithChildren
   '/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
+  '/profile': typeof AuthedProfileRouteWithChildren
   '/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/profile/notifications': typeof AuthedProfileNotificationsRoute
+  '/profile/settings': typeof AuthedProfileSettingsRoute
   '/posts-sidebar/': typeof AuthedPostsSidebarIndexRoute
   '/posts/': typeof AuthedPostsIndexRoute
-  '/profile': typeof AuthedProfileIndexRoute
+  '/profile/': typeof AuthedProfileIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -255,6 +318,8 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/profile/notifications': typeof AuthedProfileNotificationsRoute
+  '/profile/settings': typeof AuthedProfileSettingsRoute
   '/posts-sidebar': typeof AuthedPostsSidebarIndexRoute
   '/posts': typeof AuthedPostsIndexRoute
   '/profile': typeof AuthedProfileIndexRoute
@@ -269,8 +334,11 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authed/posts': typeof AuthedPostsRouteWithChildren
   '/_authed/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
+  '/_authed/profile': typeof AuthedProfileRouteWithChildren
   '/_authed/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/_authed/posts/$postId': typeof AuthedPostsPostIdRoute
+  '/_authed/profile/notifications': typeof AuthedProfileNotificationsRoute
+  '/_authed/profile/settings': typeof AuthedProfileSettingsRoute
   '/_authed/posts-sidebar/': typeof AuthedPostsSidebarIndexRoute
   '/_authed/posts/': typeof AuthedPostsIndexRoute
   '/_authed/profile/': typeof AuthedProfileIndexRoute
@@ -286,11 +354,14 @@ export interface FileRouteTypes {
     | '/signup'
     | '/posts'
     | '/posts-sidebar'
+    | '/profile'
     | '/posts-sidebar/$postId'
     | '/posts/$postId'
+    | '/profile/notifications'
+    | '/profile/settings'
     | '/posts-sidebar/'
     | '/posts/'
-    | '/profile'
+    | '/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -300,6 +371,8 @@ export interface FileRouteTypes {
     | '/signup'
     | '/posts-sidebar/$postId'
     | '/posts/$postId'
+    | '/profile/notifications'
+    | '/profile/settings'
     | '/posts-sidebar'
     | '/posts'
     | '/profile'
@@ -312,8 +385,11 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authed/posts'
     | '/_authed/posts-sidebar'
+    | '/_authed/profile'
     | '/_authed/posts-sidebar/$postId'
     | '/_authed/posts/$postId'
+    | '/_authed/profile/notifications'
+    | '/_authed/profile/settings'
     | '/_authed/posts-sidebar/'
     | '/_authed/posts/'
     | '/_authed/profile/'
@@ -361,7 +437,7 @@ export const routeTree = rootRoute
       "children": [
         "/_authed/posts",
         "/_authed/posts-sidebar",
-        "/_authed/profile/"
+        "/_authed/profile"
       ]
     },
     "/login": {
@@ -389,6 +465,15 @@ export const routeTree = rootRoute
         "/_authed/posts-sidebar/"
       ]
     },
+    "/_authed/profile": {
+      "filePath": "_authed/profile.tsx",
+      "parent": "/_authed",
+      "children": [
+        "/_authed/profile/notifications",
+        "/_authed/profile/settings",
+        "/_authed/profile/"
+      ]
+    },
     "/_authed/posts-sidebar/$postId": {
       "filePath": "_authed/posts-sidebar.$postId.tsx",
       "parent": "/_authed/posts-sidebar"
@@ -396,6 +481,14 @@ export const routeTree = rootRoute
     "/_authed/posts/$postId": {
       "filePath": "_authed/posts.$postId.tsx",
       "parent": "/_authed/posts"
+    },
+    "/_authed/profile/notifications": {
+      "filePath": "_authed/profile/notifications.tsx",
+      "parent": "/_authed/profile"
+    },
+    "/_authed/profile/settings": {
+      "filePath": "_authed/profile/settings.tsx",
+      "parent": "/_authed/profile"
     },
     "/_authed/posts-sidebar/": {
       "filePath": "_authed/posts-sidebar.index.tsx",
@@ -407,7 +500,7 @@ export const routeTree = rootRoute
     },
     "/_authed/profile/": {
       "filePath": "_authed/profile/index.tsx",
-      "parent": "/_authed"
+      "parent": "/_authed/profile"
     }
   }
 }

@@ -2,7 +2,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { fetchPosts } from '~/utils/posts';
 import { NavigationMenu } from '@workspace/ui/components/ui/navigation-menu';
 import { NavigationMenuListItem } from '~/components/NavigationMenuListItem';
-import { PostsLayout } from '~/components/posts/PostsLayout';
+import { PostsLayout } from '~/features/posts/components/PostsLayout';
 
 export const Route = createFileRoute('/_authed/posts')({
   loader: () => fetchPosts(),
