@@ -8,15 +8,27 @@ import { Separator } from '@workspace/ui/components/ui/separator';
 import { NavHeader } from '@/components/blocks/nav-header';
 import { ModeSwitcher } from '@workspace/ui/components/blocks/mode-switcher';
 import { AppSidebar } from '@workspace/ui/components/blocks/app-sidebar';
-import { groups, teams, user } from '@/utils/sidebar-data';
+import { items, teams, user } from '@/utils/sidebar-data';
 import { AppSidebarHeader } from '@/components/blocks/app-sidebar-header';
 import { NavUser } from '@/components/blocks/nav-user';
 
+const groups = [
+  {
+    title: 'Platform',
+    items,
+  },
+  {
+    title: 'Settings',
+    items: items[3].items,
+  },
+]
 export function Layout({ children }: PropsWithChildren) {
   return (
     <SidebarProvider defaultOpen>
       <AppSidebar
+        collapsible="icon"
         groups={groups}
+        items={items[1].items}
         header={<AppSidebarHeader teams={teams} />}
         footer={<NavUser user={user} />}
       />

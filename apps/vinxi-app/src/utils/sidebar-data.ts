@@ -32,12 +32,13 @@ export const user = {
   avatar: '/avatars/shadcn.jpg',
 };
 
-export const groups = [
+export const items = [
   {
     title: 'Playground',
     url: '#',
     icon: SquareTerminal,
     isActive: true,
+    collapsible: true,
     items: [
       {
         title: 'History',
@@ -57,6 +58,7 @@ export const groups = [
     title: 'Models',
     url: '#',
     icon: Bot,
+    collapsible: true,
     items: [
       {
         title: 'Genesis',
@@ -76,6 +78,7 @@ export const groups = [
     title: 'Documentation',
     url: '#',
     icon: BookOpen,
+    collapsible: false,
     items: [
       {
         title: 'Introduction',
@@ -99,6 +102,7 @@ export const groups = [
     title: 'Settings',
     url: '#',
     icon: Settings2,
+    collapsible: true,
     items: [
       {
         title: 'General',
