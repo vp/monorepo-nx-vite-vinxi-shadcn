@@ -26,5 +26,5 @@ const MENU_ITEMS: ApplicationMenuItem[] = [
 ];
 
 function RouteComponent() {
-  return <ProfileLayout menuItems={MENU_ITEMS}>Ahoj<Outlet /></ProfileLayout>
+  return <ProfileLayout menuItems={MENU_ITEMS}><Outlet /></ProfileLayout>
 }

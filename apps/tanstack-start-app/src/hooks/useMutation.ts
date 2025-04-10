@@ -19,7 +19,9 @@ export function useMutation<TVariables, TData, TError = Error>(opts: {
       setVariables(variables)
       //
       try {
+        console.log({ variables });
         const data = await opts.fn(variables)
+        console.log({ data });
         await opts.onSuccess?.({ data })
         setStatus('success')
         setError(undefined)
