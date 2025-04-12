@@ -86,7 +86,7 @@ export const createUploadService = (
     const { data, error } = await supabase.storage
       .from(options.bucketName)
       // Valid for 10 years
-      .createSignedUrl(path, 315360000 , {
+      .createSignedUrl(path, 315360000, {
         transform: {
           width: 200,
           height: 200,
@@ -102,5 +102,24 @@ export const createUploadService = (
     }
 
     return data.signedUrl;
-  }
+  },
+  download: async (
+    path: string,
+    downloadOptions?: unknown
+  ) => {
+    const supabase = await createSupabaseClient();
+
+    const result = await supabase.storage
+      .from(options.bucketName)
+      .download(path, downloadOptions);
+
+    const { data, error } = result;
+
+    if (error) {
+      console.error('[ERROR]', error);
+      throw error;
+    }
+
+    return data;
+  },
 });

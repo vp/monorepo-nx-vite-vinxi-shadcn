@@ -31,7 +31,7 @@ export const ProfileAvatar = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        {!change && <ProfileAvatarPreview avatarUrl={avatarUrl} />}
+        {!change && <ProfileAvatarPreview avatarUrl={`/api/avatar/${avatarUrl}`} />}
         {change && (
           <ProfileAvatarUpload
             onUploaded={(data) => {
