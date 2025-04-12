@@ -28,6 +28,7 @@
     "@workspace/ui": "workspace:*",
     "@workspace/users-supabase": "workspace:*",
     "@workspace/users-ui": "workspace:*",
+    "@workspace/dropzone-supabase": "workspace:*",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

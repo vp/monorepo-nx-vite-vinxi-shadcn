@@ -29,11 +29,12 @@ type SupabaseUploadOptions = {
 export type UploadService = ReturnType<typeof createUploadService>;
 
 export const createUploadService = (
-  supabase: ReturnType<typeof createBrowserClient>,
+  createSupabaseClient: () => Promise<ReturnType<typeof createBrowserClient>>,
   options: SupabaseUploadOptions
 ) => ({
   upload: async (file: File) => {
     const { bucketName, path, cacheControl = 3600, upsert = false } = options;
+    const supabase = await createSupabaseClient();
     const { error } = await supabase.storage
       .from(bucketName)
       .upload(path ? `${path}/${file.name}` : file.name, file, {
