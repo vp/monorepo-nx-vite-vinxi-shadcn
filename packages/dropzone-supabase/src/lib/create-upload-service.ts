@@ -79,5 +79,28 @@ export const createUploadService = (
     }
 
     return data.signedUrl;
+  },
+  createThumbUrl: async (path: string) => {
+    const supabase = await createSupabaseClient();
+
+    const { data, error } = await supabase.storage
+      .from(options.bucketName)
+      // Valid for 10 years
+      .createSignedUrl(path, 315360000 , {
+        transform: {
+          width: 200,
+          height: 200,
+          resize: 'cover', // Options: 'cover', 'contain', 'fill'
+        },
+      });
+
+    if (error) {
+      console.error(error);
+      throw error;
+    } else {
+      console.log(data.signedUrl); // Use this URL to access the resized image
+    }
+
+    return data.signedUrl;
   }
 });
