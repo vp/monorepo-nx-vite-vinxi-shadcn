@@ -1,18 +1,17 @@
 {
-  "extends": "@workspace/typescript-config/tsconfig.lib.json",
+  "extends": "../typescript-config/tsconfig.lib.json",
   "include": [
     "src/**/*.ts"
   ],
   "paths": {
-    "paths": {
-      "@workspace/users-supabase/*": [
-        "./src/*"
-      ]
-    }
+    "@workspace/users-supabase/*": [
+      "./src/*"
+    ]
   },
   "references": [],
   "compilerOptions": {
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
+    "outDir": "./out-tsc",
+    "tsBuildInfoFile": "./out-tsc/tsconfig.lib.tsbuildinfo"
   },
   "exclude": [
     "vitest.config.ts",

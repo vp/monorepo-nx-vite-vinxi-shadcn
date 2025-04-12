@@ -31,12 +31,12 @@ export function UpdateForm({
   afterSubmit?: ReactNode;
   header?: ReactNode;
   footer?: ReactNode;
-  data?: UpdateFormValues | null;
+  data: UpdateFormValues;
 }) {
   const form = useForm({
     defaultValues: {
-      firstName: data?.firstName ?? '',
-      lastName: data?.lastName ?? '',
+      firstName: data.firstName,
+      lastName: data.lastName,
     },
     onSubmit: async ({ value }) => {
       onSubmit({id: data.id, ...value});

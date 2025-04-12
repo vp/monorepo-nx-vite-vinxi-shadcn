@@ -8,11 +8,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "paths": {
-      "@workspace/ui/*": [
-        "./src/*"
-      ]
-    },
     "outDir": "./out-tsc",
     "tsBuildInfoFile": "./out-tsc/tsconfig.lib.tsbuildinfo"
   },

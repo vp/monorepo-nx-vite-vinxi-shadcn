@@ -29,7 +29,7 @@ type SupabaseUploadOptions = {
 export type UploadService = ReturnType<typeof createUploadService>;
 
 export const createUploadService = (
-  createSupabaseClient: () => Promise<ReturnType<typeof createBrowserClient>>,
+  createSupabaseClient: ReturnType<typeof createBrowserClient>,
   options: SupabaseUploadOptions
 ) => ({
   upload: async (file: File) => {
@@ -47,15 +47,15 @@ export const createUploadService = (
       return { name: file.name, message: undefined };
     }
   },
-  getPublicUrl: (path: string) => {
-    const { publicURL, error } = supabase.storage
+  getPublicUrl: async (path: string) => {
+    const supabase = await createSupabaseClient();
+
+    const { data } = supabase.storage
       .from(options.bucketName)
       .getPublicUrl(path);
 
-    if (error) {
-      throw error;
-    }
+    const { publicUrl } = data;
 
-    return publicURL;
+    return publicUrl;
   },
 });

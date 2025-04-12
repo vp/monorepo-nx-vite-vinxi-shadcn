@@ -30,6 +30,8 @@
     "vite": "^6.2.0"
   },
   "exports": {
-    "./*": "./src/*"
+    "./lib/*": "./src/lib/*.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./hooks/*": "./src/hooks/*.ts"
   }
 }

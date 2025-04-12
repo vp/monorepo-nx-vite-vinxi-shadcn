@@ -4,7 +4,7 @@ import {
   type FileRejection,
   useDropzone,
 } from 'react-dropzone';
-import { UploadService } from '@workspace/dropzone-supabase/lib/create-upload-service.js';
+import { UploadService } from '@workspace/dropzone-supabase/lib/create-upload-service';
 
 interface FileWithPreview extends File {
   preview?: string;

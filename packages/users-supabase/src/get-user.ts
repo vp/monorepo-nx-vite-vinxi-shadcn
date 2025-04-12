@@ -12,5 +12,6 @@ export const getUser = async (supabase: SupabaseClient) => {
     email: data.user.email,
     firstName: data.user.user_metadata.first_name as string,
     lastName: data.user.user_metadata.last_name as string,
+    avatarUrl: data.user.user_metadata.avatar_url as string,
   };
 };

@@ -2,5 +2,6 @@ import { createUploadService } from '@workspace/dropzone-supabase/lib/create-upl
 import { getSupabaseBrowserClient } from '~/utils/supabase-browser';
 
 export const avatarUploadService = createUploadService(getSupabaseBrowserClient, {
-  bucket: 'avatars',
+  bucketName: 'avatars',
+  upsert: true
 });

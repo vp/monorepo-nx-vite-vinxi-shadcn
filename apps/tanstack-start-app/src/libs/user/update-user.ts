@@ -7,6 +7,6 @@ export const updateUser = createServerFn({ method: 'POST' })
   .validator((d: unknown) => d as UpdateUserRequest)
   .handler(async ({ data, context }) => {
     const { usersService } = context;
-    console.log('[updateUser]', data);
+
     return await usersService.updateUser(data);
   });

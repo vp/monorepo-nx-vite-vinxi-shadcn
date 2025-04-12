@@ -1,5 +1,5 @@
 {
-  "extends": "@workspace/typescript-config/tsconfig.spec.json",
+  "extends": "../typescript-config/tsconfig.spec.json",
   "include": [
     "vitest.config.ts",
     "vitest.config.mts",
