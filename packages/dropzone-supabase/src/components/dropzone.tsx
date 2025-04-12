@@ -1,5 +1,5 @@
 import { cn } from '@workspace/ui/lib/utils'
-import { type UseSupabaseUploadReturn } from '@workspace/ui/hooks/use-supabase-upload'
+import { type UseSupabaseUploadReturn } from '@workspace/dropzone-supabase/hooks/use-supabase-upload'
 import { Button } from '@workspace/ui/components/ui/button'
 import { CheckCircle, File, Loader2, Upload, X } from 'lucide-react'
 import { createContext, type PropsWithChildren, useCallback, useContext } from 'react'
