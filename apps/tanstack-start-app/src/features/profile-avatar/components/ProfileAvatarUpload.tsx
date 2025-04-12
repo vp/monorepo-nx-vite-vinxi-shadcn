@@ -31,8 +31,8 @@ export const ProfileAvatarUpload = ({
         if (file) {
           console.log('file', file);
           try {
-            const publicUrl = await avatarUploadService.getPublicUrl(file.name);
-            setPublicUrl(publicUrl);
+           // const publicUrl = await avatarUploadService.getPublicUrl(file.name);
+            setPublicUrl(file.name);
             setFetching(false);
           } catch (error) {
             console.error('Error fetching public URL:', error);
