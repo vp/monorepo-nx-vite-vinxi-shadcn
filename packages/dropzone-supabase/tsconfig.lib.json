@@ -9,7 +9,7 @@
       "esnext"
     ],
     "paths": {
-      "@workspace/ui/*": [
+      "@workspace/dropzone-supabase/*": [
         "./src/*"
       ]
     },
