@@ -17,9 +17,9 @@ import { Route as IndexImport } from './routes/index'
 import { Route as AuthedProfileImport } from './routes/_authed/profile'
 import { Route as AuthedPostsSidebarImport } from './routes/_authed/posts-sidebar'
 import { Route as AuthedPostsImport } from './routes/_authed/posts'
-import { Route as AuthSignupImport } from './routes/_auth.signup'
-import { Route as AuthLogoutImport } from './routes/_auth.logout'
-import { Route as AuthLoginImport } from './routes/_auth.login'
+import { Route as authFeaturesAuthRoutesSignupImport } from './features/auth/routes/signup'
+import { Route as authFeaturesAuthRoutesLogoutImport } from './features/auth/routes/logout'
+import { Route as authFeaturesAuthRoutesLoginImport } from './features/auth/routes/login'
 import { Route as AuthedProfileIndexImport } from './routes/_authed/profile/index'
 import { Route as AuthedPostsIndexImport } from './routes/_authed/posts.index'
 import { Route as AuthedPostsSidebarIndexImport } from './routes/_authed/posts-sidebar.index'
@@ -64,23 +64,26 @@ const AuthedPostsRoute = AuthedPostsImport.update({
   getParentRoute: () => AuthedRoute,
 } as any)
 
-const AuthSignupRoute = AuthSignupImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => AuthRoute,
-} as any)
+const authFeaturesAuthRoutesSignupRoute =
+  authFeaturesAuthRoutesSignupImport.update({
+    id: '/signup',
+    path: '/signup',
+    getParentRoute: () => AuthRoute,
+  } as any)
 
-const AuthLogoutRoute = AuthLogoutImport.update({
-  id: '/logout',
-  path: '/logout',
-  getParentRoute: () => AuthRoute,
-} as any)
+const authFeaturesAuthRoutesLogoutRoute =
+  authFeaturesAuthRoutesLogoutImport.update({
+    id: '/logout',
+    path: '/logout',
+    getParentRoute: () => AuthRoute,
+  } as any)
 
-const AuthLoginRoute = AuthLoginImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => AuthRoute,
-} as any)
+const authFeaturesAuthRoutesLoginRoute =
+  authFeaturesAuthRoutesLoginImport.update({
+    id: '/login',
+    path: '/login',
+    getParentRoute: () => AuthRoute,
+  } as any)
 
 const AuthedProfileIndexRoute = AuthedProfileIndexImport.update({
   id: '/',
@@ -155,21 +158,21 @@ declare module '@tanstack/react-router' {
       id: '/_auth/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof AuthLoginImport
+      preLoaderRoute: typeof authFeaturesAuthRoutesLoginImport
       parentRoute: typeof AuthImport
     }
     '/_auth/logout': {
       id: '/_auth/logout'
       path: '/logout'
       fullPath: '/logout'
-      preLoaderRoute: typeof AuthLogoutImport
+      preLoaderRoute: typeof authFeaturesAuthRoutesLogoutImport
       parentRoute: typeof AuthImport
     }
     '/_auth/signup': {
       id: '/_auth/signup'
       path: '/signup'
       fullPath: '/signup'
-      preLoaderRoute: typeof AuthSignupImport
+      preLoaderRoute: typeof authFeaturesAuthRoutesSignupImport
       parentRoute: typeof AuthImport
     }
     '/_authed/posts': {
@@ -248,15 +251,15 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthRouteChildren {
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthLogoutRoute: typeof AuthLogoutRoute
-  AuthSignupRoute: typeof AuthSignupRoute
+  authFeaturesAuthRoutesLoginRoute: typeof authFeaturesAuthRoutesLoginRoute
+  authFeaturesAuthRoutesLogoutRoute: typeof authFeaturesAuthRoutesLogoutRoute
+  authFeaturesAuthRoutesSignupRoute: typeof authFeaturesAuthRoutesSignupRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
-  AuthLoginRoute: AuthLoginRoute,
-  AuthLogoutRoute: AuthLogoutRoute,
-  AuthSignupRoute: AuthSignupRoute,
+  authFeaturesAuthRoutesLoginRoute: authFeaturesAuthRoutesLoginRoute,
+  authFeaturesAuthRoutesLogoutRoute: authFeaturesAuthRoutesLogoutRoute,
+  authFeaturesAuthRoutesSignupRoute: authFeaturesAuthRoutesSignupRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -322,9 +325,9 @@ const AuthedRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/logout': typeof AuthLogoutRoute
-  '/signup': typeof AuthSignupRoute
+  '/login': typeof authFeaturesAuthRoutesLoginRoute
+  '/logout': typeof authFeaturesAuthRoutesLogoutRoute
+  '/signup': typeof authFeaturesAuthRoutesSignupRoute
   '/posts': typeof AuthedPostsRouteWithChildren
   '/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
   '/profile': typeof AuthedProfileRouteWithChildren
@@ -340,9 +343,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
-  '/login': typeof AuthLoginRoute
-  '/logout': typeof AuthLogoutRoute
-  '/signup': typeof AuthSignupRoute
+  '/login': typeof authFeaturesAuthRoutesLoginRoute
+  '/logout': typeof authFeaturesAuthRoutesLogoutRoute
+  '/signup': typeof authFeaturesAuthRoutesSignupRoute
   '/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
   '/profile/notifications': typeof AuthedProfileNotificationsRoute
@@ -357,9 +360,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteWithChildren
   '/_authed': typeof AuthedRouteWithChildren
-  '/_auth/login': typeof AuthLoginRoute
-  '/_auth/logout': typeof AuthLogoutRoute
-  '/_auth/signup': typeof AuthSignupRoute
+  '/_auth/login': typeof authFeaturesAuthRoutesLoginRoute
+  '/_auth/logout': typeof authFeaturesAuthRoutesLogoutRoute
+  '/_auth/signup': typeof authFeaturesAuthRoutesSignupRoute
   '/_authed/posts': typeof AuthedPostsRouteWithChildren
   '/_authed/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
   '/_authed/profile': typeof AuthedProfileRouteWithChildren
@@ -431,7 +434,7 @@ export interface RootRouteChildren {
   AuthedRoute: typeof AuthedRouteWithChildren
 }
 
-export const rootRouteChildren: RootRouteChildren = {
+const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRouteWithChildren,
   AuthedRoute: AuthedRouteWithChildren,
@@ -472,15 +475,15 @@ export const routeTree = rootRoute
       ]
     },
     "/_auth/login": {
-      "filePath": "_auth.login.tsx",
+      "filePath": "../features/auth/routes/login.tsx",
       "parent": "/_auth"
     },
     "/_auth/logout": {
-      "filePath": "_auth.logout.tsx",
+      "filePath": "../features/auth/routes/logout.tsx",
       "parent": "/_auth"
     },
     "/_auth/signup": {
-      "filePath": "_auth.signup.tsx",
+      "filePath": "../features/auth/routes/signup.tsx",
       "parent": "/_auth"
     },
     "/_authed/posts": {

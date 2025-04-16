@@ -7,8 +7,8 @@ import {
   CardTitle,
 } from '@workspace/ui/components/ui/card';
 import { AuthForm } from '@workspace/users-ui/components/auth-form';
-import { signIn } from '~/libs/user/sign-in';
-import { signUp } from '~/libs/user/sign-up';
+import { signIn } from '~/features/auth/libs/sign-in';
+import { signUp } from '~/features/auth/libs/sign-up';
 
 export function Login() {
   const router = useRouter();

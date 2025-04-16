@@ -1,6 +1,6 @@
 import { useMutation } from '~/hooks/useMutation';
 import { useServerFn } from '@tanstack/react-start';
-import { signUp } from '~/libs/user/sign-up';
+import { signUp } from '~/features/auth/libs/sign-up';
 import {
   CardDescription,
   CardHeader,
