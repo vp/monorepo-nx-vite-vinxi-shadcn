@@ -235,6 +235,9 @@ importers:
       '@tanstack/start':
         specifier: ^1.114.34
         version: 1.114.34(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(db0@0.3.1)(encoding@0.1.13)(ioredis@5.6.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(webpack@5.98.0(@swc/core@1.5.29(@swc/helpers@0.5.15)))(yaml@2.7.0)
+      '@tanstack/virtual-file-routes':
+        specifier: ^1.115.0
+        version: 1.115.0
       '@workspace/dropzone-supabase':
         specifier: workspace:*
         version: link:../../packages/dropzone-supabase
@@ -4549,8 +4552,8 @@ packages:
   '@tanstack/store@0.7.0':
     resolution: {integrity: sha512-CNIhdoUsmD2NolYuaIs8VfWM467RK6oIBAW4nPEKZhg1smZ+/CwtCdpURgp7nxSqOaV9oKkzdWD80+bC66F/Jg==}
 
-  '@tanstack/virtual-file-routes@1.114.29':
-    resolution: {integrity: sha512-DufKsQy/qxDpOTiggJCgshhJkpSyUygwHHfl2LA66CXOf3aUjZtlNu4io1UpmJNf8C/9lVlGARhkoq5fTRRk0w==}
+  '@tanstack/virtual-file-routes@1.115.0':
+    resolution: {integrity: sha512-XLUh1Py3AftcERrxkxC5Y5m5mfllRH3YR6YVlyjFgI2Tc2Ssy2NKmQFQIafoxfW459UJ8Dn81nWKETEIJifE4g==}
     engines: {node: '>=12'}
 
   '@testing-library/dom@10.4.0':
@@ -15657,7 +15660,7 @@ snapshots:
 
   '@tanstack/router-generator@1.114.34(@tanstack/react-router@1.114.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
     dependencies:
-      '@tanstack/virtual-file-routes': 1.114.29
+      '@tanstack/virtual-file-routes': 1.115.0
       prettier: 3.5.3
       tsx: 4.19.3
       zod: 3.24.2
@@ -15675,7 +15678,7 @@ snapshots:
       '@tanstack/router-core': 1.114.33
       '@tanstack/router-generator': 1.114.34(@tanstack/react-router@1.114.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@tanstack/router-utils': 1.114.29
-      '@tanstack/virtual-file-routes': 1.114.29
+      '@tanstack/virtual-file-routes': 1.115.0
       '@types/babel__core': 7.20.5
       '@types/babel__template': 7.4.4
       '@types/babel__traverse': 7.20.7
@@ -15701,7 +15704,7 @@ snapshots:
       '@tanstack/router-core': 1.114.33
       '@tanstack/router-generator': 1.114.34(@tanstack/react-router@1.114.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@tanstack/router-utils': 1.114.29
-      '@tanstack/virtual-file-routes': 1.114.29
+      '@tanstack/virtual-file-routes': 1.115.0
       '@types/babel__core': 7.20.5
       '@types/babel__template': 7.4.4
       '@types/babel__traverse': 7.20.7
@@ -16148,7 +16151,7 @@ snapshots:
 
   '@tanstack/store@0.7.0': {}
 
-  '@tanstack/virtual-file-routes@1.114.29': {}
+  '@tanstack/virtual-file-routes@1.115.0': {}
 
   '@testing-library/dom@10.4.0':
     dependencies:

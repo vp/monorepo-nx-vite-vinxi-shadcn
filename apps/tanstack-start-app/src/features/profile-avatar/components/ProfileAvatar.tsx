@@ -47,7 +47,7 @@ export const ProfileAvatar = ({
         )}
         {change && (
           <Button onClick={() => setChange(false)} variant="secondary">
-            Discard change{' '}
+            Discard change
           </Button>
         )}
         {afterSubmit ? (

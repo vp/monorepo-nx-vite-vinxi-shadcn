@@ -11,14 +11,15 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SignupImport } from './routes/signup'
-import { Route as LogoutImport } from './routes/logout'
-import { Route as LoginImport } from './routes/login'
 import { Route as AuthedImport } from './routes/_authed'
+import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthedProfileImport } from './routes/_authed/profile'
 import { Route as AuthedPostsSidebarImport } from './routes/_authed/posts-sidebar'
 import { Route as AuthedPostsImport } from './routes/_authed/posts'
+import { Route as AuthSignupImport } from './routes/_auth.signup'
+import { Route as AuthLogoutImport } from './routes/_auth.logout'
+import { Route as AuthLoginImport } from './routes/_auth.login'
 import { Route as AuthedProfileIndexImport } from './routes/_authed/profile/index'
 import { Route as AuthedPostsIndexImport } from './routes/_authed/posts.index'
 import { Route as AuthedPostsSidebarIndexImport } from './routes/_authed/posts-sidebar.index'
@@ -29,26 +30,13 @@ import { Route as AuthedPostsSidebarPostIdImport } from './routes/_authed/posts-
 
 // Create/Update Routes
 
-const SignupRoute = SignupImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LogoutRoute = LogoutImport.update({
-  id: '/logout',
-  path: '/logout',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const AuthedRoute = AuthedImport.update({
   id: '/_authed',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,6 +62,24 @@ const AuthedPostsRoute = AuthedPostsImport.update({
   id: '/posts',
   path: '/posts',
   getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthSignupRoute = AuthSignupImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthLogoutRoute = AuthLogoutImport.update({
+  id: '/logout',
+  path: '/logout',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthLoginRoute = AuthLoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const AuthedProfileIndexRoute = AuthedProfileIndexImport.update({
@@ -131,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
     '/_authed': {
       id: '/_authed'
       path: ''
@@ -138,26 +151,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
+    '/_auth/login': {
+      id: '/_auth/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthLoginImport
+      parentRoute: typeof AuthImport
     }
-    '/logout': {
-      id: '/logout'
+    '/_auth/logout': {
+      id: '/_auth/logout'
       path: '/logout'
       fullPath: '/logout'
-      preLoaderRoute: typeof LogoutImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthLogoutImport
+      parentRoute: typeof AuthImport
     }
-    '/signup': {
-      id: '/signup'
+    '/_auth/signup': {
+      id: '/_auth/signup'
       path: '/signup'
       fullPath: '/signup'
-      preLoaderRoute: typeof SignupImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthSignupImport
+      parentRoute: typeof AuthImport
     }
     '/_authed/posts': {
       id: '/_authed/posts'
@@ -234,6 +247,20 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthLogoutRoute: typeof AuthLogoutRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthLogoutRoute: AuthLogoutRoute,
+  AuthSignupRoute: AuthSignupRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 interface AuthedPostsRouteChildren {
   AuthedPostsPostIdRoute: typeof AuthedPostsPostIdRoute
   AuthedPostsIndexRoute: typeof AuthedPostsIndexRoute
@@ -295,9 +322,9 @@ const AuthedRouteWithChildren =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/signup': typeof SignupRoute
+  '/login': typeof AuthLoginRoute
+  '/logout': typeof AuthLogoutRoute
+  '/signup': typeof AuthSignupRoute
   '/posts': typeof AuthedPostsRouteWithChildren
   '/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
   '/profile': typeof AuthedProfileRouteWithChildren
@@ -313,9 +340,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/signup': typeof SignupRoute
+  '/login': typeof AuthLoginRoute
+  '/logout': typeof AuthLogoutRoute
+  '/signup': typeof AuthSignupRoute
   '/posts-sidebar/$postId': typeof AuthedPostsSidebarPostIdRoute
   '/posts/$postId': typeof AuthedPostsPostIdRoute
   '/profile/notifications': typeof AuthedProfileNotificationsRoute
@@ -328,10 +355,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteWithChildren
   '/_authed': typeof AuthedRouteWithChildren
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/signup': typeof SignupRoute
+  '/_auth/login': typeof AuthLoginRoute
+  '/_auth/logout': typeof AuthLogoutRoute
+  '/_auth/signup': typeof AuthSignupRoute
   '/_authed/posts': typeof AuthedPostsRouteWithChildren
   '/_authed/posts-sidebar': typeof AuthedPostsSidebarRouteWithChildren
   '/_authed/profile': typeof AuthedProfileRouteWithChildren
@@ -379,10 +407,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_auth'
     | '/_authed'
-    | '/login'
-    | '/logout'
-    | '/signup'
+    | '/_auth/login'
+    | '/_auth/logout'
+    | '/_auth/signup'
     | '/_authed/posts'
     | '/_authed/posts-sidebar'
     | '/_authed/profile'
@@ -398,18 +427,14 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
   AuthedRoute: typeof AuthedRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  LogoutRoute: typeof LogoutRoute
-  SignupRoute: typeof SignupRoute
 }
 
-const rootRouteChildren: RootRouteChildren = {
+export const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
   AuthedRoute: AuthedRouteWithChildren,
-  LoginRoute: LoginRoute,
-  LogoutRoute: LogoutRoute,
-  SignupRoute: SignupRoute,
 }
 
 export const routeTree = rootRoute
@@ -423,14 +448,20 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_authed",
-        "/login",
-        "/logout",
-        "/signup"
+        "/_auth",
+        "/_authed"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/_auth": {
+      "filePath": "_auth.tsx",
+      "children": [
+        "/_auth/login",
+        "/_auth/logout",
+        "/_auth/signup"
+      ]
     },
     "/_authed": {
       "filePath": "_authed.tsx",
@@ -440,14 +471,17 @@ export const routeTree = rootRoute
         "/_authed/profile"
       ]
     },
-    "/login": {
-      "filePath": "login.tsx"
+    "/_auth/login": {
+      "filePath": "_auth.login.tsx",
+      "parent": "/_auth"
     },
-    "/logout": {
-      "filePath": "logout.tsx"
+    "/_auth/logout": {
+      "filePath": "_auth.logout.tsx",
+      "parent": "/_auth"
     },
-    "/signup": {
-      "filePath": "signup.tsx"
+    "/_auth/signup": {
+      "filePath": "_auth.signup.tsx",
+      "parent": "/_auth"
     },
     "/_authed/posts": {
       "filePath": "_authed/posts.tsx",
