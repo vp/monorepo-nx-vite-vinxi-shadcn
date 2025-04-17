@@ -3,16 +3,33 @@ import { fetchPosts } from '~/utils/posts';
 import { NavigationMenu } from '@workspace/ui/components/ui/navigation-menu';
 import { NavigationMenuListItem } from '~/components/NavigationMenuListItem';
 import { PostsLayout } from '~/features/posts/components/PostsLayout';
+import { useQuery } from '@tanstack/react-query';
+import { ApplicationMenuItem } from '~/features/sidebar/types';
 
 export const Route = createFileRoute('/_authed/posts')({
-  loader: () => fetchPosts(),
+  loader: async ({ context }) => {
+    await context.queryClient.prefetchQuery({
+      queryKey: ['posts'], // Use a unique query key
+      queryFn: () => fetchPosts(), // Fetch function
+    });
+  },
   component: PostsComponent,
 });
 
 function PostsComponent() {
-  const posts = Route.useLoaderData();
+  const { data: posts } = useQuery({
+    queryKey: ['posts'], // Use a unique query key
+    queryFn: () => fetchPosts(), // Fetch function
+  });
 
-  return (
+  const menuItems: ApplicationMenuItem[] =
+    posts?.map((post) => ({
+      title: post.title,
+      to: `/posts-sidebar/$postId`,
+      params: { postId: post.id },
+    })) ?? [];
+
+  return posts && (
     <PostsLayout>
       <NavigationMenu className="md:w-1/5">
         <ul className="p-0 m-0">

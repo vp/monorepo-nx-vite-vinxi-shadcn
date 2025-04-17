@@ -1,4 +1,3 @@
-import { useMutation } from '~/hooks/useMutation';
 import { useServerFn } from '@tanstack/react-start';
 import { signUp } from '~/features/auth/libs/sign-up';
 import {
@@ -7,10 +6,11 @@ import {
   CardTitle,
 } from '@workspace/ui/components/ui/card';
 import { SignUpForm } from '@workspace/users-ui/components/sign-up-form';
+import { useMutation } from '@tanstack/react-query';
 
 export const SignUp = () => {
   const signupMutation = useMutation({
-    fn: useServerFn(signUp),
+    mutationFn: useServerFn(signUp),
   });
 
   return (

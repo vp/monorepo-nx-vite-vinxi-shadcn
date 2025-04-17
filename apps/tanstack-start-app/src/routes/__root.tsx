@@ -1,5 +1,5 @@
 import {
-  createRootRoute,
+  createRootRouteWithContext,
   HeadContent,
   Outlet,
   Scripts,
@@ -11,10 +11,15 @@ import { NotFound } from '~/components/NotFound';
 import { seo } from '~/utils/seo';
 import appCss from '@workspace/ui/globals.css?url';
 import { Layout } from '~/components/Layout';
-
 import { getUserInfo } from '~/libs/user/get-user-info';
+import { TanstackQueryLayout } from '~/integrations/tanstackl-query/layout';
+import { QueryClient } from '@tanstack/react-query';
 
-export const Route = createRootRoute({
+interface MyRouterContext {
+  queryClient: QueryClient;
+}
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
     meta: [
       {
@@ -90,6 +95,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Layout>{children}</Layout>
 
         <TanStackRouterDevtools position="bottom-right" />
+
+        <TanstackQueryLayout />
         <Scripts />
       </body>
     </html>
