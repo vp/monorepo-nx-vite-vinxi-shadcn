@@ -1,6 +1,7 @@
+import { useMutation } from '@tanstack/react-query';
 import { Link, useRouter } from '@tanstack/react-router';
 import { useServerFn } from '@tanstack/react-start';
-import { useMutation } from '~/hooks/useMutation';
+
 import {
   CardDescription,
   CardHeader,
@@ -14,9 +15,9 @@ export function Login() {
   const router = useRouter();
 
   const loginMutation = useMutation({
-    fn: signIn,
+    mutationFn: signIn,
     onSuccess: async (ctx) => {
-      if (!ctx.data?.error) {
+      if (!ctx?.error) {
         await router.invalidate();
         router.navigate({ to: '/' });
         return;
@@ -25,7 +26,7 @@ export function Login() {
   });
 
   const signupMutation = useMutation({
-    fn: useServerFn(signUp),
+    mutationFn: useServerFn(signUp),
   });
 
   return (

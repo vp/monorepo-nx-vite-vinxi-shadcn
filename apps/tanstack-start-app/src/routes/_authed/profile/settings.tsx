@@ -1,11 +1,11 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router';
-import { useMutation } from '~/hooks/useMutation';
 import { useServerFn } from '@tanstack/react-start';
 import { CardHeader, CardTitle } from '@workspace/ui/components/ui/card';
 import { updateUser } from '~/libs/user/update-user';
 import { UpdateForm } from '@workspace/users-ui/components/update-form';
 import { ProfileAvatar } from '~/features/profile-avatar/components/ProfileAvatar';
 import { updateAvatar } from '~/libs/user/update-avatar';
+import { useMutation } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_authed/profile/settings')({
   component: RouteComponent,
@@ -15,14 +15,16 @@ function RouteComponent() {
   const { user } = Route.useRouteContext();
   const router = useRouter();
   const updateMutation = useMutation({
-    fn: useServerFn(updateUser),
+    mutationFn: useServerFn(updateUser),
+    mutationKey: ['user/profile'],
     onSuccess: () => {
       router.invalidate(); // Forces page remount
     },
   });
 
   const updateAvatarMutation = useMutation({
-    fn: useServerFn(updateAvatar),
+    mutationFn: useServerFn(updateAvatar),
+    mutationKey: ['user/avatar'],
     onSuccess: () => {
       router.invalidate(); // Forces page remount
     },
