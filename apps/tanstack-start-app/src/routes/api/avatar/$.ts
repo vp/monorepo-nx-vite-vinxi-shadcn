@@ -32,6 +32,7 @@ export const APIRoute = createAPIFileRoute('/api/avatar/$')({
       });
     } catch (exception) {
       console.error('Error downloading avatar:', exception);
+      
       return new Response('Internal Server Error', { status: 500 });
     }
   },
