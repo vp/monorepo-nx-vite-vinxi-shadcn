@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "paths": {
+      "@workspace/ui/*": [
+        "./../../packages/ui/src/*"
+      ]
+    }
+  }
+}

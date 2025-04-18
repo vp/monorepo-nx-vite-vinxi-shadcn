@@ -12,9 +12,7 @@
     "declarationMap": false,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
-      ]
+      "~/*": ["./src/*"]
     },
     "outDir": "./.output",
     "tsBuildInfoFile": "./.output/tsconfig.app.tsbuildinfo"

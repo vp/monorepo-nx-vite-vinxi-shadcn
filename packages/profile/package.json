@@ -1,0 +1,33 @@
+{
+  "name": "@workspace/profile",
+  "version": "0.0.1",
+  "private": "true",
+  "type": "module",
+  "scripts": {
+    "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest"
+  },
+  "dependencies": {
+    "@workspace/ui": "workspace:*",
+    "@workspace/navigation": "workspace:*",
+    "@tanstack/react-router": "^1.114.34",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.0.11",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "autoprefixer": "^10.4.20",
+    "tailwindcss": "^4.0.10",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0"
+  },
+  "exports": {
+    "./ui/*": "./src/ui/*.tsx",
+    "./types": "./src/types.ts"
+  }
+}
