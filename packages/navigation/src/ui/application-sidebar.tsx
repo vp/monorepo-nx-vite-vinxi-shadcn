@@ -5,7 +5,7 @@ import {
 } from '@workspace/ui/components/ui/sidebar';
 import { AppSidebar } from '@workspace/ui/components/blocks/app-sidebar';
 import { Link } from '@tanstack/react-router';
-import { ApplicationMenuItem } from '../types';
+import { ApplicationMenuItem } from '@workspace/navigation/types';
 
 const SidebarItemLink = ({ item }: { item: ApplicationMenuItem }) => (
   <SidebarMenuButton asChild>
@@ -29,7 +29,6 @@ export const ApplicationSidebar = (
   props: React.ComponentProps<typeof AppSidebar>
 ) => (
   <AppSidebar
-    className="mt-14"
     subItemComponent={SidebarSubItemLink}
     itemComponent={SidebarItemLink}
     {...props}

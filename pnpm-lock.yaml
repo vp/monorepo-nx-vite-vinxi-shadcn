@@ -250,6 +250,12 @@ importers:
       '@workspace/dropzone-supabase':
         specifier: workspace:*
         version: link:../../packages/dropzone-supabase
+      '@workspace/navigation':
+        specifier: workspace:*
+        version: link:../../packages/navigation
+      '@workspace/posts-ui':
+        specifier: workspace:*
+        version: link:../../packages/posts-ui
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -590,6 +596,104 @@ importers:
       typescript-eslint:
         specifier: ^8.15.0
         version: 8.26.0(eslint@9.22.0(jiti@2.4.2))(typescript@5.7.3)
+
+  packages/navigation:
+    dependencies:
+      '@tailwindcss/typography':
+        specifier: ^0.5.16
+        version: 0.5.16(tailwindcss@4.0.12)
+      '@tailwindcss/vite':
+        specifier: ^4.0.11
+        version: 4.0.12(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
+      '@tanstack/react-router':
+        specifier: ^1.114.34
+        version: 1.114.34(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@workspace/ui':
+        specifier: workspace:*
+        version: link:../ui
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.9.0
+        version: 22.14.0
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.10
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.4(@types/react@19.0.10)
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.5.3)
+      tailwindcss:
+        specifier: ^4.0.10
+        version: 4.0.12
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vite:
+        specifier: ^6.2.0
+        version: 6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+
+  packages/posts-ui:
+    dependencies:
+      '@tailwindcss/typography':
+        specifier: ^0.5.16
+        version: 0.5.16(tailwindcss@4.0.12)
+      '@tailwindcss/vite':
+        specifier: ^4.0.11
+        version: 4.0.12(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
+      '@workspace/navigation':
+        specifier: workspace:*
+        version: link:../navigation
+      '@workspace/ui':
+        specifier: workspace:*
+        version: link:../ui
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.9.0
+        version: 22.14.0
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.0.10
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.0.4(@types/react@19.0.10)
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.5.3)
+      tailwindcss:
+        specifier: ^4.0.10
+        version: 4.0.12
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vite:
+        specifier: ^6.2.0
+        version: 6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
 
   packages/typescript-config: {}
 
@@ -14422,7 +14526,7 @@ snapshots:
 
   '@rollup/pluginutils@5.1.4(rollup@4.37.0)':
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       estree-walker: 2.0.2
       picomatch: 4.0.2
     optionalDependencies:
@@ -14430,7 +14534,7 @@ snapshots:
 
   '@rollup/pluginutils@5.1.4(rollup@4.39.0)':
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       estree-walker: 2.0.2
       picomatch: 4.0.2
     optionalDependencies:
@@ -16334,11 +16438,11 @@ snapshots:
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 9.6.1
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
 
   '@types/eslint@9.6.1':
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       '@types/json-schema': 7.0.15
 
   '@types/estree@1.0.6': {}
@@ -18708,7 +18812,7 @@ snapshots:
 
   estree-walker@3.0.3:
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
 
   esutils@2.0.3: {}
 
@@ -19553,7 +19657,7 @@ snapshots:
 
   is-reference@1.2.1:
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
 
   is-regex@1.2.1:
     dependencies:
@@ -23015,9 +23119,9 @@ snapshots:
 
   vite@6.2.1(@types/node@18.16.9)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0):
     dependencies:
-      esbuild: 0.25.1
+      esbuild: 0.25.2
       postcss: 8.5.3
-      rollup: 4.37.0
+      rollup: 4.39.0
     optionalDependencies:
       '@types/node': 18.16.9
       fsevents: 2.3.3
@@ -23029,9 +23133,9 @@ snapshots:
 
   vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0):
     dependencies:
-      esbuild: 0.25.1
+      esbuild: 0.25.2
       postcss: 8.5.3
-      rollup: 4.37.0
+      rollup: 4.39.0
     optionalDependencies:
       '@types/node': 22.13.10
       fsevents: 2.3.3
@@ -23043,9 +23147,9 @@ snapshots:
 
   vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0):
     dependencies:
-      esbuild: 0.25.1
+      esbuild: 0.25.2
       postcss: 8.5.3
-      rollup: 4.37.0
+      rollup: 4.39.0
     optionalDependencies:
       '@types/node': 22.14.0
       fsevents: 2.3.3
@@ -23133,7 +23237,7 @@ snapshots:
   webpack@5.98.0(@swc/core@1.5.29(@swc/helpers@0.5.15)):
     dependencies:
       '@types/eslint-scope': 3.7.7
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       '@webassemblyjs/ast': 1.14.1
       '@webassemblyjs/wasm-edit': 1.14.1
       '@webassemblyjs/wasm-parser': 1.14.1

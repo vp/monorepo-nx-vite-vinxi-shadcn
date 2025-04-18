@@ -3,15 +3,15 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@workspace/ui/components/ui/sidebar';
-import { ApplicationSidebar } from '~/features/sidebar/components/application-sidebar';
-import { ApplicationMenuItem } from '~/features/sidebar/types';
+import { ApplicationSidebar } from '@workspace/navigation/ui/application-sidebar';
+import { ApplicationMenuItem } from '@workspace/navigation/types';
 
 export const PostsSidebarLayout = ({
   children,
   menuItems,
 }: PropsWithChildren & { menuItems: ApplicationMenuItem[] }) => (
   <SidebarProvider>
-    <ApplicationSidebar items={menuItems} />
+    <ApplicationSidebar items={menuItems} className="inset-y-14"/>
     <main>
       <SidebarTrigger />
       <div className="px-6 max-w-[1000px]">{children}</div>

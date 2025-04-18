@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { ProfileLayout } from '~/features/profile/components/ProfileLayout';
-import { ApplicationMenuItem } from '~/features/sidebar/types';
+import { ApplicationMenuItem } from '@workspace/navigation/types';
 import { MessageSquareIcon, SettingsIcon, UserIcon } from 'lucide-react';
 
 export const Route = createFileRoute('/_authed/profile')({

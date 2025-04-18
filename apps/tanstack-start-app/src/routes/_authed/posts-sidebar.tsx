@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import { fetchPosts } from '~/utils/posts';
-import { PostsSidebarLayout } from '~/features/posts/components/PostsSidebarLayout';
-import { ApplicationMenuItem } from '~/features/sidebar/types';
+import { PostsSidebarLayout } from '@workspace/posts-ui/components/PostsSidebarLayout';
+import { ApplicationMenuItem } from '@workspace/navigation/types';
 import { useQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_authed/posts-sidebar')({
