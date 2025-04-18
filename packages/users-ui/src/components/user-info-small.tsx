@@ -8,12 +8,13 @@ export type UserInfo = {
   firstName: string;
   lastName: string;
   email: string;
+  avatarUrl?: string;
 };
 
 export const UserInfoSmall = ({ user }: { user: UserInfo }) => (
   <>
     <Avatar>
-      <AvatarImage src="https://github.com/shadcn.png" alt="Shadcn" />
+      {user.avatarUrl && <AvatarImage src={`/api/avatar/${user.avatarUrl}`} alt="Shadcn" />}
       <AvatarFallback className="rounded-lg">CN</AvatarFallback>
     </Avatar>
     <div className="grid flex-1 text-left text-sm leading-tight">
