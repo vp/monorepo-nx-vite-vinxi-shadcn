@@ -7,8 +7,8 @@ import {
 } from '@workspace/ui/components/ui/card';
 import { Button } from '@workspace/ui/components/ui/button';
 import { ReactNode, useState } from 'react';
-import { AvatarPreview } from '@workspace/user-avatar/ui/avatar-preview.js';
-import { AvatarUpload } from '@workspace/user-avatar/ui/avatar-upload.js';
+import { AvatarPreview } from '@workspace/user-avatar/ui/avatar-preview';
+import { AvatarUpload } from '@workspace/user-avatar/ui/avatar-upload';
 import { Alert, AlertTitle } from '@workspace/ui/components/ui/alert';
 
 export const ProfileAvatar = ({
