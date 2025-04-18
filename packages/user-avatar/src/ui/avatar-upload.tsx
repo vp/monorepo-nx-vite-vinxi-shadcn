@@ -4,16 +4,18 @@ import {
   DropzoneEmptyState,
 } from '@workspace/dropzone-supabase/components/dropzone';
 import { useSupabaseUpload } from '@workspace/dropzone-supabase/hooks/use-supabase-upload';
-import { avatarUploadService } from '~/utils/avatar-upload-service';
 import { useEffect, useState } from 'react';
+import { useAvatarUpload } from '../integrations/avatar-upload-provider.js';
 
-export const ProfileAvatarUpload = ({
+
+export const AvatarUpload = ({
   onUploaded,
 }: {
   onUploaded?: (data: { avatarUrl: string }) => void;
 }) => {
   const [publicUrl, setPublicUrl] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
+  const avatarUploadService = useAvatarUpload();
 
   const props = useSupabaseUpload(avatarUploadService, {
     allowedMimeTypes: ['image/*'],

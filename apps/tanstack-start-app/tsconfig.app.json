@@ -44,5 +44,5 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "app.config.ts"
-  ]
+, "../../packages/profile/src/ui/profile-layout.tsx"  ]
 }

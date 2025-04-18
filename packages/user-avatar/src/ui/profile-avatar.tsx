@@ -7,8 +7,8 @@ import {
 } from '@workspace/ui/components/ui/card';
 import { Button } from '@workspace/ui/components/ui/button';
 import { ReactNode, useState } from 'react';
-import { ProfileAvatarPreview } from '~/features/profile-avatar/components/ProfileAvatarPreview';
-import { ProfileAvatarUpload } from '~/features/profile-avatar/components/ProfileAvatarUpload';
+import { AvatarPreview } from '@workspace/user-avatar/ui/avatar-preview.js';
+import { AvatarUpload } from '@workspace/user-avatar/ui/avatar-upload.js';
 import { Alert, AlertTitle } from '@workspace/ui/components/ui/alert';
 
 export const ProfileAvatar = ({
@@ -31,9 +31,11 @@ export const ProfileAvatar = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        {!change && <ProfileAvatarPreview avatarUrl={`/api/avatar/${avatarUrl}`} />}
+        {!change && (
+          <AvatarPreview avatarUrl={`/api/avatar/${avatarUrl}`} />
+        )}
         {change && (
-          <ProfileAvatarUpload
+          <AvatarUpload
             onUploaded={(data) => {
               setChange(false);
               if (onChanged) {
@@ -42,19 +44,21 @@ export const ProfileAvatar = ({
             }}
           />
         )}
-        {!change && (
-          <Button onClick={() => setChange(true)}>Change your avatar</Button>
-        )}
-        {change && (
-          <Button onClick={() => setChange(false)} variant="secondary">
-            Discard change
-          </Button>
-        )}
-        {afterSubmit ? (
-          <Alert>
-            <AlertTitle>{afterSubmit}</AlertTitle>
-          </Alert>
-        ) : null}
+        <div className="mt-4 flex flex-col">
+          {!change && (
+            <Button onClick={() => setChange(true)}>Change your avatar</Button>
+          )}
+          {change && (
+            <Button onClick={() => setChange(false)} variant="secondary">
+              Discard change
+            </Button>
+          )}
+          {afterSubmit ? (
+            <Alert>
+              <AlertTitle>{afterSubmit}</AlertTitle>
+            </Alert>
+          ) : null}
+        </div>
       </CardContent>
     </Card>
   );

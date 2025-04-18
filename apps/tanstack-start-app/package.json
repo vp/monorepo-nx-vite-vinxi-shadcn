@@ -35,6 +35,8 @@
     "@workspace/users-ui": "workspace:*",
     "@workspace/posts-ui": "workspace:*",
     "@workspace/navigation": "workspace:*",
+    "@workspace/profile": "workspace:*",
+    "@workspace/user-avatar": "workspace:*",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

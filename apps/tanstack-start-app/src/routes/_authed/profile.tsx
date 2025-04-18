@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
-import { ProfileLayout } from '~/features/profile/components/ProfileLayout';
+import { ProfileLayout } from '@workspace/profile/ui/profile-layout';
 import { ApplicationMenuItem } from '@workspace/navigation/types';
 import { MessageSquareIcon, SettingsIcon, UserIcon } from 'lucide-react';
 

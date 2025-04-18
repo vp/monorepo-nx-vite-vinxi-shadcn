@@ -1,4 +1,4 @@
-export const ProfileAvatarPreview = ({ avatarUrl }: { avatarUrl?: string }) => {
+export const AvatarPreview = ({ avatarUrl }: { avatarUrl?: string }) => {
   return (
     <div className="flex flex-col items-center justify-center gap-y-2">
       {avatarUrl && (
