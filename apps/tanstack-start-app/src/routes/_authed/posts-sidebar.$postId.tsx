@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { NotFound } from '~/components/NotFound';
 import { fetchPost } from '~/utils/posts';
-import { PostsArticle } from '~/features/posts/components/PostsArticle';
-import { PostErrorComponent } from '~/features/posts/components/PostErrorComponent';
+import { PostsArticle } from '@workspace/posts-ui/components/PostsArticle';
 import { useQuery } from '@tanstack/react-query';
+import { AppErrorComponent } from '~/components/AppErrorComponent';
 
 export const Route = createFileRoute('/_authed/posts-sidebar/$postId')({
   loader: async ({ context, params: { postId } }) => {
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_authed/posts-sidebar/$postId')({
       queryFn: () => fetchPost({ data: postId }), // Fetch function
     });
   },
-  errorComponent: PostErrorComponent,
+  errorComponent: AppErrorComponent,
   component: PostComponent,
   notFoundComponent: () => {
     return <NotFound>Post not found</NotFound>;

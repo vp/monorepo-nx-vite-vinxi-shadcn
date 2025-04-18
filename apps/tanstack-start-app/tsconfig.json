@@ -11,8 +11,6 @@
     }
   ],
   "compilerOptions": {
-    "composite": false,
-    "declaration": false,
     "baseUrl": "."
   }
 }

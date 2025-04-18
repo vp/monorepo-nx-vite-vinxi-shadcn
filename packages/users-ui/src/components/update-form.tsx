@@ -38,8 +38,8 @@ export function UpdateForm({
       firstName: data.firstName,
       lastName: data.lastName,
     },
-    onSubmit: async ({ value }) => {
-      onSubmit({id: data.id, ...value});
+    onSubmit: async ({ value }: { value: Record<string, unknown> }) => {
+      onSubmit({ id: data.id, ...value });
     },
   });
 
