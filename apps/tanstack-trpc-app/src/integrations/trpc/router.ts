@@ -1,4 +1,3 @@
-import { TRPCError } from '@trpc/server'
 import { createTRPCRouter, publicProcedure } from './init'
 import type { TRPCRouterRecord } from '@trpc/server'
 // import { z } from 'zod'
