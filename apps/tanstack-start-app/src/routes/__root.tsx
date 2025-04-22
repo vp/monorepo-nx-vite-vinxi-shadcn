@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import * as React from 'react';
-import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary';
+import { DefaultCatchBoundary } from '@workspace/tanstack-router/ui/default-catch-boundary';
 import { NotFound } from '~/components/NotFound';
 import { seo } from '~/utils/seo';
 import appCss from '@workspace/ui/globals.css?url';

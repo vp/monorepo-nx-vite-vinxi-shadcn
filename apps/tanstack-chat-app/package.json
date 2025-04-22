@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",
-    "@types/react": "^19.0.8",
+    "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.3",
     "jsdom": "^26.0.0",
     "prettier": "^3.5.3",

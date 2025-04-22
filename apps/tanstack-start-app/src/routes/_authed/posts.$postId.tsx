@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { NotFound } from '~/components/NotFound';
 import { fetchPost } from '~/utils/posts';
 import { PostsArticle } from '@workspace/posts-ui/components/PostsArticle';
-import { AppErrorComponent } from '~/components/AppErrorComponent';
+import { AppErrorComponent } from '@workspace/tanstack-router/ui/app-error-component';
 import { useQuery } from '@tanstack/react-query';
 
 export const Route = createFileRoute('/_authed/posts/$postId')({

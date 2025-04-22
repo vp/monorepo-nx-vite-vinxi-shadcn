@@ -1,14 +1,5 @@
 {
-  "extends": "@workspace/typescript-config/tsconfig.spec.json",
-  "compilerOptions": {
-    "rootDir": "src",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
-  },
+  "extends": "../typescript-config/tsconfig.spec.json",
   "include": [
     "vite.config.ts",
     "vite.config.mts",
@@ -26,7 +17,7 @@
   ],
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./tsconfig.lib.json"
     }
   ]
 }
