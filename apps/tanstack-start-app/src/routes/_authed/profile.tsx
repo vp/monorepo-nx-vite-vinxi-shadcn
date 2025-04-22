@@ -5,7 +5,7 @@ import { MessageSquareIcon, SettingsIcon, UserIcon } from 'lucide-react';
 
 export const Route = createFileRoute('/_authed/profile')({
   component: RouteComponent,
-})
+});
 
 const MENU_ITEMS: ApplicationMenuItem[] = [
   {
@@ -22,9 +22,13 @@ const MENU_ITEMS: ApplicationMenuItem[] = [
     to: '/profile/notifications',
     title: 'Notifications',
     icon: MessageSquareIcon,
-  }
+  },
 ];
 
 function RouteComponent() {
-  return <ProfileLayout menuItems={MENU_ITEMS}><Outlet /></ProfileLayout>
+  return (
+    <ProfileLayout menuItems={MENU_ITEMS}>
+      <Outlet />
+    </ProfileLayout>
+  );
 }

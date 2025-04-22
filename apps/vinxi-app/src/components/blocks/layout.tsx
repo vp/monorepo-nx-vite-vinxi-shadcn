@@ -21,7 +21,7 @@ const groups = [
     title: 'Settings',
     items: items[3].items,
   },
-]
+];
 export function Layout({ children }: PropsWithChildren) {
   return (
     <SidebarProvider defaultOpen>

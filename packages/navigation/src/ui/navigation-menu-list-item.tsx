@@ -4,11 +4,11 @@ import { NavigationMenuLink } from '@workspace/ui/components/ui/navigation-menu'
 import { cn } from '@workspace/ui/lib/utils';
 
 export const NavigationMenuListItem = ({
-                           className,
-                           title,
-                           children,
-                           ...props
-                         }: {
+  className,
+  title,
+  children,
+  ...props
+}: {
   className?: string;
   title: string;
   children: ReactNode;

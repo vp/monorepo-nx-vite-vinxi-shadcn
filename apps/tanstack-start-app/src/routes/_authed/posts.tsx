@@ -17,7 +17,6 @@ export const Route = createFileRoute('/_authed/posts')({
   component: PostsComponent,
 });
 
-
 function PostsComponent() {
   const { data: posts } = useQuery({
     queryKey: ['posts'], // Use a unique query key

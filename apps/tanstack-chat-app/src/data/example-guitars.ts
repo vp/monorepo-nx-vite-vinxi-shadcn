@@ -1,10 +1,10 @@
 export interface Guitar {
-  id: number
-  name: string
-  image: string
-  description: string
-  shortDescription: string
-  price: number
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  shortDescription: string;
+  price: number;
 }
 
 const guitars: Array<Guitar> = [
@@ -78,6 +78,6 @@ const guitars: Array<Guitar> = [
       'An acoustic guitar with hand-painted floral designs and warm, resonant tones.',
     price: 599,
   },
-]
+];
 
-export default guitars
+export default guitars;

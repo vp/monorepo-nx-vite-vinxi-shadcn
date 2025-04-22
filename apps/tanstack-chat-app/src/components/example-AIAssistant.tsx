@@ -1,35 +1,35 @@
-import { useEffect, useRef } from 'react'
-import { useStore } from '@tanstack/react-store'
-import { Send, X } from 'lucide-react'
-import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
-import rehypeSanitize from 'rehype-sanitize'
-import rehypeHighlight from 'rehype-highlight'
-import remarkGfm from 'remark-gfm'
-import { useChat } from '@ai-sdk/react'
-import { genAIResponse } from '../utils/demo.ai'
+import { useEffect, useRef } from 'react';
+import { useStore } from '@tanstack/react-store';
+import { Send, X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
+import { useChat } from '@ai-sdk/react';
+import { genAIResponse } from '../utils/demo.ai';
 
-import { showAIAssistant } from '../store/example-assistant'
-import GuitarRecommendation from './example-GuitarRecommendation'
+import { showAIAssistant } from '../store/example-assistant';
+import GuitarRecommendation from './example-GuitarRecommendation';
 
-import type { UIMessage } from 'ai'
+import type { UIMessage } from 'ai';
 
 function Messages({ messages }: { messages: Array<UIMessage> }) {
-  const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight
+        messagesContainerRef.current.scrollHeight;
     }
-  }, [messages])
+  }, [messages]);
 
   if (!messages.length) {
     return (
       <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
         Ask me anything! I'm here to help.
       </div>
-    )
+    );
   }
 
   return (
@@ -72,7 +72,7 @@ function Messages({ messages }: { messages: Array<UIMessage> }) {
           {parts
             .filter((part) => part.type === 'tool-invocation')
             .filter(
-              (part) => part.toolInvocation.toolName === 'recommendGuitar',
+              (part) => part.toolInvocation.toolName === 'recommendGuitar'
             )
             .map((toolCall) => (
               <div
@@ -85,29 +85,29 @@ function Messages({ messages }: { messages: Array<UIMessage> }) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
 export default function AIAssistant() {
-  const isOpen = useStore(showAIAssistant)
+  const isOpen = useStore(showAIAssistant);
   const { messages, input, handleInputChange, handleSubmit } = useChat({
     initialMessages: [],
     fetch: (_url, options) => {
-      const { messages } = JSON.parse(options?.body as string ?? '{}')
+      const { messages } = JSON.parse((options?.body as string) ?? '{}');
       return genAIResponse({
         data: {
           messages,
         },
-      })
+      });
     },
     onToolCall: (call) => {
       if (call.toolCall.toolName === 'recommendGuitar') {
-        return 'Handled by the UI'
+        return 'Handled by the UI';
       }
 
       return;
     },
-  })
+  });
 
   return (
     <div className="relative z-50">
@@ -146,15 +146,15 @@ export default function AIAssistant() {
                   rows={1}
                   style={{ minHeight: '36px', maxHeight: '120px' }}
                   onInput={(e) => {
-                    const target = e.target as HTMLTextAreaElement
-                    target.style.height = 'auto'
+                    const target = e.target as HTMLTextAreaElement;
+                    target.style.height = 'auto';
                     target.style.height =
-                      Math.min(target.scrollHeight, 120) + 'px'
+                      Math.min(target.scrollHeight, 120) + 'px';
                   }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault()
-                      handleSubmit(e)
+                      e.preventDefault();
+                      handleSubmit(e);
                     }
                   }}
                 />
@@ -171,5 +171,5 @@ export default function AIAssistant() {
         </div>
       )}
     </div>
-  )
+  );
 }

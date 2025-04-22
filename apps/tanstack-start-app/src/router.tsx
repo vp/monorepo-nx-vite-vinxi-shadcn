@@ -1,8 +1,7 @@
-import { createRouter as createTanstackRouter } from "@tanstack/react-router";
-import { routerWithQueryClient } from "@tanstack/react-router-with-query";
-import * as TanstackQuery from "./integrations/tanstackl-query/root-provider";
-import { routeTree } from "./routeTree.gen";
-
+import { createRouter as createTanstackRouter } from '@tanstack/react-router';
+import { routerWithQueryClient } from '@tanstack/react-router-with-query';
+import * as TanstackQuery from './integrations/tanstackl-query/root-provider';
+import { routeTree } from './routeTree.gen';
 
 // Create a new router instance
 export const createRouter = () => {
@@ -27,7 +26,7 @@ export const createRouter = () => {
 };
 
 // Register the router instance for type safety
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface Register {
     router: ReturnType<typeof createRouter>;
   }

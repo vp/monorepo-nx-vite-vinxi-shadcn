@@ -27,7 +27,10 @@ export function TopNavigationMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink asChild data-active={pathname.startsWith('/posts-sidebar')}>
+          <NavigationMenuLink
+            asChild
+            data-active={pathname.startsWith('/posts-sidebar')}
+          >
             <Link to="/posts-sidebar">Posts with sidebar</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>

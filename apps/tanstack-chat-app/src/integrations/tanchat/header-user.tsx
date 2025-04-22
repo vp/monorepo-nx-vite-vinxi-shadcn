@@ -1,5 +1,5 @@
-import AIAssistant from '../../components/example-AIAssistant'
+import AIAssistant from '../../components/example-AIAssistant';
 
 export default function HeaderAIAssistant() {
-  return <AIAssistant />
+  return <AIAssistant />;
 }

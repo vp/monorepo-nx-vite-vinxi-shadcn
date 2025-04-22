@@ -6,4 +6,4 @@ export const PostsLayout = ({ children }: { children: ReactNode }) => (
       {children}
     </div>
   </main>
-)
+);

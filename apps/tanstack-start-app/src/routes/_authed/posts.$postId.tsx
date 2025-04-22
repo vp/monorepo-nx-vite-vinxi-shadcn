@@ -22,7 +22,7 @@ export const Route = createFileRoute('/_authed/posts/$postId')({
 function PostComponent() {
   const { postId } = Route.useParams();
 
- // Use the loader data as the initial data for the query
+  // Use the loader data as the initial data for the query
   const { data: post } = useQuery({
     queryKey: ['posts', postId], // Use a unique query key
     queryFn: () => fetchPost({ data: postId }), // Fetch function
@@ -31,7 +31,6 @@ function PostComponent() {
   if (!post) {
     return <div>Post not found</div>;
   }
-  
 
   return <PostsArticle title={post.title} body={post.body} />;
 }

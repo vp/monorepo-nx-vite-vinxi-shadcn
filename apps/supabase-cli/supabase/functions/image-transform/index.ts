@@ -15,29 +15,28 @@ await initializeImageMagick(wasmBytes);
 
 serve(async (req) => {
   const url = new URL(req.url);
-  const imageKey = url.searchParams.get("key");
-  const width = parseInt(url.searchParams.get("width") || "0");
-  const height = parseInt(url.searchParams.get("height") || "0");
+  const imageKey = url.searchParams.get('key');
+  const width = parseInt(url.searchParams.get('width') || '0');
+  const height = parseInt(url.searchParams.get('height') || '0');
 
   if (!width || !height) {
-    return new Response("Width and height are required", { status: 400 });
+    return new Response('Width and height are required', { status: 400 });
   }
 
-  const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
-  const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
+  const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+  const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
 
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
   // Get original image
-  const { data, error } = await supabase
-    .storage
-    .from("images")
+  const { data, error } = await supabase.storage
+    .from('images')
     .download(imageKey);
 
   if (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 400,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 
@@ -51,8 +50,8 @@ serve(async (req) => {
 
   return new Response(result, {
     headers: {
-      "Content-Type": "image/jpeg",
-      "Cache-Control": "public, max-age=31536000",
+      'Content-Type': 'image/jpeg',
+      'Cache-Control': 'public, max-age=31536000',
     },
   });
 });

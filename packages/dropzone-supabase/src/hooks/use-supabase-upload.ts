@@ -30,7 +30,10 @@ type UseSupabaseUploadOptions = {
 
 type UseSupabaseUploadReturn = ReturnType<typeof useSupabaseUpload>;
 
-const useSupabaseUpload = (uploadService: UploadService, options: UseSupabaseUploadOptions) => {
+const useSupabaseUpload = (
+  uploadService: UploadService,
+  options: UseSupabaseUploadOptions
+) => {
   const {
     allowedMimeTypes = [],
     maxFileSize = Number.POSITIVE_INFINITY,

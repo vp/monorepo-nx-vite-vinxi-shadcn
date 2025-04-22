@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "isolatedModules": true,
+    "resolveJsonModule": true,
     "lib": ["es2022"],
     "module": "nodenext",
     "moduleDetection": "force",

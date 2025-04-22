@@ -18,13 +18,13 @@ interface SignUpFormValues {
 }
 
 export function SignUpForm({
-                           actionText,
-                           onSubmit,
-                           status,
-                           afterSubmit,
-                           header,
-                           footer,
-                         }: {
+  actionText,
+  onSubmit,
+  status,
+  afterSubmit,
+  header,
+  footer,
+}: {
   actionText: string;
   onSubmit: (data: SignUpFormValues) => void;
   status: 'pending' | 'idle' | 'success' | 'error';

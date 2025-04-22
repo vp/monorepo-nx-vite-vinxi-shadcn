@@ -1,4 +1,4 @@
-import { ChevronsUpDown, Plus } from "lucide-react"
+import { ChevronsUpDown, Plus } from 'lucide-react';
 
 import {
   DropdownMenu,
@@ -8,31 +8,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@workspace/ui/components/ui/dropdown-menu"
+} from '@workspace/ui/components/ui/dropdown-menu';
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@workspace/ui/components/ui/sidebar"
+} from '@workspace/ui/components/ui/sidebar';
 import React from 'react';
 
 export type Team = {
-  name: string
-  logo: React.ElementType
-  plan: string
-}
+  name: string;
+  logo: React.ElementType;
+  plan: string;
+};
 
-export function TeamSwitcher({
-                               teams,
-                             }: {
-  teams: Team[]
-}) {
-  const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+export function TeamSwitcher({ teams }: { teams: Team[] }) {
+  const { isMobile } = useSidebar();
+  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
 
   if (!activeTeam) {
-    return null
+    return null;
   }
 
   return (
@@ -57,7 +53,7 @@ export function TeamSwitcher({
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             align="start"
-            side={isMobile ? "bottom" : "right"}
+            side={isMobile ? 'bottom' : 'right'}
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
@@ -87,5 +83,5 @@ export function TeamSwitcher({
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }

@@ -4,10 +4,10 @@ export const seo = ({
   keywords,
   image,
 }: {
-  title: string
-  description?: string
-  image?: string
-  keywords?: string
+  title: string;
+  description?: string;
+  image?: string;
+  keywords?: string;
 }) => {
   return [
     { title },
@@ -28,4 +28,4 @@ export const seo = ({
         ]
       : []),
   ];
-}
+};

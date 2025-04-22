@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 
 export function NotFound({ children }: { children?: ReactNode }) {
@@ -22,5 +22,5 @@ export function NotFound({ children }: { children?: ReactNode }) {
         </Link>
       </p>
     </div>
-  )
+  );
 }

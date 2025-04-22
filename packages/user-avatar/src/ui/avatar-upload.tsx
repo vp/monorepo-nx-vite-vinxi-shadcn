@@ -7,7 +7,6 @@ import { useSupabaseUpload } from '@workspace/dropzone-supabase/hooks/use-supaba
 import { useEffect, useState } from 'react';
 import { useAvatarUpload } from '../integrations/avatar-upload-provider.js';
 
-
 export const AvatarUpload = ({
   onUploaded,
 }: {

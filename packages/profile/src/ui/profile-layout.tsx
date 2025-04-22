@@ -11,7 +11,7 @@ export const ProfileLayout = ({
   menuItems,
 }: PropsWithChildren & { menuItems: ApplicationMenuItem[] }) => (
   <SidebarProvider>
-    <ApplicationSidebar items={menuItems} className="inset-y-14"/>
+    <ApplicationSidebar items={menuItems} className="inset-y-14" />
     <main>
       <SidebarTrigger />
       <div className="px-6 max-w-[1000px]">{children}</div>
