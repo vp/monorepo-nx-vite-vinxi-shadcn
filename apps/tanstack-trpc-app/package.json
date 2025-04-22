@@ -3,12 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vinxi build",
-    "dev": "vinxi dev",
-    "start": "vinxi start",
-    "lint": "eslint .",
+    "build": "vinxi build --config app.config.ts",
+    "dev": "vinxi dev --config app.config.ts",
+    "start": "node --env-file=.env ./.output/server/index.mjs",
     "typecheck": "tsc --project tsconfig.app.json",
-    "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest"
+    "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@workspace/ui": "workspace:*",
