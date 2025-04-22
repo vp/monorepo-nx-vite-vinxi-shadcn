@@ -10,6 +10,7 @@
     "start": "node --env-file=.env ./.output/server/index.mjs",
     "typecheck": "tsc --project tsconfig.app.json",
     "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest",
+    "lint": "eslint .",
     "copy:tslib": "node copy-tslib.js"
   },
   "keywords": [],
@@ -45,14 +46,10 @@
     "vinxi": "^0.5.3"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.73.3",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.1",
-    "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2",
     "vite-tsconfig-paths": "^5.1.4"
   }

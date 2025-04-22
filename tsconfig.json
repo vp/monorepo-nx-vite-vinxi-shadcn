@@ -1,19 +1,5 @@
 {
   "extends": "./packages/typescript-config/tsconfig.base.json",
   "compileOnSave": false,
-  "files": [],
-  "references": [
-    {
-      "path": "./apps/vite-app"
-    },
-    {
-      "path": "./apps/tanstack-start-app"
-    },
-    {
-      "path": "./apps/start-bare"
-    },
-    {
-      "path": "./packages/ui"
-    }
-  ]
+  "files": []
 }

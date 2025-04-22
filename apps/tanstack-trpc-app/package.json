@@ -1,0 +1,40 @@
+{
+  "name": "@workspace/tanstack-trpc-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vinxi build",
+    "dev": "vinxi dev",
+    "start": "vinxi start",
+    "lint": "eslint .",
+    "typecheck": "tsc --project tsconfig.app.json",
+    "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest"
+  },
+  "dependencies": {
+    "@workspace/ui": "workspace:*",
+    "@tanstack/react-form": "^1.0.0",
+    "@tanstack/react-query": "^5.66.5",
+    "@tanstack/react-query-devtools": "^5.66.5",
+    "@tanstack/react-router": "^1.114.3",
+    "@tanstack/react-router-devtools": "^1.114.3",
+    "@tanstack/react-router-with-query": "^1.114.3",
+    "@tanstack/react-start": "^1.114.3",
+    "@trpc/client": "^11.0.0",
+    "@trpc/server": "^11.0.0",
+    "@trpc/tanstack-react-query": "^11.0.0",
+    "@tailwindcss/vite": "^4.0.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "superjson": "^2.2.2",
+    "vinxi": "^0.5.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@workspace/eslint-config": "workspace:*",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.2",
+    "vite": "^6.1.0"
+  }
+}
