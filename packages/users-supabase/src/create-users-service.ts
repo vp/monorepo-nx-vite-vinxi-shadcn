@@ -13,9 +13,9 @@ export const createUsersService = (
     signUp: async (data: SignUpRequest) => signUp(await createClient(), data),
     signIn: async (data: SignInRequest) => signIn(await createClient(), data),
     updateUser: async (data: UpdateUserRequest) =>
-      updateUser(await createClient(), data),
+    updateUser(await createClient(), data),
     updateAvatar: async (data: UpdateAvatarRequest) =>
-      updateAvatar(await createClient(), data),
+    updateAvatar(await createClient(), data),
     signOut: async () => signOut(await createClient()),
     getUser: async () => getUser(await createClient()),
   };

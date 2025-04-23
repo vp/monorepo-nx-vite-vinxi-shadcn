@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from './init';
+import { createTRPCRouter, publicProcedure } from '@workspace/trpc/init';
 import type { TRPCRouterRecord } from '@trpc/server';
 // import { z } from 'zod'
 
