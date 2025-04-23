@@ -2,7 +2,7 @@ import { useRouterState } from '@tanstack/react-router';
 import { useMemo } from 'react';
 
 export type MenuItem = {
-  to: string;
+  to?: string;
   match?: RegExp;
   isActive?: boolean;
 };
