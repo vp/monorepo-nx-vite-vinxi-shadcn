@@ -23,7 +23,6 @@
     "@workspace/typescript-config": "workspace:*",
     "autoprefixer": "^10.4.20",
     "tailwindcss": "^4.0.10",
-    "typescript": "^5.8.2",
     "vite": "^6.2.0"
   },
   "exports": {
