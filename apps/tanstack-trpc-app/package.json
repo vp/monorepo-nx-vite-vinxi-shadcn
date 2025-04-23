@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@workspace/ui": "workspace:*",
+    "@workspace/tanstack-router": "workspace:*",
+    "@workspace/navigation": "workspace:*",
     "@tanstack/react-query": "^5.66.5",
     "@tanstack/react-query-devtools": "^5.66.5",
     "@tanstack/react-router": "^1.114.3",
