@@ -6,8 +6,6 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
-import Header from '../components/Header';
-
 import TanstackQueryLayout from '../integrations/tanstack-query/layout';
 
 import appCss from '@workspace/ui/globals.css?url';
@@ -16,6 +14,12 @@ import type { QueryClient } from '@tanstack/react-query';
 
 import type { TRPCRouter } from '@/integrations/trpc/router';
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query';
+
+import { AppLayout } from '@workspace/ui/components/blocks/app-layout';
+import { ThemeProvider } from '@workspace/ui/components/blocks/theme-provider';
+import { AppHeader } from '@workspace/ui/components/blocks/app-header';
+import { TopMenu } from '@/components/TopMenu';
+import { ModeSwitcher } from '@workspace/ui/components/blocks/mode-switcher';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -34,22 +38,44 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
-      },
+        title:
+          'TanStack Start Router TRPC',
+        description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
+      }
     ],
     links: [
+      { rel: 'stylesheet', href: appCss },
       {
-        rel: 'stylesheet',
-        href: appCss,
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
       },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png',
+      },
+      { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
+      { rel: 'icon', href: '/favicon.ico' },
     ],
   }),
 
   component: () => (
     <RootDocument>
-      <Header />
+      <ThemeProvider>
+        <AppLayout>
+          <AppHeader left={<TopMenu />} right={<ModeSwitcher />} />
 
-      <Outlet />
+          <Outlet />
+        </AppLayout>
+      </ThemeProvider>
       <TanStackRouterDevtools />
 
       <TanstackQueryLayout />
@@ -63,7 +89,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="bg-background overscroll-none font-sans antialiased theme-default">
         {children}
         <Scripts />
       </body>
