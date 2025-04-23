@@ -1,5 +1,6 @@
 import { ApplicationTopMenu, AppTopMenuItem } from '@workspace/navigation/ui/application-top-menu';
 import { PropsWithChildren } from 'react';
+import { useMatchActiveItems } from '@workspace/navigation/hooks';
 
 const ITEMS = [
   {
@@ -21,6 +22,12 @@ const ITEMS = [
   },
 ] as AppTopMenuItem[];
 
-export const TopMenu = ({ children }: PropsWithChildren) => (
-    <ApplicationTopMenu items={ITEMS} />
-);
+export const TopMenu = ({ }: PropsWithChildren) => {
+    const itemsWithActiveState = useMatchActiveItems({
+        menuItems: ITEMS,
+      });
+    
+    return (
+        <ApplicationTopMenu items={itemsWithActiveState} />
+    );
+};
