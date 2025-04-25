@@ -61,6 +61,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async () => {
     const user = await getUserInfo();
 
+    console.log('user', user);
+
     return {
       user,
     };
