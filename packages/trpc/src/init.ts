@@ -1,4 +1,4 @@
-import { initTRPC } from '@trpc/server';
+import { initTRPC, TRPCRouterRecord } from '@trpc/server';
 import superjson from 'superjson';
 
 const t = initTRPC.create({
@@ -7,3 +7,5 @@ const t = initTRPC.create({
 
 export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
+
+export type { TRPCRouterRecord };

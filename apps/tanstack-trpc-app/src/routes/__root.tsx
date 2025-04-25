@@ -20,14 +20,25 @@ import { ThemeProvider } from '@workspace/ui/components/blocks/theme-provider';
 import { AppHeader } from '@workspace/ui/components/blocks/app-header';
 import { TopMenu } from '@/components/TopMenu';
 import { ModeSwitcher } from '@workspace/ui/components/blocks/mode-switcher';
+import { TRPCClient } from '@/integrations/trpc/client';
+import { NotFound } from '@/components/NotFound';
+import { DefaultCatchBoundary } from '@workspace/tanstack-router/ui/default-catch-boundary';
 
 interface MyRouterContext {
   queryClient: QueryClient;
-
   trpc: TRPCOptionsProxy<TRPCRouter>;
+  trpcClient: TRPCClient;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+
+  beforeLoad: async ({ context }) => {
+    const user = await context.trpcClient.user.getUser.query();
+
+    return {
+      user,
+    };
+  },
   head: () => ({
     meta: [
       {
@@ -38,10 +49,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title:
-          'TanStack Start Router TRPC',
+        title: 'TanStack Start Router TRPC',
         description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
-      }
+      },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
@@ -81,6 +91,15 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       <TanstackQueryLayout />
     </RootDocument>
   ),
+
+  errorComponent: (props) => {
+    return (
+      <RootDocument>
+        <DefaultCatchBoundary {...props} />
+      </RootDocument>
+    );
+  },
+  notFoundComponent: () => <NotFound />,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
