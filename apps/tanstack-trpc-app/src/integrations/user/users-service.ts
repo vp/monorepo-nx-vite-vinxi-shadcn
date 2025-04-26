@@ -4,6 +4,6 @@ import { getSupabaseBrowserClient } from '../supabase/browser-client';
 
 const isServer = typeof window === 'undefined';
 
-export const usersService = createUsersService(
+export const userService = createUsersService(
   isServer ? getSupabaseServerClient : getSupabaseBrowserClient
 );
