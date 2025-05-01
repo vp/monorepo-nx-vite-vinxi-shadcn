@@ -1,12 +1,12 @@
 import { createServerFn } from '@tanstack/react-start';
-import { usersMiddleware } from '~/libs/user/users-middleware';
-import { UpdateAvatarRequest } from '@workspace/users-supabase/update-avatar';
+import { userMiddleware } from '~/libs/user/user-middleware';
+import { UpdateAvatarRequest } from '@workspace/user-supabase/update-avatar';
 
 export const updateAvatar = createServerFn({ method: 'POST' })
-  .middleware([usersMiddleware])
+  .middleware([userMiddleware])
   .validator((d: unknown) => d as UpdateAvatarRequest)
   .handler(async ({ data, context }) => {
-    const { usersService } = context;
+    const { userService } = context;
 
-    return await usersService.updateAvatar(data);
+    return await userService.updateAvatar(data);
   });

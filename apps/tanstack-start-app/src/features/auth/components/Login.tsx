@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@workspace/ui/components/ui/card';
-import { AuthForm } from '@workspace/users-ui/components/auth-form';
+import { AuthForm } from '@workspace/user-ui/components/auth-form';
 import { signIn } from '~/features/auth/libs/sign-in';
 import { signUp } from '~/features/auth/libs/sign-up';
 

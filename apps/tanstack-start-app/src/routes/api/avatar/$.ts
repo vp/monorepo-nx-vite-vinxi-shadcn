@@ -1,11 +1,11 @@
 import { createAPIFileRoute } from '@tanstack/react-start/api';
 import { serverAvatarUploadService } from '~/utils/server-avatar-upload-service';
-import { usersService } from '~/utils/users-service';
+import { userService } from '~/utils/user-service';
 
 export const APIRoute = createAPIFileRoute('/api/avatar/$')({
   GET: async ({ params }) => {
     const { _splat } = params as { _splat: string };
-    const user = await usersService.getUser();
+    const user = await userService.getUser();
 
     if (!user) {
       return new Response('Unauthorized', { status: 401 });

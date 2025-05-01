@@ -2,7 +2,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useServerFn } from '@tanstack/react-start';
 import { CardHeader, CardTitle } from '@workspace/ui/components/ui/card';
 import { updateUser } from '~/libs/user/update-user';
-import { UpdateForm } from '@workspace/users-ui/components/update-form';
+import { UpdateForm } from '@workspace/user-ui/components/update-form';
 import { ProfileAvatar } from '@workspace/user-avatar/ui/profile-avatar';
 import { updateAvatar } from '~/libs/user/update-avatar';
 import { useMutation } from '@tanstack/react-query';

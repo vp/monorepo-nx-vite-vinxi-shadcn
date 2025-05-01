@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@workspace/ui/components/ui/card';
-import { SignUpForm } from '@workspace/users-ui/components/sign-up-form';
 import { useMutation } from '@tanstack/react-query';
+import { SignUpForm } from '@workspace/user-ui/components/sign-up-form';
 
 export const SignUp = () => {
   const signupMutation = useMutation({

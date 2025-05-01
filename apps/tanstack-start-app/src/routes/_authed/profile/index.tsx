@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { UserInfoSmall } from '@workspace/users-ui/components/user-info-small';
+import { UserInfoSmall } from '@workspace/user-ui/components/user-info-small';
 
 export const Route = createFileRoute('/_authed/profile/')({
   component: RouteComponent,
