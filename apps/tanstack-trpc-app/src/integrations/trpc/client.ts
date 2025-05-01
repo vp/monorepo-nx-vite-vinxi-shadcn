@@ -1,7 +1,7 @@
-import { getRequestHeader } from '@tanstack/react-start/server';
 import { createTRPCClient, httpBatchStreamLink } from '@trpc/client';
 import superjson from 'superjson';
 import type { TRPCRouter } from './router';
+import { getTrpcServerHeaders } from './trcp-server-headers';
 
 export const trpcClient = createTRPCClient<TRPCRouter>({
   links: [
@@ -14,7 +14,7 @@ export const trpcClient = createTRPCClient<TRPCRouter>({
           // On the server, use `cookie` from the request
           // this is crucal for SSR and calling trpc from server
           return {
-            cookie: process.env.COOKIE_HEADER || getRequestHeader('Cookie'), // Ensure cookie is a string
+            cookie: getTrpcServerHeaders(),
           };
         }
 
