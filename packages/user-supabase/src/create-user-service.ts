@@ -6,7 +6,7 @@ import { getUser } from './get-user.js';
 import { updateUser, UpdateUserRequest } from './update-user.js';
 import { updateAvatar, UpdateAvatarRequest } from './update-avatar.js';
 
-export const createUsersService = (
+export const createUserService = (
   createClient: ReturnType<typeof createServerClient>
 ) => {
   return {
@@ -21,4 +21,4 @@ export const createUsersService = (
   };
 };
 
-export type UserService = ReturnType<typeof createUsersService>;
+export type UserService = ReturnType<typeof createUserService>;

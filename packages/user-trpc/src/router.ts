@@ -3,7 +3,7 @@ import {
   getTRPCInstance,
   TRPCError,
 } from '@workspace/trpc/init';
-import { UserService } from '@workspace/users-supabase/create-users-service';
+import { UserService } from '@workspace/user-supabase/create-user-service';
 import { z } from 'zod';
 
 type Context = {

@@ -1,4 +1,4 @@
-import { userService } from './users-service';
+import { userService } from "./user-service";
 
 export const createUserTRPCContext = () => ({
   userService: userService,

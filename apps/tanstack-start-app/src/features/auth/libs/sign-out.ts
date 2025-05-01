@@ -1,12 +1,12 @@
 import { createServerFn } from '@tanstack/react-start';
 import { redirect } from '@tanstack/react-router';
-import { usersMiddleware } from '~/libs/user/users-middleware';
+import { userMiddleware } from '~/libs/user/user-middleware';
 
 export const signOut = createServerFn()
-  .middleware([usersMiddleware])
+  .middleware([userMiddleware])
   .handler(async ({ context }) => {
-    const { usersService } = context;
-    const result = await usersService.signOut();
+    const { userService } = context;
+    const result = await userService.signOut();
 
     if (result.error) {
       return result;

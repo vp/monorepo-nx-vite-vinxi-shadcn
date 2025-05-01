@@ -4,7 +4,7 @@
     "src/**/*.ts"
   ],
   "paths": {
-    "@workspace/users-supabase/*": [
+    "@workspace/user-supabase/*": [
       "./src/*"
     ]
   },

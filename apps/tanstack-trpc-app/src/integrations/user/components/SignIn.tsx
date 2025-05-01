@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@workspace/ui/components/ui/card';
-import { AuthForm } from '@workspace/users-ui/components/auth-form';
+import { AuthForm } from '@workspace/user-ui/components/auth-form';
 import { useTRPC } from '@/integrations/trpc/react';
 
 
