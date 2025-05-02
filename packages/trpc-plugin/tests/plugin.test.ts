@@ -31,7 +31,7 @@ describe('viteTrpcPlugin', () => {
     const result = callPluginHook(plugin.transform, code, id);
 
     expect(result).toEqual({
-      code: 'export const getTrpcServerHeaders =() => ({});',
+      code: 'export const getTrpcServerHeaders = () => ({});',
       map: null,
     });
   });

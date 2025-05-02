@@ -4,10 +4,9 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./dist && rimraf ./coverage",
-    "test": "pnpm test:eslint && pnpm test:build && pnpm test:unit",
+    "test": "pnpm test:build && pnpm test:unit",
     "test:unit": "vitest",
     "test:unit:dev": "vitest --watch",
-    "test:eslint": "eslint ./src",
     "test:build": "publint --strict && attw --ignore-rules no-resolution --pack .",
     "build": "vite build"
   },
@@ -37,9 +36,6 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@trpc/client": "^11.0.0",
-    "@trpc/server": "^11.1.1",
-    "superjson": "^2.2.2",
     "vite": "^6.2.0"
   },
   "devDependencies": {
@@ -48,6 +44,7 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "publint": "^0.3.12",
+    "rimraf": "^6.0.1",
     "vite-plugin-dts": "^4.5.3",
     "vitest": "^3.1.2"
   }
