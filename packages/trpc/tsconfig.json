@@ -10,11 +10,4 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
-  }
 }

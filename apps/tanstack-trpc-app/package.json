@@ -35,6 +35,7 @@
     "@workspace/user-avatar": "workspace:*",
     "@workspace/tanstack-router": "workspace:*",
     "@workspace/trpc": "workspace:*",
+    "@workspace/trpc-plugin": "workspace:*",
     "@trpc/client": "^11.0.0",
     "@trpc/server": "^11.1.1",
     "@trpc/tanstack-react-query": "^11.1.1",

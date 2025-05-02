@@ -1,6 +1,5 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { flushBufferedCookies } from './server-client';
-import { userService } from '../user/users-service';
 
 /**
  * Prepares a partial context object for fetchRequestHandler.
