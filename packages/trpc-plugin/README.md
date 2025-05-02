@@ -30,9 +30,11 @@ export default {
 ## How it works
 
 - When a file path includes `trcp-server-headers`, the plugin replaces its contents with:
-  ```ts
+
+```ts
   export const getTrpcServerHeaders = () => ({});
-  ```
+```
+
 - For all other files, no transformation is applied.
 
 ## Development
