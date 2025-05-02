@@ -1,0 +1,51 @@
+{
+  "name": "@workspace/trpc-plugin",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf ./dist && rimraf ./coverage",
+    "test": "pnpm test:build && pnpm test:unit",
+    "test:unit": "vitest",
+    "test:unit:dev": "vitest --watch",
+    "test:build": "publint --strict && attw --ignore-rules no-resolution --pack .",
+    "build": "vite build"
+  },
+  "type": "module",
+  "types": "dist/esm/index.d.ts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "vite": "^6.2.0"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.4",
+    "@tanstack/config": "^0.18.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "publint": "^0.3.12",
+    "rimraf": "^6.0.1",
+    "vite-plugin-dts": "^4.5.3",
+    "vitest": "^3.1.2"
+  }
+}

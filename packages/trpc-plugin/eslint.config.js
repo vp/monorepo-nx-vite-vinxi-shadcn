@@ -7,6 +7,5 @@ export default [
     rules: {
       '@nx/dependency-checks': 'off',
     },
-    ignores: ['**/*.timestamp_*.js', '**/app.config.timestamp_*.js'],
   },
 ];

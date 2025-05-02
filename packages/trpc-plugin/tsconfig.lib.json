@@ -1,0 +1,11 @@
+{
+  "extends": "../typescript-config/tsconfig.plugin.json",
+  "include": ["src"],
+  "exclude": [
+    "tests",
+    "vite.config.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./"
+  }
+}

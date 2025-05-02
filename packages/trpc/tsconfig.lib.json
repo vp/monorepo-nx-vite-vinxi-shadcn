@@ -10,6 +10,7 @@
   },
   "references": [],
   "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2022", "ESNext"],
     "outDir": "./out-tsc",
     "tsBuildInfoFile": "./out-tsc/tsconfig.lib.tsbuildinfo"
   },
