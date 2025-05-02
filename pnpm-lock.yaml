@@ -1035,6 +1035,9 @@ importers:
       '@tanstack/react-start':
         specifier: ^1.119.0
         version: 1.119.0(@tanstack/react-router@1.119.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(db0@0.3.1)(encoding@0.1.13)(ioredis@5.6.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(webpack@5.98.0(@swc/core@1.5.29(@swc/helpers@0.5.15)))(yaml@2.7.0)
+      '@trpc/client':
+        specifier: ^11.1.1
+        version: 11.1.2(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2)
       '@trpc/server':
         specifier: ^11.1.1
         version: 11.1.1(typescript@5.8.2)
@@ -5292,6 +5295,12 @@ packages:
     resolution: {integrity: sha512-Q3pL4p7AddxI/ZJTEFo1utKSdasDFjZPECIPsKDkthEt52k530JkYVltTdLkYFKrNWXKKBo8MN7NwchelczoRw==}
     peerDependencies:
       '@trpc/server': 11.1.0
+      typescript: '>=5.7.2'
+
+  '@trpc/client@11.1.2':
+    resolution: {integrity: sha512-RpifJOAv+ql9gF3oafa3dLCF01AzWu2DzejvehAPG2IlwHxopKoYXaImJ8zPwRkZokuWiKz5v65HjElmi8TlrQ==}
+    peerDependencies:
+      '@trpc/server': 11.1.2
       typescript: '>=5.7.2'
 
   '@trpc/server@11.1.1':
@@ -17830,6 +17839,11 @@ snapshots:
       '@trpc/server': 11.1.1(typescript@5.8.2)
       typescript: 5.8.2
 
+  '@trpc/client@11.1.2(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2)':
+    dependencies:
+      '@trpc/server': 11.1.1(typescript@5.8.2)
+      typescript: 5.8.2
+
   '@trpc/server@11.1.1(typescript@5.8.2)':
     dependencies:
       typescript: 5.8.2
@@ -18589,7 +18603,7 @@ snapshots:
       sirv: 3.0.1
       tinyglobby: 0.2.12
       tinyrainbow: 2.0.0
-      vitest: 3.0.8(@types/debug@4.1.12)(@types/node@18.16.9)(@vitest/ui@3.0.8)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+      vitest: 3.0.8(@types/debug@4.1.12)(@types/node@22.14.0)(@vitest/ui@3.0.8)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
 
   '@vitest/utils@3.0.8':
     dependencies:
