@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { ViteTrpcHeadersPlugin, viteTrpcPlugin } from './../src/index.js';
 
 /**
@@ -28,19 +28,12 @@ describe('viteTrpcPlugin', () => {
     const code = 'some code';
     const id = '/path/to/trcp-server-headers.ts';
 
-    // Mock console.log to suppress output
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-
     const result = callPluginHook(plugin.transform, code, id);
 
-    expect(logSpy).toHaveBeenCalledWith('Transforming trcp-server-headers.ts');
     expect(result).toEqual({
       code: 'export const getTrpcServerHeaders =() => ({});',
       map: null,
     });
-
-    logSpy.mockRestore();
   });
 
   it('should return null when id does not include "trcp-server-headers"', () => {

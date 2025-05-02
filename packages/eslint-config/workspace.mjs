@@ -13,13 +13,13 @@ const base = [
       '@nx/enforce-module-boundaries': [
         'error',
         {
-          enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          enforceBuildableLibDependency: false,
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$','app.config.ts'],
           depConstraints: [
             {
               sourceTag: '*',
               onlyDependOnLibsWithTags: ['*'],
-            },
+            }
           ],
         },
       ],

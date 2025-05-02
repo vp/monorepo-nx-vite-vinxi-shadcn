@@ -1,0 +1,13 @@
+{
+  "extends": "../typescript-config/tsconfig.spec.json",
+  "include": [
+    "vitest.config.ts",
+    "vitest.config.mts",
+    "test/**/*.test.ts",
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "../typescript-config/tsconfig.base.json",
+  "include": [
+    "src/**/*.ts"
+  ],
+  "paths": {
+    "@workspace/trpc/*": [
+      "./src/*"
+    ]
+  },
+  "references": [],
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  },
+  "exclude": [
+    "vitest.config.ts",
+    "vitest.config.mts",
+    "test/**/*.test.ts",
+  ]
+}
