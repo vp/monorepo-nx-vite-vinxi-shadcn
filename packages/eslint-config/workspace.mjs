@@ -14,7 +14,7 @@ const base = [
         'error',
         {
           enforceBuildableLibDependency: false,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$','app.config.ts'],
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
           depConstraints: [
             {
               sourceTag: '*',
