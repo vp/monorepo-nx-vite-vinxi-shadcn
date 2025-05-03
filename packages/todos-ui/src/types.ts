@@ -16,7 +16,26 @@ export type TodoToUpdate = {
   task?: string | null;
 };
 
-export type TodoOnDelete = (id: number) => Promise<{ error: boolean; message: string }>;
-export type TodoOnUpdate = (todo: TodoToUpdate) => Promise<{ error: boolean; message: string; data?: Todo }>;
-export type TodoOnAdd = (todo: TodoToAdd) => Promise<{ error: boolean; message: string; data?: Todo }>;
+export type TodoActionSuccess = { error: false; message?: string; data: Todo };
+export type TodoActionError = { error: true; message: string; data: undefined };
+
+
+export type TodoOnDelete = (
+  id: number
+) => Promise<{ error: false; message?: string } | { error: true; message: string }>;
+
+export type TodoOnUpdate = (
+  todo: TodoToUpdate
+) => Promise<
+| TodoActionSuccess
+| TodoActionError
+>;
+
+export type TodoOnAdd = (
+  todo: TodoToAdd
+) => Promise<
+  | TodoActionSuccess
+  | TodoActionError
+>;
+
 export type TodoOnGet = () => Promise<Todo[] | null>;

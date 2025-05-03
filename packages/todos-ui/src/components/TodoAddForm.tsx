@@ -1,5 +1,5 @@
 import { useAppForm } from '@workspace/form/hooks/form';
-import { TodoOnAdd } from '@workspace/todos-ui/types';
+import { TodoOnAdd, TodoToAdd } from '@workspace/todos-ui/types';
 import { z } from 'zod';
 
 const schema = z
@@ -9,7 +9,11 @@ const schema = z
   })
   .required();
 
-export const TodoAddForm = ({ onSubmit }: { onSubmit?: TodoOnAdd }) => {
+export const TodoAddForm = ({
+  onSubmit,
+}: {
+  onSubmit?: (todo: TodoToAdd) => void;
+}) => {
   const form = useAppForm({
     defaultValues: {
       task: '',

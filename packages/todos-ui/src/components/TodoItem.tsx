@@ -1,4 +1,4 @@
-import { Todo, TodoOnDelete, TodoOnUpdate } from '@workspace/todos-ui/types';
+import { Todo, TodoToUpdate } from '@workspace/todos-ui/types';
 
 export const TodoItem = ({
   todo,
@@ -6,15 +6,15 @@ export const TodoItem = ({
   onUpdate,
 }: {
   todo: Todo;
-  onDelete: TodoOnDelete;
-  onUpdate: TodoOnUpdate;
+  onDelete: (id: number) => void;
+  onUpdate: (todo: TodoToUpdate) => void;
 }) => {
   const handleDelete = () => {
     onDelete(todo.id);
   };
 
   const handleToggle = () => {
-    onUpdate({id: todo.id, is_complete: !todo.is_complete });
+    onUpdate({ id: todo.id, is_complete: !todo.is_complete });
   };
 
   const { is_complete } = todo;
