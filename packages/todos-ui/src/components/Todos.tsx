@@ -24,14 +24,10 @@ export const Todos = ({
   isLoading?: boolean;
   errors?: string[];
 }) => {
-
   return isLoading ? (
     <Spinner />
   ) : (
     <div className="w-full">
-      <h1 className="mb-12">Todo List.</h1>
-      <TodoAddForm onSubmit={onAdd} />
-
       {errors &&
         errors.map((error) => (
           <Alert key={error} variant="destructive">
@@ -44,6 +40,8 @@ export const Todos = ({
           <TodoList todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
         )}
       </div>
+
+      <TodoAddForm onSubmit={onAdd} />
     </div>
   );
 };

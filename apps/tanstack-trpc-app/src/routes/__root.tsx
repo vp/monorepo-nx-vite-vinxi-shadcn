@@ -82,7 +82,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       <ThemeProvider>
         <AppLayout>
           <AppHeader left={<TopMenu />} right={<ModeSwitcher />} />
-
           <Outlet />
         </AppLayout>
       </ThemeProvider>

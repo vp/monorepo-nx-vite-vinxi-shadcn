@@ -2,6 +2,12 @@ import { useTRPC } from '@/integrations/trpc/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { Todos } from '@workspace/todos-ui/components/Todos';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@workspace/ui/components/ui/card';
 import { useMemo } from 'react';
 
 export const Route = createFileRoute('/_authed/todos')({
@@ -12,7 +18,7 @@ function RouteComponent() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
-  const { data: todos } = useQuery(trpc.todos.getTodos.queryOptions());
+  const { data: todos, isLoading } = useQuery(trpc.todos.getTodos.queryOptions());
   const deleteMutation = useMutation({
     ...trpc.todos.deleteTodo.mutationOptions(),
     onSuccess: () => {
@@ -22,7 +28,7 @@ function RouteComponent() {
       });
     },
   });
-  
+
   const addMutation = useMutation({
     ...trpc.todos.addTodo.mutationOptions(),
     onSuccess: () => {
@@ -54,26 +60,22 @@ function RouteComponent() {
     return errorList.length > 0 ? errorList : [];
   }, [deleteMutation.error, addMutation.error, updateMutation.error]);
 
-  const isLoading = useMemo(() => {
-    return (
-      deleteMutation.isPending ||
-      addMutation.isPending ||
-      updateMutation.isPending
-    );
-  }, [
-    deleteMutation.isPending,
-    addMutation.isPending,
-    updateMutation.isPending,
-  ]);
 
   return (
-    <Todos
-      todos={todos}
-      onAdd={addMutation.mutate}
-      onDelete={deleteMutation.mutate}
-      onUpdate={updateMutation.mutate}
-      isLoading={isLoading}
-      errors={errors}
-    />
+    <Card>
+      <CardHeader>
+        <CardTitle>My todos's</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Todos
+          todos={todos}
+          onAdd={addMutation.mutate}
+          onDelete={deleteMutation.mutate}
+          onUpdate={updateMutation.mutate}
+          isLoading={isLoading}
+          errors={errors}
+        />
+      </CardContent>
+    </Card>
   );
 }

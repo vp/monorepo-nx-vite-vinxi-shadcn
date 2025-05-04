@@ -23,8 +23,6 @@ export const TodoAddForm = ({
       onBlur: schema,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
-
       if (onSubmit) {
         onSubmit(value);
       }
@@ -40,14 +38,16 @@ export const TodoAddForm = ({
       }}
       className="space-y-6"
     >
-      <form.AppField name="task">
-        {(field) => <field.TextField label="Title" />}
-      </form.AppField>
+      <div className="flex flex-col gap-2 m-x-4">
+        <form.AppField name="task">
+          {(field) => <field.TextField label="New task" />}
+        </form.AppField>
 
-      <div className="flex justify-end">
-        <form.AppForm>
-          <form.SubscribeButton label="Add" />
-        </form.AppForm>
+        <div className="flex justify-end">
+          <form.AppForm>
+            <form.SubscribeButton label="Add" />
+          </form.AppForm>
+        </div>
       </div>
     </form>
   );

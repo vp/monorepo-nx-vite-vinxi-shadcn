@@ -1,8 +1,4 @@
-import {
-  createFileRoute,
-  Outlet,
-  redirect,
-} from '@tanstack/react-router';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { CenterPageLayout } from '@workspace/ui/components/blocks/center-page-layout';
 
 export const Route = createFileRoute('/_authed')({
@@ -22,11 +18,11 @@ export const Route = createFileRoute('/_authed')({
 });
 
 function RouteComponent() {
-
-
   return (
-    <CenterPageLayout>
-      <Outlet />
-    </CenterPageLayout>
+    <div className="mt-4">
+      <CenterPageLayout>
+        <Outlet />
+      </CenterPageLayout>
+    </div>
   );
 }

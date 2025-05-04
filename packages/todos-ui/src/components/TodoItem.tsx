@@ -1,8 +1,5 @@
-import {
-  Todo,
-  TodoOnDelete,
-  TodoOnUpdate,
-} from '@workspace/todos-ui/types';
+import { Todo, TodoOnDelete, TodoOnUpdate } from '@workspace/todos-ui/types';
+import { Button } from '@workspace/ui/components/ui/button';
 
 export const TodoItem = ({
   todo,
@@ -25,12 +22,7 @@ export const TodoItem = ({
 
   return (
     <li className="w-full block cursor-pointer hover:bg-200 focus:outline-none focus:bg-200 transition duration-150 ease-in-out">
-      <div className="flex items-center px-4 py-4 sm:px-6">
-        <div className="min-w-0 flex-1 flex items-center">
-          <div className="text-sm leading-5 font-medium truncate">
-            {todo.task}
-          </div>
-        </div>
+      <div className="flex items-center px-0 py-0 sm:px-6  gap-2">
         <div>
           <input
             className="cursor-pointer"
@@ -39,13 +31,18 @@ export const TodoItem = ({
             checked={is_complete ? true : false}
           />
         </div>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        <div className="min-w-0 flex-1 flex items-center">
+          <div className="text-sm leading-5 font-medium truncate">
+            {todo.task}
+          </div>
+        </div>
+
+        <Button
+          onClick={() => {
             handleDelete();
           }}
-          className="w-4 h-4 ml-2 border-2 hover:border-black rounded"
+          size="sm"
+          variant="ghost"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +55,7 @@ export const TodoItem = ({
               clipRule="evenodd"
             />
           </svg>
-        </button>
+        </Button>
       </div>
     </li>
   );
