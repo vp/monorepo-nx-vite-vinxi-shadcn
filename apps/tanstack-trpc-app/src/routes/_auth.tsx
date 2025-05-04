@@ -1,8 +1,4 @@
-import {
-  createFileRoute,
-  Outlet,
-  redirect,
-} from '@tanstack/react-router';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { CenterPageLayout } from '@workspace/ui/components/blocks/center-page-layout';
 
 export const Route = createFileRoute('/_auth')({
@@ -22,11 +18,11 @@ export const Route = createFileRoute('/_auth')({
 });
 
 function RouteComponent() {
-
-
   return (
     <CenterPageLayout>
-      <Outlet />
+      <div className="flex flex-col justify-center h-full">
+        <Outlet />
+      </div>
     </CenterPageLayout>
   );
 }

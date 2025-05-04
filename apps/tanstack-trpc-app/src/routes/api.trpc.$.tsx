@@ -3,6 +3,7 @@ import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { trpcRouter } from '@/integrations/trpc/router';
 import { getTRPCApiContext } from '@/integrations/supabase/trpc';
 import { createUserTRPCContext } from '@/integrations/user/trpc';
+import { createTodosTRPCContext } from '@/integrations/todos/todos-trpc';
 
 function handler({ request }: { request: Request }) {
   return fetchRequestHandler({
@@ -11,7 +12,8 @@ function handler({ request }: { request: Request }) {
     endpoint: '/api/trpc',
     ...getTRPCApiContext(),
     createContext: () => ({
-      ...createUserTRPCContext()
+      ...createUserTRPCContext(),
+      ...createTodosTRPCContext(),
     }),
   });
 }

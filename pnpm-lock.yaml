@@ -436,14 +436,14 @@ importers:
         specifier: ^1.115.0
         version: 1.115.0
       '@trpc/client':
-        specifier: ^11.0.0
-        version: 11.1.0(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2)
+        specifier: ^11.1.1
+        version: 11.1.2(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2)
       '@trpc/server':
         specifier: ^11.1.1
         version: 11.1.1(typescript@5.8.2)
       '@trpc/tanstack-react-query':
         specifier: ^11.1.1
-        version: 11.1.1(@tanstack/react-query@5.74.4(react@19.0.0))(@trpc/client@11.1.0(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.1(typescript@5.8.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.8.2)
+        version: 11.1.1(@tanstack/react-query@5.74.4(react@19.0.0))(@trpc/client@11.1.2(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.1(typescript@5.8.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.8.2)
       '@workspace/dropzone-supabase':
         specifier: workspace:*
         version: link:../../packages/dropzone-supabase
@@ -459,6 +459,15 @@ importers:
       '@workspace/tanstack-router':
         specifier: workspace:*
         version: link:../../packages/tanstack-router
+      '@workspace/todos-supabase':
+        specifier: workspace:*
+        version: link:../../packages/todos-supabase
+      '@workspace/todos-trpc':
+        specifier: workspace:*
+        version: link:../../packages/todos-trpc
+      '@workspace/todos-ui':
+        specifier: workspace:*
+        version: link:../../packages/todos-ui
       '@workspace/trpc':
         specifier: workspace:*
         version: link:../../packages/trpc
@@ -520,6 +529,9 @@ importers:
       '@workspace/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
+      supabase:
+        specifier: ^2.20.5
+        version: 2.20.5
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.2)(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
@@ -1014,6 +1026,117 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.0.4(@types/react@19.0.10)
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.5.3)
+      tailwindcss:
+        specifier: ^4.0.10
+        version: 4.0.12
+      vite:
+        specifier: ^6.2.0
+        version: 6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+
+  packages/todos-supabase:
+    dependencies:
+      '@supabase/ssr':
+        specifier: ^0.6.1
+        version: 0.6.1(@supabase/supabase-js@2.49.4)
+      '@supabase/supabase-js':
+        specifier: ^2.49.4
+        version: 2.49.4
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.14.0
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      jsonc-eslint-parser:
+        specifier: ^2.4.0
+        version: 2.4.0
+      vite:
+        specifier: ^6.2.0
+        version: 6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+      vite-plugin-dts:
+        specifier: ^4.5.3
+        version: 4.5.3(@types/node@22.14.0)(rollup@4.39.0)(typescript@5.8.2)(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
+
+  packages/todos-trpc:
+    dependencies:
+      '@workspace/todos-supabase':
+        specifier: workspace:*
+        version: link:../todos-supabase
+      '@workspace/trpc':
+        specifier: workspace:*
+        version: link:../trpc
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.10
+        version: 22.14.0
+      '@workspace/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@workspace/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      jsonc-eslint-parser:
+        specifier: ^2.4.0
+        version: 2.4.0
+      vite:
+        specifier: ^6.2.0
+        version: 6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0)
+      vite-plugin-dts:
+        specifier: ^4.5.3
+        version: 4.5.3(@types/node@22.14.0)(rollup@4.39.0)(typescript@5.8.2)(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
+
+  packages/todos-ui:
+    dependencies:
+      '@tailwindcss/typography':
+        specifier: ^0.5.16
+        version: 0.5.16(tailwindcss@4.0.12)
+      '@tailwindcss/vite':
+        specifier: ^4.0.11
+        version: 4.0.12(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
+      '@tanstack/react-form':
+        specifier: ^1.0.5
+        version: 1.0.5(@tanstack/react-start@1.119.0(@tanstack/react-router@1.119.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(db0@0.3.1)(encoding@0.1.13)(ioredis@5.6.0)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.2.1(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(webpack@5.98.0(@swc/core@1.5.29(@swc/helpers@0.5.15)))(yaml@2.7.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.8.2)(vinxi@0.5.3(@types/node@22.14.0)(db0@0.3.1)(encoding@0.1.13)(ioredis@5.6.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))
+      '@workspace/form':
+        specifier: workspace:*
+        version: link:../form
+      '@workspace/ui':
+        specifier: workspace:*
+        version: link:../ui
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
+    devDependencies:
+      '@types/node':
+        specifier: ^22.9.0
+        version: 22.14.0
+      '@types/react':
+        specifier: 19.0.10
+        version: 19.0.10
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.1.2(@types/react@19.0.10)
       '@workspace/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
@@ -17857,6 +17980,15 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
       typescript: 5.8.2
 
+  '@trpc/tanstack-react-query@11.1.1(@tanstack/react-query@5.74.4(react@19.0.0))(@trpc/client@11.1.2(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.1(typescript@5.8.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.8.2)':
+    dependencies:
+      '@tanstack/react-query': 5.74.4(react@19.0.0)
+      '@trpc/client': 11.1.2(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2)
+      '@trpc/server': 11.1.1(typescript@5.8.2)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      typescript: 5.8.2
+
   '@trysound/sax@0.2.0': {}
 
   '@tsconfig/node10@1.0.11': {}
@@ -20365,7 +20497,7 @@ snapshots:
       eslint-import-resolver-node: 0.3.9
       get-tsconfig: 4.10.0
       is-glob: 4.0.3
-      minimatch: 9.0.5
+      minimatch: 10.0.1
       semver: 7.7.1
       stable-hash: 0.0.5
       tslib: 2.8.1

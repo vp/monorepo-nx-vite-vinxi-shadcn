@@ -303,3 +303,29 @@ Files prefixed with `demo` can be safely deleted. They are there to provide a st
 # Learn More
 
 You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
+
+# Supabase
+
+## supabase start
+
+```shell
+npx nx run tanctack-trpc-app:supabase start
+```
+
+## supabase stop
+
+```shell
+npx nx run tanctack-trpc-app:supabase stop
+```
+
+## supabase create migration
+
+```shell
+npx nx run tanctack-trpc-app:supabase migrations new NEW_MIGRATION_NAME
+```
+
+## supabase apply migrations localy
+
+```shell
+npx nx run tanctack-trpc-app:supabase migrations up --local
+```

@@ -3,12 +3,14 @@ import {
 } from '@workspace/trpc/init';
 import type { TRPCRouterRecord } from '@trpc/server';
 import { createUserRouter } from '@workspace/user-trpc/router';
+import { createTodosRouter } from '@workspace/todos-trpc/router';
 // import { z } from 'zod'
 
 const t = getTRPCInstance();
 const createTRPCRouter = t.router;
 
 const userRouter = createUserRouter();
+const todosRouter = createTodosRouter();
 
 const peopleRouter = {
   list: t.procedure.query(async () =>
@@ -21,6 +23,7 @@ const peopleRouter = {
 export const trpcRouter = createTRPCRouter({
   people: peopleRouter,
   user: userRouter,
+  todos: todosRouter
 });
 
 export type TRPCRouter = typeof trpcRouter;
