@@ -12,24 +12,12 @@ const ITEMS = [
     to: '/demo/tanstack-query',
   },
   {
-    title: 'Login',
-    to: '/sign-in',
-  },
-  {
-    title: 'Sign Up',
-    to: '/sign-up',
-  },
-  {
     title: 'User',
     to: '/user',
   },
   {
     title: 'Todos',
     to: '/todos',
-  },
-  {
-    title: 'Sign out',
-    to: '/sign-out'
   }
 ] as AppTopMenuItem[];
 
