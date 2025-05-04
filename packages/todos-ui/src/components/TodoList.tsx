@@ -1,4 +1,8 @@
-import { Todo, TodoToUpdate } from '@workspace/todos-ui/types';
+import {
+  Todo,
+  TodoOnDelete,
+  TodoOnUpdate,
+} from '@workspace/todos-ui/types';
 import { TodoItem } from './TodoItem.js';
 
 export const TodoList = ({
@@ -7,8 +11,8 @@ export const TodoList = ({
   onUpdate,
 }: {
   todos: Todo[];
-  onDelete: (id: number) => void;
-  onUpdate: (todo: TodoToUpdate) => void;
+  onDelete: TodoOnDelete;
+  onUpdate: TodoOnUpdate;
 }) => {
   return (
     <div className="bg-white shadow overflow-hidden rounded-md">

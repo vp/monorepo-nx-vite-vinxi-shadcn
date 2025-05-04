@@ -1,5 +1,5 @@
 import { useAppForm } from '@workspace/form/hooks/form';
-import { TodoOnAdd, TodoToAdd } from '@workspace/todos-ui/types';
+import { TodoToAdd } from '@workspace/todos-ui/types';
 import { z } from 'zod';
 
 const schema = z
@@ -28,9 +28,6 @@ export const TodoAddForm = ({
       if (onSubmit) {
         onSubmit(value);
       }
-
-      // Show success message
-      alert('Form submitted successfully!');
     },
   });
 

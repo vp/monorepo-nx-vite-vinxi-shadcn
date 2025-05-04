@@ -8,11 +8,7 @@ import { z } from 'zod';
 
 type Context = {
   todosService: TodosService;
-
-  user: {
-    id: string;
-    email: string;
-  } | null;
+  getUser: () => Promise<{ id: string } | null>;
 };
 
 export const createRouter = <
@@ -29,12 +25,14 @@ export const createRouter = <
     }
 
     return next({
-      ctx,
+      ctx
     });
   });
 
   const authedProcedure = publicProcedure.use(async ({ ctx, next }) => {
-    if (!ctx.user) {
+    const user = await ctx.getUser();
+
+    if (!user) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
         message: 'You must be logged in to access this resource.',
@@ -43,7 +41,7 @@ export const createRouter = <
 
     return next({
       ctx: {
-        user: ctx.user,
+        user,
       },
     });
   });

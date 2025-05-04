@@ -459,6 +459,15 @@ importers:
       '@workspace/tanstack-router':
         specifier: workspace:*
         version: link:../../packages/tanstack-router
+      '@workspace/todos-supabase':
+        specifier: workspace:*
+        version: link:../../packages/todos-supabase
+      '@workspace/todos-trpc':
+        specifier: workspace:*
+        version: link:../../packages/todos-trpc
+      '@workspace/todos-ui':
+        specifier: workspace:*
+        version: link:../../packages/todos-ui
       '@workspace/trpc':
         specifier: workspace:*
         version: link:../../packages/trpc

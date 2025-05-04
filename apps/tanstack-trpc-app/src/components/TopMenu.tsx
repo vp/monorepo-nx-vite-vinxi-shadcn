@@ -24,6 +24,10 @@ const ITEMS = [
     to: '/user',
   },
   {
+    title: 'Todos',
+    to: '/todos',
+  },
+  {
     title: 'Sign out',
     to: '/sign-out'
   }

@@ -16,6 +16,7 @@ import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
 import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
 import { Route as AuthedUserImport } from './routes/_authed/user'
+import { Route as AuthedTodosImport } from './routes/_authed/todos'
 import { Route as AuthedSignOutImport } from './routes/_authed/sign-out'
 import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
@@ -47,6 +48,12 @@ const DemoTanstackQueryRoute = DemoTanstackQueryImport.update({
 const AuthedUserRoute = AuthedUserImport.update({
   id: '/user',
   path: '/user',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
+const AuthedTodosRoute = AuthedTodosImport.update({
+  id: '/todos',
+  path: '/todos',
   getParentRoute: () => AuthedRoute,
 } as any)
 
@@ -114,6 +121,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedSignOutImport
       parentRoute: typeof AuthedImport
     }
+    '/_authed/todos': {
+      id: '/_authed/todos'
+      path: '/todos'
+      fullPath: '/todos'
+      preLoaderRoute: typeof AuthedTodosImport
+      parentRoute: typeof AuthedImport
+    }
     '/_authed/user': {
       id: '/_authed/user'
       path: '/user'
@@ -147,11 +161,13 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface AuthedRouteChildren {
   AuthedSignOutRoute: typeof AuthedSignOutRoute
+  AuthedTodosRoute: typeof AuthedTodosRoute
   AuthedUserRoute: typeof AuthedUserRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
   AuthedSignOutRoute: AuthedSignOutRoute,
+  AuthedTodosRoute: AuthedTodosRoute,
   AuthedUserRoute: AuthedUserRoute,
 }
 
@@ -164,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/sign-out': typeof AuthedSignOutRoute
+  '/todos': typeof AuthedTodosRoute
   '/user': typeof AuthedUserRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
@@ -174,6 +191,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/sign-out': typeof AuthedSignOutRoute
+  '/todos': typeof AuthedTodosRoute
   '/user': typeof AuthedUserRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
@@ -186,6 +204,7 @@ export interface FileRoutesById {
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
   '/_authed/sign-out': typeof AuthedSignOutRoute
+  '/_authed/todos': typeof AuthedTodosRoute
   '/_authed/user': typeof AuthedUserRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
 }
@@ -198,6 +217,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/sign-out'
+    | '/todos'
     | '/user'
     | '/demo/tanstack-query'
   fileRoutesByTo: FileRoutesByTo
@@ -207,6 +227,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/sign-out'
+    | '/todos'
     | '/user'
     | '/demo/tanstack-query'
   id:
@@ -217,6 +238,7 @@ export interface FileRouteTypes {
     | '/_auth/sign-in'
     | '/_auth/sign-up'
     | '/_authed/sign-out'
+    | '/_authed/todos'
     | '/_authed/user'
     | '/demo/tanstack-query'
   fileRoutesById: FileRoutesById
@@ -266,6 +288,7 @@ export const routeTree = rootRoute
       "filePath": "_authed.tsx",
       "children": [
         "/_authed/sign-out",
+        "/_authed/todos",
         "/_authed/user"
       ]
     },
@@ -279,6 +302,10 @@ export const routeTree = rootRoute
     },
     "/_authed/sign-out": {
       "filePath": "_authed/sign-out.tsx",
+      "parent": "/_authed"
+    },
+    "/_authed/todos": {
+      "filePath": "_authed/todos.tsx",
       "parent": "/_authed"
     },
     "/_authed/user": {
