@@ -1,7 +1,7 @@
 import { Todo, TodoOnDelete, TodoOnUpdate } from '@workspace/todos-ui/types';
-import { TodoItem } from './TodoItem.js';
+import { TodoItem } from '@workspace/todos-ui/components/todo-item';
 
-export const TodoList = ({
+export const TodosList = ({
   todos,
   onDelete,
   onUpdate,

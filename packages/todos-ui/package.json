@@ -9,6 +9,7 @@
   "dependencies": {
     "@workspace/ui": "workspace:*",
     "@workspace/form": "workspace:*",
+    "@workspace/core": "workspace:*",
     "@tanstack/react-form": "^1.0.5",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.0.11",

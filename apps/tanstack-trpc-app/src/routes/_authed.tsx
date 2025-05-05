@@ -19,10 +19,8 @@ export const Route = createFileRoute('/_authed')({
 
 function RouteComponent() {
   return (
-    <div className="mt-4">
-      <CenterPageLayout>
-        <Outlet />
-      </CenterPageLayout>
+    <div className="p-4">
+      <Outlet />
     </div>
   );
 }

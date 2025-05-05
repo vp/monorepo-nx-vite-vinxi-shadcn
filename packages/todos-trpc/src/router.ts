@@ -4,10 +4,12 @@ import {
   TRPCError,
 } from '@workspace/trpc/init';
 import { TodosService } from '@workspace/todos-supabase/create-todos-service';
+import { TodolistsService } from '@workspace/todos-supabase/create-todolists-service';
 import { z } from 'zod';
 
 type Context = {
   todosService: TodosService;
+  todolistsService: TodolistsService;
   getUser: () => Promise<{ id: string } | null>;
 };
 
@@ -25,7 +27,7 @@ export const createRouter = <
     }
 
     return next({
-      ctx
+      ctx,
     });
   });
 
@@ -49,6 +51,7 @@ export const createRouter = <
   return {
     getTodos: authedProcedure.query(async ({ ctx }) => {
       const todos = await ctx.todosService.getTodos();
+
       return todos;
     }),
 
@@ -57,6 +60,7 @@ export const createRouter = <
         z.object({
           task: z.string(),
           is_complete: z.boolean().optional(),
+          todolist_id: z.number(),
         })
       )
       .mutation(async ({ ctx, input }) => {
@@ -73,6 +77,7 @@ export const createRouter = <
           id: z.number(),
           task: z.string().optional(),
           is_complete: z.boolean().optional(),
+          todolist_id: z.number().optional(),
         })
       )
       .mutation(async ({ ctx, input }) => {
@@ -88,6 +93,65 @@ export const createRouter = <
       .mutation(async ({ ctx, input }) => {
         const todo = await ctx.todosService.deleteTodo(input.id);
         return todo;
+      }),
+
+    getTodolists: authedProcedure.query(async ({ ctx }) => {
+      const todolists = await ctx.todolistsService.getTodolists();
+
+      return todolists;
+    }),
+
+    getTodolistsWithTodos: authedProcedure.query(async ({ ctx }) => {
+      const todolists = await ctx.todolistsService.getTodolistsWithTodos();
+
+      return todolists;
+    }),
+
+    addTodolist: authedProcedure
+      .input(
+        z.object({
+          title: z.string(),
+          description: z.string().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const todolist = await ctx.todolistsService.addTodolist({
+          ...input,
+          user_id: ctx.user.id,
+        });
+        return todolist;
+      }),
+
+    updateTodolist: authedProcedure
+      .input(
+        z.object({
+          id: z.number(),
+          title: z.string().optional(),
+          description: z.string().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const todolist = await ctx.todolistsService.updateTodolist({
+          ...input,
+          user_id: ctx.user.id,
+        });
+        return todolist;
+      }),
+
+    getTodolistById: authedProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ ctx, input }) => {
+        const todolist = await ctx.todolistsService.getTodolistById(input.id);
+
+        return todolist;
+      }),
+
+    deleteTodolist: authedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const todolist = await ctx.todolistsService.deleteTodolist(input.id);
+
+        return todolist;
       }),
   };
 };

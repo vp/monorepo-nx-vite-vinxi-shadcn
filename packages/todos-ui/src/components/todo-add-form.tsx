@@ -1,5 +1,5 @@
 import { useAppForm } from '@workspace/form/hooks/form';
-import { TodoToAdd } from '@workspace/todos-ui/types';
+import { TodoOnAdd } from '@workspace/todos-ui/types';
 import { z } from 'zod';
 
 const schema = z
@@ -9,11 +9,7 @@ const schema = z
   })
   .required();
 
-export const TodoAddForm = ({
-  onSubmit,
-}: {
-  onSubmit?: (todo: TodoToAdd) => void;
-}) => {
+export const TodoAddForm = ({ onSubmit }: { onSubmit?: TodoOnAdd }) => {
   const form = useAppForm({
     defaultValues: {
       task: '',
@@ -22,9 +18,18 @@ export const TodoAddForm = ({
     validators: {
       onBlur: schema,
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ formApi, value }) => {
       if (onSubmit) {
-        onSubmit(value);
+        const result = await onSubmit(value);
+
+        if (result.error) {
+          form.setFieldMeta('task', (meta) => ({
+            ...meta,
+            errorMap: { ...meta.errorMap, onSubmit: result.message },
+          }));
+        } else {
+          formApi.reset();
+        }
       }
     },
   });

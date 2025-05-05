@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { RequestResponse } from "@workspace/core/request";
 import { Todo } from '@workspace/todos-supabase/get-todos';
 
 export type TodoToUpdate = {
@@ -11,7 +12,7 @@ export type TodoToUpdate = {
 export const updateTodo = async (
   supabase: SupabaseClient,
   { id, is_complete, task, user_id }: TodoToUpdate
-) => {
+): Promise<RequestResponse<Todo>> => {
   const { data, error } = await supabase
     .from('todos')
     .update({

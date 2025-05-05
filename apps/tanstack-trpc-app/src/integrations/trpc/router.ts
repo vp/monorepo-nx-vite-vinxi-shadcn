@@ -23,7 +23,7 @@ const peopleRouter = {
 export const trpcRouter = createTRPCRouter({
   people: peopleRouter,
   user: userRouter,
-  todos: todosRouter
+  todos: todosRouter,
 });
 
 export type TRPCRouter = typeof trpcRouter;
