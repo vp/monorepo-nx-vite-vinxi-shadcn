@@ -1,5 +1,5 @@
 {
-  "name": "@workspace/todos-supabase",
+  "name": "@workspace/core",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -11,12 +11,6 @@
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "jsonc-eslint-parser": "^2.4.0",
-    "vite": "^6.2.0",
-    "vite-plugin-dts": "^4.5.3"
-  },
-  "dependencies": {
-    "@supabase/ssr": "^0.6.1",
-    "@supabase/supabase-js": "^2.49.4",
-    "@workspace/core": "workspace:*"
+    "vite": "^6.2.0"
   }
 }
