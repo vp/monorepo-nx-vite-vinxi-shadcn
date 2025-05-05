@@ -1,9 +1,10 @@
+import { createServerClient } from '@supabase/ssr';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export function subscribeToMessages(
   supabase: SupabaseClient,
   channelId: number,
-  callback: (payload: any) => void,
+  callback: (payload: unknown) => void,
   schema = 'chat_app'
 ) {
   return supabase
@@ -23,7 +24,7 @@ export function subscribeToMessages(
 
 export function subscribeToUserStatus(
   supabase: SupabaseClient,
-  callback: (payload: any) => void,
+  callback: (payload: unknown) => void,
   schema = 'chat_app'
 ) {
   return supabase
@@ -43,7 +44,7 @@ export function subscribeToUserStatus(
 
 export function subscribeToChannels(
   supabase: SupabaseClient,
-  callback: (payload: any) => void,
+  callback: (payload: unknown) => void,
   schema = 'chat_app'
 ) {
   return supabase
@@ -55,3 +56,24 @@ export function subscribeToChannels(
     )
     .subscribe();
 }
+
+export const createSubscriptionsService = (
+  createClient: ReturnType<typeof createServerClient>,
+  schema = 'chat_app'
+) => ({
+  subscribeToMessages: (
+    channelId: number,
+    callback: (payload: unknown) => void
+  ) => {
+    const supabase = createClient();
+    return subscribeToMessages(supabase, channelId, callback, schema);
+  },
+  subscribeToUserStatus: (callback: (payload: unknown) => void) => {
+    const supabase = createClient();
+    return subscribeToUserStatus(supabase, callback, schema);
+  },
+  subscribeToChannels: (callback: (payload: unknown) => void) => {
+    const supabase = createClient();
+    return subscribeToChannels(supabase, callback, schema);
+  },
+});

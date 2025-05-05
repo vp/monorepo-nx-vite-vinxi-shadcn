@@ -1,11 +1,13 @@
 import { SupabaseClient } from '@supabase/supabase-js';
+import { RequestResponse } from '@workspace/core/request';
 import { User, UserRole } from '@workspace/chat-supabase/types';
+import { createServerClient } from '@supabase/ssr';
 
 export async function getUser(
   supabase: SupabaseClient,
   userId: string,
   schema = 'chat_app'
-): Promise<User | null> {
+): Promise<RequestResponse<User>> {
   const { data, error } = await supabase
     .schema(schema)
     .from('users')
@@ -15,10 +17,17 @@ export async function getUser(
 
   if (error) {
     console.error('Error fetching user:', error);
-    return null;
+    return {
+      error: true,
+      message: error.message,
+    };
   }
 
-  return data;
+  return {
+    error: false,
+    message: 'User fetched successfully',
+    data: data as User,
+  };
 }
 
 export async function updateUserStatus(
@@ -26,7 +35,7 @@ export async function updateUserStatus(
   userId: string,
   status: 'ONLINE' | 'OFFLINE',
   schema = 'chat_app'
-): Promise<User | null> {
+): Promise<RequestResponse<User>> {
   const { data, error } = await supabase
     .schema(schema)
     .from('users')
@@ -37,10 +46,17 @@ export async function updateUserStatus(
 
   if (error) {
     console.error('Error updating user status:', error);
-    return null;
+    return {
+      error: true,
+      message: error.message,
+    };
   }
 
-  return data;
+  return {
+    error: false,
+    message: 'User status updated successfully',
+    data: data as User,
+  };
 }
 
 export async function updateUsername(
@@ -48,7 +64,7 @@ export async function updateUsername(
   userId: string,
   username: string,
   schema = 'chat_app'
-): Promise<User | null> {
+): Promise<RequestResponse<User>> {
   const { data, error } = await supabase
     .schema(schema)
     .from('users')
@@ -59,10 +75,17 @@ export async function updateUsername(
 
   if (error) {
     console.error('Error updating username:', error);
-    return null;
+    return {
+      error: true,
+      message: error.message,
+    };
   }
 
-  return data;
+  return {
+    error: false,
+    message: 'Username updated successfully',
+    data: data as User,
+  };
 }
 
 // Role and permission functions
@@ -70,7 +93,7 @@ export async function getUserRoles(
   supabase: SupabaseClient,
   userId: string,
   schema = 'chat_app'
-): Promise<UserRole[]> {
+): Promise<RequestResponse<UserRole[]>> {
   const { data, error } = await supabase
     .schema(schema)
     .from('user_roles')
@@ -78,11 +101,18 @@ export async function getUserRoles(
     .eq('user_id', userId);
 
   if (error) {
-    console.error(`Error fetching roles for user ${userId}:`, error);
-    return [];
+    console.error('Error fetching user roles:', error);
+    return {
+      error: true,
+      message: error.message,
+    };
   }
 
-  return data || [];
+  return {
+    error: false,
+    message: 'User roles fetched successfully',
+    data: data as UserRole[],
+  };
 }
 
 export async function hasPermission(
@@ -90,13 +120,13 @@ export async function hasPermission(
   userId: string,
   permission: 'channels.delete' | 'messages.delete',
   schema = 'chat_app'
-): Promise<boolean> {
+): Promise<RequestResponse<boolean>> {
   // This function uses the custom authorize function defined in the SQL schema
   // Note: for RPC calls, we need to use schemaName parameter instead of schema method
   const { data, error } = await supabase.rpc('authorize', {
     requested_permission: permission,
     user_id: userId,
-    schemaName: schema  // Pass schema as a parameter to the RPC function
+    schemaName: schema, // Pass schema as a parameter to the RPC function
   });
 
   if (error) {
@@ -104,8 +134,36 @@ export async function hasPermission(
       `Error checking permission ${permission} for user ${userId}:`,
       error
     );
-    return false;
+    return {
+      error: true,
+      message: error.message,
+    };
   }
 
-  return !!data;
+  return {
+    error: false,
+    message: `Permission ${permission} check completed`,
+    data: !!data,
+  };
 }
+
+export const createUserManagementService = (
+  createClient: ReturnType<typeof createServerClient>,
+  schema = 'chat_app'
+) => ({
+  getUser: (userId: string) => getUser(createClient(), userId, schema),
+  updateUserStatus: (userId: string, status: 'ONLINE' | 'OFFLINE') =>
+    updateUserStatus(createClient(), userId, status, schema),
+  updateUsername: (userId: string, username: string) =>
+    updateUsername(createClient(), userId, username, schema),
+  getUserRoles: (userId: string) =>
+    getUserRoles(createClient(), userId, schema),
+  hasPermission: (
+    userId: string,
+    permission: 'channels.delete' | 'messages.delete'
+  ) => hasPermission(createClient(), userId, permission, schema),
+});
+
+export type UserManagementService = ReturnType<
+  typeof createUserManagementService
+>;
