@@ -4,9 +4,11 @@ import { Message } from '@workspace/chat-supabase/types';
 export async function getMessages(
   supabase: SupabaseClient,
   channelId: number,
-  limit = 100
+  limit = 100,
+  schema = 'chat_app'
 ): Promise<Message[]> {
   const { data, error } = await supabase
+    .schema(schema)
     .from('messages')
     .select('*')
     .eq('channel_id', channelId)
@@ -25,9 +27,11 @@ export async function sendMessage(
   supabase: SupabaseClient,
   channelId: number,
   userId: string,
-  message: string
+  message: string,
+  schema = 'chat_app'
 ): Promise<Message | null> {
   const { data, error } = await supabase
+    .schema(schema)
     .from('messages')
     .insert({
       channel_id: channelId,
@@ -48,9 +52,11 @@ export async function sendMessage(
 export async function updateMessage(
   supabase: SupabaseClient,
   messageId: number,
-  message: string
+  message: string,
+  schema = 'chat_app'
 ): Promise<Message | null> {
   const { data, error } = await supabase
+    .schema(schema)
     .from('messages')
     .update({ message })
     .eq('id', messageId)
@@ -67,9 +73,11 @@ export async function updateMessage(
 
 export async function deleteMessage(
   supabase: SupabaseClient,
-  messageId: number
+  messageId: number,
+  schema = 'chat_app'
 ): Promise<boolean> {
   const { error } = await supabase
+    .schema(schema)
     .from('messages')
     .delete()
     .eq('id', messageId);

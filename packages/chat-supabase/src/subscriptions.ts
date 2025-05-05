@@ -3,7 +3,8 @@ import { SupabaseClient } from '@supabase/supabase-js';
 export function subscribeToMessages(
   supabase: SupabaseClient,
   channelId: number,
-  callback: (payload: any) => void
+  callback: (payload: any) => void,
+  schema = 'chat_app'
 ) {
   return supabase
     .channel(`messages:channel_id=${channelId}`)
@@ -11,7 +12,7 @@ export function subscribeToMessages(
       'postgres_changes',
       {
         event: '*',
-        schema: 'chat_app',
+        schema: schema,
         table: 'messages',
         filter: `channel_id=eq.${channelId}`,
       },
@@ -22,7 +23,8 @@ export function subscribeToMessages(
 
 export function subscribeToUserStatus(
   supabase: SupabaseClient,
-  callback: (payload: any) => void
+  callback: (payload: any) => void,
+  schema = 'chat_app'
 ) {
   return supabase
     .channel('user_status_changes')
@@ -30,7 +32,7 @@ export function subscribeToUserStatus(
       'postgres_changes',
       {
         event: 'UPDATE',
-        schema: 'chat_app',
+        schema: schema,
         table: 'users',
         filter: `status=eq.ONLINE`,
       },
@@ -41,13 +43,14 @@ export function subscribeToUserStatus(
 
 export function subscribeToChannels(
   supabase: SupabaseClient,
-  callback: (payload: any) => void
+  callback: (payload: any) => void,
+  schema = 'chat_app'
 ) {
   return supabase
     .channel('channel_changes')
     .on(
       'postgres_changes',
-      { event: '*', schema: 'chat_app', table: 'channels' },
+      { event: '*', schema: schema, table: 'channels' },
       callback
     )
     .subscribe();
