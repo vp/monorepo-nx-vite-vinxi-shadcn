@@ -77,3 +77,5 @@ export const createSubscriptionsService = (
     return subscribeToChannels(supabase, callback, schema);
   },
 });
+
+export type SubscriptionsService = ReturnType<typeof createSubscriptionsService>;

@@ -1,17 +1,24 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { RequestResponse } from '@workspace/core/request';
-import { User, UserRole } from '@workspace/chat-supabase/types';
+import {
+  User,
+  Permission,
+  UserRole,
+  UserUpdateStatus,
+  UserUpdateUsername,
+} from '@workspace/chat-supabase/types';
 import { createServerClient } from '@supabase/ssr';
+import { Database } from '@workspace/chat-supabase/database.types';
 
 export async function getUser(
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   userId: string,
   schema = 'chat_app'
 ): Promise<RequestResponse<User>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('users')
-    .select('*')
+    .select('id, username, status')
     .eq('id', userId)
     .single();
 
@@ -26,21 +33,20 @@ export async function getUser(
   return {
     error: false,
     message: 'User fetched successfully',
-    data: data as User,
+    data,
   };
 }
 
 export async function updateUserStatus(
-  supabase: SupabaseClient,
-  userId: string,
-  status: 'ONLINE' | 'OFFLINE',
+  supabase: SupabaseClient<Database>,
+  { id, status }: UserUpdateStatus,
   schema = 'chat_app'
 ): Promise<RequestResponse<User>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('users')
     .update({ status })
-    .eq('id', userId)
+    .eq('id', id)
     .select()
     .single();
 
@@ -55,21 +61,20 @@ export async function updateUserStatus(
   return {
     error: false,
     message: 'User status updated successfully',
-    data: data as User,
+    data,
   };
 }
 
 export async function updateUsername(
-  supabase: SupabaseClient,
-  userId: string,
-  username: string,
+  supabase: SupabaseClient<Database>,
+  { id, username }: UserUpdateUsername,
   schema = 'chat_app'
 ): Promise<RequestResponse<User>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('users')
     .update({ username })
-    .eq('id', userId)
+    .eq('id', id)
     .select()
     .single();
 
@@ -84,18 +89,18 @@ export async function updateUsername(
   return {
     error: false,
     message: 'Username updated successfully',
-    data: data as User,
+    data,
   };
 }
 
 // Role and permission functions
 export async function getUserRoles(
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   userId: string,
   schema = 'chat_app'
 ): Promise<RequestResponse<UserRole[]>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('user_roles')
     .select('*')
     .eq('user_id', userId);
@@ -111,23 +116,24 @@ export async function getUserRoles(
   return {
     error: false,
     message: 'User roles fetched successfully',
-    data: data as UserRole[],
+    data,
   };
 }
 
 export async function hasPermission(
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   userId: string,
-  permission: 'channels.delete' | 'messages.delete',
+  permission: Permission,
   schema = 'chat_app'
 ): Promise<RequestResponse<boolean>> {
   // This function uses the custom authorize function defined in the SQL schema
   // Note: for RPC calls, we need to use schemaName parameter instead of schema method
-  const { data, error } = await supabase.rpc('authorize', {
-    requested_permission: permission,
-    user_id: userId,
-    schemaName: schema, // Pass schema as a parameter to the RPC function
-  });
+  const { data, error } = await supabase
+    .schema(schema as keyof Database)
+    .rpc('authorize', {
+      requested_permission: permission,
+      user_id: userId,
+    });
 
   if (error) {
     console.error(
@@ -152,15 +158,15 @@ export const createUserManagementService = (
   schema = 'chat_app'
 ) => ({
   getUser: (userId: string) => getUser(createClient(), userId, schema),
-  updateUserStatus: (userId: string, status: 'ONLINE' | 'OFFLINE') =>
-    updateUserStatus(createClient(), userId, status, schema),
-  updateUsername: (userId: string, username: string) =>
-    updateUsername(createClient(), userId, username, schema),
+  updateUserStatus: (data: UserUpdateStatus) =>
+    updateUserStatus(createClient(), data, schema),
+  updateUsername: (data: UserUpdateUsername) =>
+    updateUsername(createClient(), data, schema),
   getUserRoles: (userId: string) =>
     getUserRoles(createClient(), userId, schema),
   hasPermission: (
     userId: string,
-    permission: 'channels.delete' | 'messages.delete'
+    permission: Permission
   ) => hasPermission(createClient(), userId, permission, schema),
 });
 

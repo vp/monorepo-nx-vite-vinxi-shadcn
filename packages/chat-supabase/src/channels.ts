@@ -1,17 +1,23 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { RequestResponse } from '@workspace/core/request';
-import { Channel } from '@workspace/chat-supabase/types';
+import {
+  Channel,
+  ChannelToAdd,
+  ChannelToDelete,
+  ChannelToUpdate,
+} from '@workspace/chat-supabase/types';
 import { createServerClient } from '@supabase/ssr';
+import { Database } from '@workspace/chat-supabase/database.types';
 
 export async function getChannels(
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   schema = 'chat_app'
 ): Promise<RequestResponse<Channel[]>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('channels')
-    .select('*')
-    .order('created_at', { ascending: true });
+    .select('id, slug, inserted_at, created_by')
+    .order('inserted_at', { ascending: true });
 
   if (error) {
     console.error('Error fetching channels:', error);
@@ -24,19 +30,19 @@ export async function getChannels(
   return {
     error: false,
     message: 'Channels fetched successfully',
-    data: data as Channel[],
+    data,
   };
 }
 
 export async function getChannel(
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   channelId: number,
   schema = 'chat_app'
 ): Promise<RequestResponse<Channel>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('channels')
-    .select('*')
+    .select('id, slug, inserted_at, created_by')
     .eq('id', channelId)
     .single();
 
@@ -51,20 +57,19 @@ export async function getChannel(
   return {
     error: false,
     message: 'Channel fetched successfully',
-    data: data as Channel,
+    data,
   };
 }
 
 export async function createChannel(
-  supabase: SupabaseClient,
-  name: string,
-  userId: string,
+  supabase: SupabaseClient<Database>,
+  { slug, created_by }: ChannelToAdd,
   schema = 'chat_app'
 ): Promise<RequestResponse<Channel>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('channels')
-    .insert({ name, created_by: userId })
+    .insert({ slug, created_by })
     .select()
     .single();
 
@@ -83,21 +88,46 @@ export async function createChannel(
   };
 }
 
+export async function updateChannel(
+  supabase: SupabaseClient<Database>,
+  { id, slug }: ChannelToUpdate,
+  schema = 'chat_app'
+): Promise<RequestResponse<Channel>> {
+  const { data, error } = await supabase
+    .schema(schema as keyof Database)
+    .from('channels')
+    .update({ slug })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('Error updating channel:', error);
+    return {
+      error: true,
+      message: error.message,
+    };
+  }
+
+  return {
+    error: false,
+    message: 'Channel updated successfully',
+    data,
+  };
+}
+
 export async function deleteChannel(
-  supabase: SupabaseClient,
-  channelId: number,
-  userId: string,
+  supabase: SupabaseClient<Database>,
+  { channel_id, user_id }: ChannelToDelete,
   schema = 'chat_app'
 ): Promise<RequestResponse<null>> {
   // Check permission first
-  const { data: hasPermission, error: permissionError } = await supabase.rpc(
-    'authorize',
-    {
+  const { data: hasPermission, error: permissionError } = await supabase
+    .schema(schema as keyof Database)
+    .rpc('authorize', {
       requested_permission: 'channels.delete',
-      user_id: userId,
-      schemaName: schema,
-    }
-  );
+      user_id,
+    });
 
   if (permissionError) {
     console.error('Error checking permission:', permissionError);
@@ -115,10 +145,10 @@ export async function deleteChannel(
   }
 
   const { error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('channels')
     .delete()
-    .eq('id', channelId);
+    .eq('id', channel_id);
 
   if (error) {
     console.error('Error deleting channel:', error);
@@ -142,10 +172,12 @@ export const createChannelsService = (
   getChannels: async () => getChannels(await createClient(), schema),
   getChannel: async (channelId: number) =>
     getChannel(await createClient(), channelId, schema),
-  createChannel: async (name: string, userId: string) =>
-    createChannel(await createClient(), name, userId, schema),
-  deleteChannel: async (channelId: number, userId: string) =>
-    deleteChannel(await createClient(), channelId, userId, schema),
+  createChannel: async (data: ChannelToAdd) =>
+    createChannel(await createClient(), data, schema),
+  updateChannel: async (data: ChannelToUpdate) =>
+    updateChannel(await createClient(), data, schema),
+  deleteChannel: async (data: ChannelToDelete) =>
+    deleteChannel(await createClient(), data, schema),
 });
 
 export type ChannelsService = ReturnType<typeof createChannelsService>;

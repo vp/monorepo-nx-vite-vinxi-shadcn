@@ -1,19 +1,27 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { RequestResponse } from '@workspace/core/request';
-import { Message } from '@workspace/chat-supabase/types';
+import {
+  Message,
+  MessageToAdd,
+  MessageToDelete,
+  MessageToUpdate,
+} from '@workspace/chat-supabase/types';
 import { createServerClient } from '@supabase/ssr';
+import { Database } from '@workspace/chat-supabase/database.types';
 
 export async function getMessages(
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   channelId: number,
   limit = 100,
   startIndex = 0,
   schema = 'chat_app'
 ): Promise<RequestResponse<Message[]>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('messages')
-    .select('*, users:user_id(username)')
+    .select(
+      'id, message, channel_id, inserted_at, user_id, users:user_id(username)'
+    )
     .eq('channel_id', channelId)
     .order('created_at', { ascending: false })
     .range(startIndex, startIndex + limit - 1);
@@ -29,26 +37,53 @@ export async function getMessages(
   return {
     error: false,
     message: 'Messages fetched successfully',
-    data: data as Message[],
+    data,
+  };
+}
+
+export async function getMessage(
+  supabase: SupabaseClient<Database>,
+  messageId: number,
+  schema = 'chat_app'
+): Promise<RequestResponse<Message>> {
+  const { data, error } = await supabase
+    .schema(schema as keyof Database)
+    .from('messages')
+    .select(
+      'id, message, channel_id, inserted_at, user_id, users:user_id(username)'
+    )
+    .eq('id', messageId)
+    .single();
+  if (error) {
+    console.error('Error fetching message:', error);
+    return {
+      error: true,
+      message: error.message,
+    };
+  }
+  return {
+    error: false,
+    message: 'Message fetched successfully',
+    data,
   };
 }
 
 export async function sendMessage(
-  supabase: SupabaseClient,
-  channelId: number,
-  userId: string,
-  content: string,
+  supabase: SupabaseClient<Database>,
+  { channel_id, message, user_id }: MessageToAdd,
   schema = 'chat_app'
 ): Promise<RequestResponse<Message>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('messages')
     .insert({
-      channel_id: channelId,
-      user_id: userId,
-      content,
+      channel_id,
+      user_id,
+      message,
     })
-    .select('*, users:user_id(username)')
+    .select(
+      'id, message, channel_id, inserted_at, user_id, users:user_id(username)'
+    )
     .single();
 
   if (error) {
@@ -62,18 +97,17 @@ export async function sendMessage(
   return {
     error: false,
     message: 'Message sent successfully',
-    data: data as Message,
+    data,
   };
 }
 
 export async function updateMessage(
-  supabase: SupabaseClient,
-  messageId: number,
-  message: string,
+  supabase: SupabaseClient<Database>,
+  { id: messageId, message }: MessageToUpdate,
   schema = 'chat_app'
-): Promise<Message | null> {
+): Promise<RequestResponse<Message>> {
   const { data, error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('messages')
     .update({ message })
     .eq('id', messageId)
@@ -81,22 +115,28 @@ export async function updateMessage(
     .single();
 
   if (error) {
-    console.error(`Error updating message ${messageId}:`, error);
-    return null;
+    console.error('Error updating message:', error);
+    return {
+      error: true,
+      message: error.message,
+    };
   }
 
-  return data;
+  return {
+    error: false,
+    message: 'Message updated successfully',
+    data,
+  };
 }
 
 export async function deleteMessage(
-  supabase: SupabaseClient,
-  messageId: number,
-  userId: string,
+  supabase: SupabaseClient<Database>,
+  { message_id: messageId, user_id: userId }: MessageToDelete,
   schema = 'chat_app'
 ): Promise<RequestResponse<null>> {
   // Check if user is the author of the message or has admin privileges
   const { data: message, error: fetchError } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('messages')
     .select('user_id')
     .eq('id', messageId)
@@ -114,14 +154,12 @@ export async function deleteMessage(
 
   if (!isAuthor) {
     // Check if user has permission to delete others' messages
-    const { data: hasPermission, error: permissionError } = await supabase.rpc(
-      'authorize',
-      {
+    const { data: hasPermission, error: permissionError } = await supabase
+      .schema(schema as keyof Database)
+      .rpc('authorize', {
         requested_permission: 'messages.delete',
         user_id: userId,
-        schemaName: schema,
-      }
-    );
+      });
 
     if (permissionError) {
       console.error('Error checking permission:', permissionError);
@@ -140,7 +178,7 @@ export async function deleteMessage(
   }
 
   const { error } = await supabase
-    .schema(schema)
+    .schema(schema as keyof Database)
     .from('messages')
     .delete()
     .eq('id', messageId);
@@ -166,12 +204,14 @@ export const createMessagesService = (
 ) => ({
   getMessages: async (channelId: number, limit = 100, startIndex = 0) =>
     getMessages(await createClient(), channelId, limit, startIndex, schema),
-  sendMessage: async (channelId: number, userId: string, content: string) =>
-    sendMessage(await createClient(), channelId, userId, content, schema),
-  updateMessage: async (messageId: number, message: string) =>
-    updateMessage(await createClient(), messageId, message, schema),
-  deleteMessage: async (messageId: number, userId: string) =>
-    deleteMessage(await createClient(), messageId, userId, schema),
+  getMessage: async (messageId: number) =>
+    getMessage(await createClient(), messageId, schema),
+  sendMessage: async (data: MessageToAdd) =>
+    sendMessage(await createClient(), data, schema),
+  updateMessage: async (data: MessageToUpdate) =>
+    updateMessage(await createClient(), data, schema),
+  deleteMessage: async (data: MessageToDelete) =>
+    deleteMessage(await createClient(), data, schema),
 });
 
 export type MessagesService = ReturnType<typeof createMessagesService>;
