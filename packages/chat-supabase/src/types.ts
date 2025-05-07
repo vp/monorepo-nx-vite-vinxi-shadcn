@@ -10,10 +10,15 @@ export type ChannelToAdd = Required<Omit<Channel, 'id' | 'inserted_at'>>;
 export type ChannelToUpdate = Required<Omit<Channel, 'inserted_at'>>;
 export type ChannelToDelete = { channel_id: number; user_id: string };
 
-export type Message = Database['chat_app']['Tables']['messages']['Row'];
-export type MessageToAdd = Required<Omit<Message, 'id' | 'inserted_at'>>;
+export type Message = Database['chat_app']['Tables']['messages']['Row'] & {
+  author: { username: string | null };
+};
+
+export type MessageToAdd = Required<
+  Omit<Message, 'id' | 'inserted_at' | 'author'>
+>;
 export type MessageToUpdate = Required<
-  Omit<Message, 'user_id' | 'inserted_at' | 'channel_id'>
+  Omit<Message, 'user_id' | 'inserted_at' | 'channel_id' | 'author'>
 >;
 export type MessageToDelete = { message_id: number; user_id: string };
 
