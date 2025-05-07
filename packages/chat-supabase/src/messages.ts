@@ -20,7 +20,7 @@ export async function getMessages(
     .schema(schema as keyof Database)
     .from('messages')
     .select(
-      'id, message, channel_id, inserted_at, user_id, users:user_id(username)'
+      'id, message, channel_id, inserted_at, user_id, author:user_id(username)'
     )
     .eq('channel_id', channelId)
     .order('created_at', { ascending: false })
@@ -50,7 +50,7 @@ export async function getMessage(
     .schema(schema as keyof Database)
     .from('messages')
     .select(
-      'id, message, channel_id, inserted_at, user_id, users:user_id(username)'
+      'id, message, channel_id, inserted_at, user_id, author:user_id(username)'
     )
     .eq('id', messageId)
     .single();
@@ -82,7 +82,7 @@ export async function sendMessage(
       message,
     })
     .select(
-      'id, message, channel_id, inserted_at, user_id, users:user_id(username)'
+      'id, message, channel_id, inserted_at, user_id, author:user_id(username)'
     )
     .single();
 
@@ -111,7 +111,9 @@ export async function updateMessage(
     .from('messages')
     .update({ message })
     .eq('id', messageId)
-    .select()
+    .select(
+      'id, message, channel_id, inserted_at, user_id, author:user_id(username)'
+    )
     .single();
 
   if (error) {
