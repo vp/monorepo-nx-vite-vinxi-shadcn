@@ -1,4 +1,4 @@
-import { Message, MessageToSend } from '@workspace/chat-ui/types';
+import { Message } from '@workspace/chat-ui/types';
 import { useChatContext } from '@workspace/chat-ui/chat-context';
 import { useEffect, useRef } from 'react';
 import { MessageItem } from '@workspace/chat-ui/components/message-item';

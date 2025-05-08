@@ -11,9 +11,17 @@ const meta: Meta<typeof SidebarItem> = {
 export default meta;
 type Story = StoryObj<typeof SidebarItem>;
 
-export const Primary = {
+export const Primary: Story = {
   args: {
-    channel: '',
+    channel: {
+      id: 0,
+      slug: 'Channel 1',
+      created_by: 1,
+      inserted_at: '',
+      link: {
+        to: '/channel/$channelId',
+        params: { channelId: 1 },
+      },
+    },
   },
 };
-
