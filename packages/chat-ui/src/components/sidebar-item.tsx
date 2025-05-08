@@ -19,7 +19,7 @@ export const SidebarItem = ({
       <Link
         {...link}
         activeOptions={{ exact: true }}
-        className="flex-grow flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700"
+        className="flex-grow flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-300 dark:text-gray-50 dark:hover:bg-gray-700"
       >
         <HashIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
         {slug}

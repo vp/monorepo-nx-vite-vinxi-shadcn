@@ -3,17 +3,14 @@ import {
   ChannelWithLink,
   ChannelOnAdd,
   ChannelOnDelete,
-  MessageOnAdd,
-  MessageOnDelete,
+  User,
 } from '@workspace/chat-ui/types';
 
 export type ChatContextValue = {
-  user?: { id: number; role: string };
+  user?: User;
   channels?: ChannelWithLink[];
   channelAdd?: ChannelOnAdd;
   deleteChannel?: ChannelOnDelete;
-  messageSend?: MessageOnAdd;
-  messageDelete?: MessageOnDelete;
 };
 
 export const ChatContext = createContext<ChatContextValue>({
@@ -26,10 +23,12 @@ export const useChatContext = () => {
   if (!context) {
     throw new Error('useChatContext must be used within a ChatProvider');
   }
+  
   return context;
 };
 
 export const useUser = () => {
   const { user } = useChatContext();
+
   return user;
 };

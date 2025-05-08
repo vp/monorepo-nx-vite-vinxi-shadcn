@@ -15,7 +15,7 @@ type Context = {
   channelsService: ChannelsService;
   messagesService: MessagesService;
   userManagementService: UserManagementService;
-  subscriptionService: SubscriptionsService;
+  subscriptionsService: SubscriptionsService;
 };
 
 export const createRouter = <
@@ -45,10 +45,10 @@ export const createRouter = <
       });
     }
 
-    if (!ctx.subscriptionService) {
+    if (!ctx.subscriptionsService) {
       throw new TRPCError({
         code: 'INTERNAL_SERVER_ERROR',
-        message: 'Subscription service not found',
+        message: 'Subscriptions service not found',
       });
     }
 
@@ -88,6 +88,28 @@ export const createRouter = <
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: 'Channel not found',
+          });
+        }
+
+        return response;
+      }),
+    getChannels: authedProcedure
+      .input(
+        z.object({
+          limit: z.number().optional().default(50),
+          cursor: z.number().optional(),
+        })
+      )
+      .query(async ({ ctx, input }) => {
+        const response = await ctx.channelsService.getChannels(
+          input.limit,
+          input.cursor
+        );
+
+        if (!response) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'Failed to fetch channels',
           });
         }
 
@@ -218,13 +240,6 @@ export const createRouter = <
           message: input.message,
           user_id: ctx.user.id,
         });
-
-        if (!response) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Failed to create message',
-          });
-        }
 
         return response;
       }),

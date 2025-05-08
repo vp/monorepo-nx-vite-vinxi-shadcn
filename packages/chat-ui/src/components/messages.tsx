@@ -1,7 +1,7 @@
 import { Message } from '@workspace/chat-ui/types';
-import { useChatContext } from '@workspace/chat-ui/chat-context';
 import { useEffect, useRef } from 'react';
 import { MessageItem } from '@workspace/chat-ui/components/message-item';
+import { useChannelContext } from '@workspace/chat-ui/channel-context';
 
 export const Messages = ({
   messages,
@@ -10,7 +10,7 @@ export const Messages = ({
   messages: Message[];
   channelId: number;
 }) => {
-  const { messageDelete } = useChatContext();
+  const { messageDelete } = useChannelContext();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -20,11 +20,9 @@ export const Messages = ({
     });
   }, [messages]);
 
-
   return (
     <div className="flex-1 overflow-auto p-4">
       <div className="grid gap-4">
-       
           {messages.map((message) => (
             <MessageItem
               key={message.id}
@@ -35,6 +33,5 @@ export const Messages = ({
           <div ref={messagesEndRef} style={{ height: 0 }} />
       </div>
     </div>
-
   );
 };

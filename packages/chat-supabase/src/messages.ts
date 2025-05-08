@@ -11,7 +11,7 @@ import { Database } from '@workspace/chat-supabase/database.types';
 
 export async function getMessages(
   supabase: SupabaseClient<Database>,
-  channelId: number,
+  channel_id: number,
   limit = 100,
   startIndex = 0,
   schema = 'chat_app'
@@ -22,8 +22,8 @@ export async function getMessages(
     .select(
       'id, message, channel_id, inserted_at, user_id, author:user_id(username)'
     )
-    .eq('channel_id', channelId)
-    .order('created_at', { ascending: false })
+    .eq('channel_id', channel_id)
+    .order('inserted_at', { ascending: true })
     .range(startIndex, startIndex + limit - 1);
 
   if (error) {

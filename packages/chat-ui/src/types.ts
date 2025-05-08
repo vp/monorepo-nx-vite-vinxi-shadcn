@@ -7,7 +7,7 @@ import {
 export type Channel = {
   id: number;
   slug: string;
-  created_by: number;
+  created_by: string;
   inserted_at: string;
 };
 
@@ -16,7 +16,7 @@ export type ChannelWithLink = Channel & {
 };
 
 export type User = {
-  id: number;
+  id: string;
   role: string;
 };
 
@@ -47,9 +47,9 @@ export type ChannelOnAdd = (
 
 export type Message = {
   id: number;
-  message: string;
+  message: string | null;
   channel_id: number;
-  user_id: number;
+  user_id: string;
   inserted_at: string;
   author: {
     username: string | null;
@@ -58,7 +58,7 @@ export type Message = {
 
 export type MessageToAdd = {
   message: string;
-  channel_id: number;
+  channelId: number;
 };
 
 export type MessageOnAdd = (

@@ -16,7 +16,7 @@ export const Primary: Story = {
     channel: {
       id: 0,
       slug: 'Channel 1',
-      created_by: 1,
+      created_by: '1',
       inserted_at: '',
       link: {
         to: '/channel/$channelId',

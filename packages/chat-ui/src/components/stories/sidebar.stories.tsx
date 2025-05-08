@@ -12,7 +12,7 @@ const CHANNELS = [
   {
     id: 0,
     slug: 'Channel 1',
-    created_by: 1,
+    created_by: '1',
     inserted_at: '',
     link: {
       to: '/channel/$channelId',
@@ -22,7 +22,7 @@ const CHANNELS = [
   {
     id: 1,
     slug: 'Channel 2',
-    created_by: 1,
+    created_by: '1',
     inserted_at: '',
     link: {
       to: '/channel/$channelId',

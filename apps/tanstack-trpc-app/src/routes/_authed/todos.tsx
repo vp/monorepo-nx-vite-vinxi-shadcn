@@ -82,7 +82,7 @@ function RouteComponent() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 m-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
         <TodoListAddCard className="bg-accent/10 text-accet-foreground/10" />
         {todolists?.map(({ id, title, description, todos }) => (

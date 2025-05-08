@@ -11,13 +11,16 @@ import { Database } from '@workspace/chat-supabase/database.types';
 
 export async function getChannels(
   supabase: SupabaseClient<Database>,
+  limit = 100,
+  startIndex = 0,
   schema = 'chat_app'
 ): Promise<RequestResponse<Channel[]>> {
   const { data, error } = await supabase
     .schema(schema as keyof Database)
     .from('channels')
     .select('id, slug, inserted_at, created_by')
-    .order('inserted_at', { ascending: true });
+    .order('inserted_at', { ascending: true })
+    .range(startIndex, startIndex + limit - 1);
 
   if (error) {
     console.error('Error fetching channels:', error);
@@ -169,7 +172,8 @@ export const createChannelsService = (
   createClient: ReturnType<typeof createServerClient>,
   schema = 'chat_app'
 ) => ({
-  getChannels: async () => getChannels(await createClient(), schema),
+  getChannels: async (limit = 100, startIndex = 0) =>
+    getChannels(await createClient(), limit, startIndex, schema),
   getChannel: async (channelId: number) =>
     getChannel(await createClient(), channelId, schema),
   createChannel: async (data: ChannelToAdd) =>

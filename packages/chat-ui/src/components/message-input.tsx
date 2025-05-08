@@ -35,7 +35,7 @@ export const MessageInput = ({ onSubmit }: { onSubmit: MessageOnSend }) => {
   };
 
   return (
-    <div className="flex shrink-0 items-center border-t bg-white pl-4 pr-8 py-4 dark:border-gray-800 dark:bg-gray-950">
+    <div className="flex shrink-0 items-center border-t bg-white py-4 px-4 dark:border-gray-800 dark:bg-gray-950">
       <Input
         type="text"
         value={messageText}
@@ -45,7 +45,7 @@ export const MessageInput = ({ onSubmit }: { onSubmit: MessageOnSend }) => {
         className="flex-1 rounded-md bg-gray-100 px-4 py-2 text-sm shadow-sm dark:bg-gray-800"
       />
       <Button
-        variant="ghost"
+        variant="default"
         size="icon"
         className="ml-2"
         onClick={() => handleSubmit()}
