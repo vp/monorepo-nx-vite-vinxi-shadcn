@@ -1,7 +1,55 @@
 {
+  "name": "chat-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/chat-ui/src",
+  "projectType": "library",
+  "tags": ["scope:client", "type:ui"],
   "targets": {
     "build": {
       "executor": "nx:noop"
+    },
+    "storybook": {
+      "executor": "@nx/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "packages/chat-ui/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nx/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/client-ui-footer",
+        "configDir": "packages/chat-ui/.storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c packages/chat-ui/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "chat-ui:build-storybook",
+        "staticFilePath": "dist/storybook/client-ui-footer"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "chat-ui:build-storybook:ci"
+        }
+      }
     }
   }
 }

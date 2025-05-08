@@ -22,7 +22,7 @@ export const Sidebar = ({
       void onChannelAdd({ slug: 'new-channel' });
     }
   };
-  const handleDeleteClick = async(data: ChannelToDelete) => {
+  const handleDeleteClick = async (data: ChannelToDelete) => {
     if (onChannelDelete) {
       void onChannelDelete(data);
     }
@@ -33,34 +33,28 @@ export const Sidebar = ({
   }
 
   return (
-    <nav
-      className="w-64 bg-gray-900 text-gray-100 overflow-scroll "
-      style={{ maxWidth: '20%', minWidth: 150, maxHeight: '100vh' }}
-    >
-      <div className="p-2 ">
-        {onChannelAdd && (
-          <div className="p-2">
-            <Button
-              className="bg-blue-900 hover:bg-blue-800 text-white py-2 px-4 rounded w-full transition duration-150"
-              onClick={handleAddClick}
-            >
-              New Channel
-            </Button>
-          </div>
-        )}
+ 
+            <nav className="space-y-1">
+              <div className="p-2 ">
+                {onChannelAdd && (
+                  <div className="p-2">
+                    <Button
+                      className="bg-blue-900 hover:bg-blue-800 text-white py-2 px-4 rounded w-full transition duration-150"
+                      onClick={handleAddClick}
+                    >
+                      New Channel
+                    </Button>
+                  </div>
+                )}
 
-        <hr className="m-2" />
-        <h4 className="font-bold">Channels</h4>
-        <ul className="channel-list">
-          {channels.map((channel) => (
-            <SidebarItem
-              channel={channel}
-              key={channel.id}
-              onDeleteChannel={handleDeleteClick}
-            />
-          ))}
-        </ul>
-      </div>
-    </nav>
+                {channels.map((channel) => (
+                  <SidebarItem
+                    channel={channel}
+                    key={channel.id}
+                    onDeleteChannel={handleDeleteClick}
+                  />
+                ))}
+              </div>
+            </nav>
   );
 };

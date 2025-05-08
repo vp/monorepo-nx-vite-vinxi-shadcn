@@ -33,9 +33,9 @@ export const Messages = ({
   };
 
   return (
-    <div className="relative h-screen">
-      <div className="Messages h-full pb-16">
-        <div className="p-2 overflow-y-auto">
+    <div className="flex-grow overflow-y-auto bg-slate-50">
+      <div className="p-4">
+        <div className="max-w-4xl mx-auto space-y-4">
           {messages.map((message) => (
             <MessageItem
               key={message.id}
@@ -46,11 +46,13 @@ export const Messages = ({
           <div ref={messagesEndRef} style={{ height: 0 }} />
         </div>
       </div>
-      {messageSend && (
-        <div className="p-2 absolute bottom-0 left-0 w-full">
-          <MessageInput onSubmit={handleSubmit} />
-        </div>
-      )}
     </div>
+    //   {messageSend && (
+    //     <div className="p-2 absolute bottom-0 left-0 w-full">
+    //         asdfasdf
+    //       <MessageInput onSubmit={handleSubmit} />
+    //     </div>
+    //   )}
+    // </div>
   );
 };

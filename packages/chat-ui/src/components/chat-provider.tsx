@@ -1,12 +1,12 @@
 import { PropsWithChildren } from 'react';
-import { ChatContext } from '@workspace/chat-ui/chat-context';
-import { User } from '@workspace/chat-ui/types';
+import { ChatContext, ChatContextValue } from '@workspace/chat-ui/chat-context';
+
 
 export const ChatProvider = ({
   children,
-  user,
-}: PropsWithChildren & { user?: User }) => (
-  <ChatContext.Provider value={{ user }}>
+  ...value
+}: PropsWithChildren & ChatContextValue) => (
+  <ChatContext.Provider value={value}>
     {children}
   </ChatContext.Provider>
 );
