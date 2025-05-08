@@ -1,14 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ChatLayout } from '@workspace/chat-ui/components/chat-layout';
-import { MessagesHeader } from '../messages-header.js';
-import { Messages } from '../messages.js';
-import { MessageInput } from '../message-input.js';
-import { ChatProvider } from '../chat-provider.js';
+import { MessagesHeader } from '@workspace/chat-ui/components/messages-header';
+import { Messages } from '@workspace/chat-ui/components/messages';
+import { MessageInput } from '@workspace/chat-ui/components/message-input';
+import { ChatProvider } from '@workspace/chat-ui/components/chat-provider';
+import { create } from 'domain';
 
 const CHANNELS = [
   {
     id: 0,
     slug: 'Channel 1',
+    created_by: 1,
+    inserted_at: '',
     link: {
       to: '/channel/$channelId',
       params: { channelId: 1 },
@@ -17,6 +20,8 @@ const CHANNELS = [
   {
     id: 1,
     slug: 'Channel 2',
+    created_by: 1,
+    inserted_at: '',
     link: {
       to: '/channel/$channelId',
       params: { channelId: 2 },
