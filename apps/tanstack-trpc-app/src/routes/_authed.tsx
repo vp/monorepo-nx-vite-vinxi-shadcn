@@ -17,9 +17,5 @@ export const Route = createFileRoute('/_authed')({
 });
 
 function RouteComponent() {
-  return (
-    <div className="p-4">
-      <Outlet />
-    </div>
-  );
+  return <Outlet />;
 }

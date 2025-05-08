@@ -4,6 +4,7 @@ import { trpcRouter } from '@/integrations/trpc/router';
 import { getTRPCApiContext } from '@/integrations/supabase/trpc';
 import { createUserTRPCContext } from '@/integrations/user/trpc';
 import { createTodosTRPCContext } from '@/integrations/todos/todos-trpc';
+import { createChatTRPCContext } from '@/integrations/chat/chat-trpc';
 
 function handler({ request }: { request: Request }) {
   return fetchRequestHandler({
@@ -14,6 +15,7 @@ function handler({ request }: { request: Request }) {
     createContext: () => ({
       ...createUserTRPCContext(),
       ...createTodosTRPCContext(),
+      ...createChatTRPCContext(),
     }),
   });
 }

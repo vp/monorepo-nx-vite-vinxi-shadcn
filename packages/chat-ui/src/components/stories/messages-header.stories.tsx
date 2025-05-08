@@ -13,7 +13,7 @@ export const Primary: Story = {
     channel: {
       slug: 'Chat channel',
       id: 0,
-      created_by: 0,
+      created_by: '0',
       inserted_at: ''
     },
   },

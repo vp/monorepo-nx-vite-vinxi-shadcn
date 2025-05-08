@@ -9,7 +9,7 @@ const CHANNELS = [
   {
     id: 0,
     slug: 'Channel 1',
-    created_by: 1,
+    created_by: '1',
     inserted_at: '',
     link: {
       to: '/channel/$channelId',
@@ -19,7 +19,7 @@ const CHANNELS = [
   {
     id: 1,
     slug: 'Channel 2',
-    created_by: 1,
+    created_by: '1',
     inserted_at: '',
     link: {
       to: '/channel/$channelId',
@@ -33,7 +33,7 @@ const meta: Meta<typeof ChatLayout> = {
   title: 'ChatLayout',
   decorators: [
     (Story) => (
-      <ChatProvider user={{ id: 1, role: 'admin' }} channels={CHANNELS}>
+      <ChatProvider user={{ id: '1', role: 'admin' }} channels={CHANNELS}>
         <Story />
       </ChatProvider>
     ),
@@ -46,7 +46,7 @@ type Story = StoryObj<typeof ChatLayout>;
 const CHANNEL = {
   slug: 'Chat channel',
   id: 1,
-  created_by: 1,
+  created_by: '1',
   inserted_at: '',
 };
 
@@ -56,7 +56,7 @@ const MESSAGES = [
     author: { username: 'User 1' },
     id: 0,
     channel_id: 0,
-    user_id: 0,
+    user_id: '0',
     inserted_at: '',
   },
   {
@@ -64,7 +64,7 @@ const MESSAGES = [
     author: { username: 'User 2' },
     id: 1,
     channel_id: 0,
-    user_id: 1,
+    user_id: '1',
     inserted_at: '',
   },
   {
@@ -72,7 +72,7 @@ const MESSAGES = [
     author: { username: 'User 1' },
     id: 0,
     channel_id: 0,
-    user_id: 0,
+    user_id: '0',
     inserted_at: '',
   },
   {
@@ -80,7 +80,7 @@ const MESSAGES = [
     author: { username: 'User 2' },
     id: 1,
     channel_id: 0,
-    user_id: 1,
+    user_id: '1',
     inserted_at: '',
   },
   {
@@ -88,7 +88,7 @@ const MESSAGES = [
     author: { username: 'User 1' },
     id: 0,
     channel_id: 0,
-    user_id: 0,
+    user_id: '0',
     inserted_at: '',
   },
   {
@@ -96,7 +96,7 @@ const MESSAGES = [
     author: { username: 'User 2' },
     id: 1,
     channel_id: 0,
-    user_id: 1,
+    user_id: '1',
     inserted_at: '',
   },
 ];

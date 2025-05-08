@@ -14,7 +14,7 @@ const MESSAGES = [
     author: { username: 'User 1' },
     id: 0,
     channel_id: 0,
-    user_id: 0,
+    user_id: '0',
     inserted_at: '',
   },
   {
@@ -22,7 +22,7 @@ const MESSAGES = [
     author: { username: 'User 2' },
     id: 1,
     channel_id: 0,
-    user_id: 1,
+    user_id: '1',
     inserted_at: '',
   },
 ];

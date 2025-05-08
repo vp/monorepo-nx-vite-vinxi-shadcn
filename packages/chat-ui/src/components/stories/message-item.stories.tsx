@@ -18,7 +18,7 @@ const MESSAGE = {
   author: { username: 'User 1' },
   id: 0,
   channel_id: 0,
-  user_id: 0,
+  user_id: '0',
   inserted_at: '',
 };
 
@@ -31,12 +31,12 @@ export const Primary = {
 
 export const NotUserMessage: Story = {
   args: {
-    message: { ...MESSAGE, user_id: 1 },
+    message: { ...MESSAGE, user_id: '1' },
     onDeleteMessage: action('onDeleteMessage') as MessageOnDelete,
   },
   decorators: [
     (Story) => (
-      <ChatProvider user={{ id: 0, role: 'member' }}>
+      <ChatProvider user={{ id: '0', role: 'member' }}>
         <Story />
       </ChatProvider>
     ),
@@ -54,7 +54,7 @@ export const UserIsAdmin: Story = {
   },
   decorators: [
     (Story) => (
-      <ChatProvider user={{ id: 1, role: 'admin' }}>
+      <ChatProvider user={{ id: '1', role: 'admin' }}>
         <Story />
       </ChatProvider>
     ),
@@ -63,7 +63,7 @@ export const UserIsAdmin: Story = {
 
 export const UserIsAuthor: Story = {
   args: {
-    message: { ...MESSAGE, user_id: 1 },
+    message: { ...MESSAGE, user_id: '1' },
     onDeleteMessage: action('onDeleteMessage') as MessageOnDelete,
   },
   play: async ({ canvasElement }) => {
@@ -72,7 +72,7 @@ export const UserIsAuthor: Story = {
   },
   decorators: [
     (Story) => (
-      <ChatProvider user={{ id: 1, role: 'member' }}>
+      <ChatProvider user={{ id: '1', role: 'member' }}>
         <Story />
       </ChatProvider>
     ),
