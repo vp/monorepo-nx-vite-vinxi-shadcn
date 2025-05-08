@@ -1,5 +1,4 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import { CenterPageLayout } from '@workspace/ui/components/blocks/center-page-layout';
 
 export const Route = createFileRoute('/_authed')({
   component: RouteComponent,
