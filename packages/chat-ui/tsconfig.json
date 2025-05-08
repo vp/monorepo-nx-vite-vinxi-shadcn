@@ -8,13 +8,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
     }
   ],
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
+    "lib": ["dom", "dom.iterable", "esnext"]
   }
 }

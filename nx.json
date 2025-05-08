@@ -9,7 +9,10 @@
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.mjs",
-      "!{projectRoot}/vitest-setup.mjs"
+      "!{projectRoot}/vitest-setup.mjs",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*",
+      "!{projectRoot}/tsconfig.storybook.json"
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
@@ -17,7 +20,16 @@
     "@nx/js/typescript",
     "@nx/vite/plugin",
     "@nx/eslint/plugin",
-    "@nx/deno"
+    "@nx/deno",
+    {
+      "plugin": "@nx/storybook/plugin",
+      "options": {
+        "serveStorybookTargetName": "storybook",
+        "buildStorybookTargetName": "build-storybook",
+        "testStorybookTargetName": "test-storybook",
+        "staticStorybookTargetName": "static-storybook"
+      }
+    }
   ],
   "targetDefaults": {
     "test": {
