@@ -1,4 +1,4 @@
-import { Constants, Database } from '@workspace/chat-supabase/database.types';
+import { Database } from '@workspace/chat-supabase/database.types';
 
 export type User = Database['chat_app']['Tables']['users']['Row'];
 export type UserToAdd = Required<Omit<User, 'id' | 'inserted_at'>>;
