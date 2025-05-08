@@ -8,10 +8,13 @@ const meta: Meta<typeof MessagesHeader> = {
 export default meta;
 type Story = StoryObj<typeof MessagesHeader>;
 
-export const Primary = {
+export const Primary: Story = {
   args: {
-   channel: {
-    slug: 'Chat channel'
-   }
+    channel: {
+      slug: 'Chat channel',
+      id: 0,
+      created_by: 0,
+      inserted_at: ''
+    },
   },
 };
