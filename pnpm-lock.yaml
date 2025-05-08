@@ -42,11 +42,17 @@ importers:
       '@nx/web':
         specifier: ^20.5.0
         version: 20.5.0(@babel/traverse@7.27.0)(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.15))(@types/node@18.16.9)(nx@20.5.0(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.8.2))(@swc/core@1.5.29(@swc/helpers@0.5.15)))(typescript@5.8.2)(verdaccio@6.0.5(encoding@0.1.13)(typanion@3.14.0))
+      '@storybook/addon-actions':
+        specifier: ^8.4.6
+        version: 8.6.12(storybook@8.6.12(prettier@2.8.8))
       '@storybook/addon-essentials':
         specifier: 8.6.12
         version: 8.6.12(@types/react@19.0.10)(storybook@8.6.12(prettier@2.8.8))
       '@storybook/addon-interactions':
         specifier: ^8.4.6
+        version: 8.6.12(storybook@8.6.12(prettier@2.8.8))
+      '@storybook/core-common':
+        specifier: 8.6.12
         version: 8.6.12(storybook@8.6.12(prettier@2.8.8))
       '@storybook/core-server':
         specifier: 8.6.12
@@ -492,6 +498,15 @@ importers:
       '@trpc/tanstack-react-query':
         specifier: ^11.1.1
         version: 11.1.1(@tanstack/react-query@5.74.4(react@19.0.0))(@trpc/client@11.1.2(@trpc/server@11.1.1(typescript@5.8.2))(typescript@5.8.2))(@trpc/server@11.1.1(typescript@5.8.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.8.2)
+      '@workspace/chat-supabase':
+        specifier: workspace:*
+        version: link:../../packages/chat-supabase
+      '@workspace/chat-trpc':
+        specifier: workspace:*
+        version: link:../../packages/chat-trpc
+      '@workspace/chat-ui':
+        specifier: workspace:*
+        version: link:../../packages/chat-ui
       '@workspace/dropzone-supabase':
         specifier: workspace:*
         version: link:../../packages/dropzone-supabase
