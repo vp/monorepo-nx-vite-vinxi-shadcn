@@ -1,4 +1,4 @@
-import { TrashIcon } from '@workspace/chat-ui/components/trash-icon';
+
 import { useUser } from '@workspace/chat-ui/chat-context';
 import { Message, MessageOnDelete } from '@workspace/chat-ui/types';
 import {
@@ -6,6 +6,8 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@workspace/ui/components/ui/avatar';
+import { Button } from '@workspace/ui/components/ui/button';
+import { TrashIcon } from 'lucide-react';
 
 export const MessageItem = ({
   message,
@@ -29,9 +31,9 @@ export const MessageItem = ({
           {(user?.id === message.user_id ||
             (user && ['admin', 'moderator'].includes(user.role))) &&
             onDeleteMessage && (
-              <button onClick={() => onDeleteMessage({ id: message.id })}>
-                <TrashIcon />
-              </button>
+              <Button onClick={() => onDeleteMessage({ id: message.id })} variant="ghost" className="m-0 p-0 min-w-[24px]">
+                <TrashIcon size={20}/>
+              </Button>
             )}
         </div>
       </div>

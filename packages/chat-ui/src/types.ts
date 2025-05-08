@@ -39,11 +39,11 @@ export type ChannelOnDelete = (
 
 export type ChannelOnUpdate = (
   channel: ChannelToUpdate
-) => Promise<RequestResponse<ChannelWithLink>>;
+) => Promise<RequestResponse<Channel>>;
 
 export type ChannelOnAdd = (
   channel: ChannelToAdd
-) => Promise<RequestResponse<ChannelWithLink>>;
+) => Promise<RequestResponse<Channel>>;
 
 export type Message = {
   id: number;

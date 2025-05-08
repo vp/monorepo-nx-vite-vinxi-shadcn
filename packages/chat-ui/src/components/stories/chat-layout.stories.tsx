@@ -4,7 +4,6 @@ import { MessagesHeader } from '@workspace/chat-ui/components/messages-header';
 import { Messages } from '@workspace/chat-ui/components/messages';
 import { MessageInput } from '@workspace/chat-ui/components/message-input';
 import { ChatProvider } from '@workspace/chat-ui/components/chat-provider';
-import { create } from 'domain';
 
 const CHANNELS = [
   {
@@ -102,9 +101,8 @@ const MESSAGES = [
   },
 ];
 
-export const Primary = {
+export const Primary: Story = {
   args: {
-    channels: [],
     children: (
       <>
         <MessagesHeader channel={CHANNEL} />

@@ -1,9 +1,8 @@
 import { ChannelWithLink, ChannelToDelete } from '@workspace/chat-ui/types';
-import { TrashIcon } from '@workspace/chat-ui/components/trash-icon';
 import { Link } from '@tanstack/react-router';
 import { useUser } from '@workspace/chat-ui/chat-context';
 import { Button } from '@workspace/ui/components/ui/button';
-import { HashIcon } from 'lucide-react';
+import { HashIcon, TrashIcon } from 'lucide-react';
 
 export const SidebarItem = ({
   channel: { id, slug, created_by, link },

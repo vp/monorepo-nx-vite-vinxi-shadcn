@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MessageInput } from '@workspace/chat-ui/components/message-input';
+import { MessageOnSend } from '@workspace/chat-ui/types';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta<typeof MessageInput> = {
   component: MessageInput,
@@ -8,8 +10,8 @@ const meta: Meta<typeof MessageInput> = {
 export default meta;
 type Story = StoryObj<typeof MessageInput>;
 
-export const Primary = {
+export const Primary: Story = {
   args: {
-    onSubmit: () => Promise.resolve({ error: false }),
-  },
+    onSubmit: action('onSubmit') as MessageOnSend,
+  }
 };

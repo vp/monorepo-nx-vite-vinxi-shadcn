@@ -6,11 +6,11 @@ import {
   createRootRoute,
   createRouter,
 } from '@tanstack/react-router';
-// If you're having issues with the CSS import, try using a relative path:
-// import '../../../packages/ui/globals.css';
+import { ReactRenderer } from '@storybook/react';
+import type { PartialStoryFn } from '@storybook/core-common';
 
 export const decorators = [
-  (Story) => (
+  (Story: PartialStoryFn<ReactRenderer>) => (
     <ThemeContext.Provider
       value={{
         theme: 'light',
@@ -22,7 +22,7 @@ export const decorators = [
       <Story />
     </ThemeContext.Provider>
   ),
-  (Story) => {
+  (Story: PartialStoryFn<ReactRenderer>) => {
     const router = createRouter({
       history: createMemoryHistory(),
       routeTree: createRootRoute({ component: Story }),

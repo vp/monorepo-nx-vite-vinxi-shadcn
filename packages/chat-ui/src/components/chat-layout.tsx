@@ -11,13 +11,15 @@ export const ChatLayout = ({ children }: PropsWithChildren) => {
     <div className="flex h-screen w-full">
       <div className="flex flex-col border-r bg-gray-100 dark:border-gray-800 dark:bg-gray-950">
         <div className="flex-1 overflow-auto">
-          <div className="space-y-2 py-4 px-0 min-w-[200px]">
-            <div className="flex h-16 items-center justify-between px-4">
+          <header className="flex h-16 shrink-0 items-center justify-between px-4 dark:border-gray-800 dark:bg-gray-950">
+            <div className="flex items-center gap-4">
               <Link to="/" className="flex items-center gap-2">
                 <MessageSquare className="h-6 w-6" />
                 <span className="font-semibold">Chat</span>
               </Link>
             </div>
+          </header>
+          <div className="space-y-2 py-4 px-0 min-w-[200px]">
             <Sidebar
               channels={channels}
               onChannelAdd={channelAdd}

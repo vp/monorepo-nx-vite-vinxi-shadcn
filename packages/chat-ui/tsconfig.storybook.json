@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "outDir": "",
+    "rootDir": ".",
     "paths": {
       "@workspace/ui/*": ["./../../packages/ui/src/*"]
     }
