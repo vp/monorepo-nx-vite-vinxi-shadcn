@@ -32,3 +32,18 @@ export type Permission =
 
 export type UserStatus =
   Database['chat_app']['Tables']['users']['Row']['status'];
+
+export type MessageChangeEvent = {
+  event: 'INSERT' | 'UPDATE' | 'DELETE';
+  data: Message | null;
+};
+
+export type ChannelChangeEvent = {
+  event: 'INSERT' | 'UPDATE' | 'DELETE';
+  data: Channel | null;
+};
+
+export type UserChangeEvent = {
+  event: 'INSERT' | 'UPDATE' | 'DELETE';
+  data: User | null;
+};

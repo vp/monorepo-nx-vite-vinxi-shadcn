@@ -2,6 +2,8 @@ import {
   createTRPCClient as createTRPCClientBase,
   HTTPBatchLinkOptions,
   httpBatchStreamLink,
+  httpSubscriptionLink,
+  splitLink,
 } from '@trpc/client';
 import superjson from 'superjson';
 import { AnyTRPCRouter } from '@trpc/server';
@@ -10,23 +12,39 @@ import { getTrpcServerHeaders } from './trcp-server-headers.js';
 export const createTRPCClient = <TRouter extends AnyTRPCRouter>() =>
   createTRPCClientBase<TRouter>({
     links: [
-      httpBatchStreamLink({
-        transformer: superjson,
-        url: getUrl(),
-        headers: () => {
-          // Include cookies in the headers
-          if (typeof window === 'undefined') {
-            // On the server, use `cookie` from the request
-            // this is crucal for SSR and calling trpc from server
-            return {
-              cookie: getTrpcServerHeaders(),
-            };
-          }
-
-          // On the client, cookies are automatically sent with requests
-          return {};
-        },
-      } as unknown as HTTPBatchLinkOptions<TRouter['_def']['_config']['$types']>),
+      splitLink({
+        // Use HTTP subscription link for subscription operations
+        condition: (op) => op.type === 'subscription',
+        
+        // HTTP subscription link for subscriptions (long-polling)
+        true: httpSubscriptionLink({
+          url: getUrl(),
+          // Customize as needed for subscriptions
+          transformer: superjson,
+          headers: () => {
+            if (typeof window === 'undefined') {
+              return {
+                cookie: getTrpcServerHeaders(),
+              };
+            }
+            return {};
+          },
+        }),
+        
+        // HTTP batch stream link for queries and mutations
+        false: httpBatchStreamLink({
+          transformer: superjson,
+          url: getUrl(),
+          headers: () => {
+            if (typeof window === 'undefined') {
+              return {
+                cookie: getTrpcServerHeaders(),
+              };
+            }
+            return {};
+          },
+        } as unknown as HTTPBatchLinkOptions<TRouter['_def']['_config']['$types']>),
+      }),
     ],
   });
 

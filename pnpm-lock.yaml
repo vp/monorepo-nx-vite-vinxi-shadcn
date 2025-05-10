@@ -805,6 +805,9 @@ importers:
 
   packages/chat-trpc:
     dependencies:
+      '@trpc/server':
+        specifier: ^11.1.1
+        version: 11.1.1(typescript@5.8.2)
       '@workspace/chat-supabase':
         specifier: workspace:*
         version: link:../chat-supabase

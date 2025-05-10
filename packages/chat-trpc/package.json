@@ -17,6 +17,7 @@
   "dependencies": {
     "zod": "^3.24.2",
     "@workspace/chat-supabase": "workspace:*",
-    "@workspace/trpc": "workspace:*"
+    "@workspace/trpc": "workspace:*",
+    "@trpc/server": "^11.1.1"
   }
 }
