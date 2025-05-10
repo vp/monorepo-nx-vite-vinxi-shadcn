@@ -1,9 +1,3 @@
-import { ChannelsService } from '@workspace/chat-supabase/channels';
-import { MessagesService } from '@workspace/chat-supabase/messages';
-import {
-  SubscriptionsService,
-} from '@workspace/chat-supabase/subscriptions';
-import { UserManagementService } from '@workspace/chat-supabase/user-management';
 
 import {
   createRouterFor,
@@ -11,15 +5,9 @@ import {
   TRPCError,
 } from '@workspace/trpc/init';
 import { z } from 'zod';
-import { MessageChangeEvent } from '@workspace/chat-supabase/types';
+import { createMessagesRoutes } from './messages.js';
+import { Context } from './chat-context.js';
 
-type Context = {
-  getUser: () => Promise<{ id: string } | null>;
-  channelsService: ChannelsService;
-  messagesService: MessagesService;
-  userManagementService: UserManagementService;
-  subscriptionsService: SubscriptionsService;
-};
 
 export const createRouter = <
   TContext extends ReturnType<typeof getTRPCInstance<Context>>
@@ -185,119 +173,6 @@ export const createRouter = <
         return response;
       }),
 
-    // Message-related procedures
-    getMessages: authedProcedure
-      .input(
-        z.object({
-          channelId: z.number(),
-          limit: z.number().optional().default(50),
-          cursor: z.number().optional(),
-        })
-      )
-      .query(async ({ ctx, input }) => {
-        const response = await ctx.messagesService.getMessages(
-          input.channelId,
-          input.limit,
-          input.cursor
-        );
-
-        if (!response) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Failed to fetch messages',
-          });
-        }
-
-        return response;
-      }),
-
-    getMessage: authedProcedure
-      .input(
-        z.object({
-          messageId: z.number(),
-        })
-      )
-      .query(async ({ ctx, input }) => {
-        const response = await ctx.messagesService.getMessage(input.messageId);
-
-        if (!response) {
-          throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: 'Message not found',
-          });
-        }
-
-        return response;
-      }),
-
-    sendMessage: authedProcedure
-      .input(
-        z.object({
-          channelId: z.number(),
-          message: z.string(),
-        })
-      )
-      .mutation(async ({ ctx, input }) => {
-        const response = await ctx.messagesService.sendMessage({
-          channel_id: input.channelId,
-          message: input.message,
-          user_id: ctx.user.id,
-        });
-
-        if (!response) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Failed to create message',
-          });
-        }
-
-        return response;
-      }),
-
-    updateMessage: authedProcedure
-      .input(
-        z.object({
-          messageId: z.number(),
-          message: z.string(),
-        })
-      )
-      .mutation(async ({ ctx, input }) => {
-        const response = await ctx.messagesService.updateMessage({
-          id: input.messageId,
-          message: input.message,
-        });
-
-        if (!response) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Failed to update message',
-          });
-        }
-
-        return response;
-      }),
-
-    deleteMessage: authedProcedure
-      .input(
-        z.object({
-          messageId: z.number(),
-        })
-      )
-      .mutation(async ({ ctx, input }) => {
-        const response = await ctx.messagesService.deleteMessage({
-          message_id: input.messageId,
-          user_id: ctx.user.id,
-        });
-
-        if (!response) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Failed to delete message',
-          });
-        }
-
-        return response;
-      }),
 
     getUser: authedProcedure
       .input(
@@ -364,63 +239,9 @@ export const createRouter = <
         return response;
       }),
 
-    onMessageChange: authedProcedure
-      .input(z.object({ channelId: z.number() }))
-      .subscription(async function* ({ ctx, input }) {
-        // Message queue and signal for waiting
-        const messageQueue: MessageChangeEvent[] = [];
-        let notifyMessage: (() => void) | null = null;
-
-        // Create a waitForMessage function
-        const waitForMessage = () =>
-          new Promise<void>((resolve) => {
-            notifyMessage = resolve;
-          });
-
-        let unsubscribe: (() => void) | undefined = undefined;
-
-        try {
-          // Set up subscription
-          const result = await ctx.messagesService.listenToMessages(
-            input.channelId,
-            (payload) => {
-              // When a message arrives, add to queue
-              messageQueue.push(payload);
-
-              // Notify waiting generator if needed
-              if (notifyMessage) {
-                notifyMessage();
-                notifyMessage = null;
-              }
-            }
-          );
-
-          unsubscribe = result.unsubscribe;
-
-          // Yield messages as they arrive
-          while (true) {
-            if (messageQueue.length > 0) {
-              // If we have messages in queue, yield the next one
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              yield messageQueue.shift()!;
-            } else {
-              // Otherwise wait for new messages
-              await waitForMessage();
-            }
-          }
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Failed to subscribe to messages',
-          });
-        } finally {
-          // Ensure we clean up when the generator is done
-          if (unsubscribe) {
-            unsubscribe();
-          }
-        }
-      }),
+    ...createMessagesRoutes<TContext>(
+      context,
+    )
   };
 };
 
