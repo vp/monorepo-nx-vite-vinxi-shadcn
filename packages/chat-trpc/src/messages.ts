@@ -2,6 +2,17 @@ import { MessageChangeEvent } from '@workspace/chat-supabase/types';
 import { getTRPCInstance, TRPCError } from '@workspace/trpc/init';
 import { z } from 'zod';
 import { Context } from './chat-context.js';
+import { observable } from '@trpc/server/observable';
+
+// Add this shared subscription manager at the top of your file, outside the router creation
+const channelSubscriptions = new Map<
+  number,
+  {
+    listeners: Set<(event: MessageChangeEvent) => void>;
+    unsubscribe: (() => void) | undefined;
+    refCount: number;
+  }
+>();
 
 export const createMessagesRoutes = <
   TContext extends ReturnType<typeof getTRPCInstance<Context>>
@@ -140,60 +151,62 @@ export const createMessagesRoutes = <
       }),
     onMessageChange: procedure
       .input(z.object({ channelId: z.number() }))
-      .subscription(async function* ({ ctx, input }) {
-        // Message queue and signal for waiting
-        const messageQueue: MessageChangeEvent[] = [];
-        let notifyMessage: (() => void) | null = null;
+      .subscription(({ ctx, input }) => {
+        return observable<MessageChangeEvent>((emit) => {
+          const channelId = input.channelId;
 
-        // Create a waitForMessage function
-        const waitForMessage = () =>
-          new Promise<void>((resolve) => {
-            notifyMessage = resolve;
-          });
+          // Initialize channel subscription if it doesn't exist
+          if (!channelSubscriptions.has(channelId)) {
+            channelSubscriptions.set(channelId, {
+              listeners: new Set(),
+              unsubscribe: undefined,
+              refCount: 0,
+            });
 
-        let unsubscribe: (() => void) | undefined = undefined;
+            // Set up the actual subscription to the database
+            ctx.messagesService
+              .listenToMessages(channelId, (payload) => {
+                // Broadcast to all listeners for this channel
+                const subscription = channelSubscriptions.get(channelId);
+                if (subscription) {
+                  subscription.listeners.forEach((listener) =>
+                    listener(payload)
+                  );
+                }
+              })
+              .then((result) => {
+                const subscription = channelSubscriptions.get(channelId);
+                if (subscription) {
+                  subscription.unsubscribe = result.unsubscribe;
+                }
+              })
+              .catch((error) => {
+                console.error('Failed to set up channel subscription:', error);
+              });
+          }
 
-        try {
-          // Set up subscription
-          const result = await ctx.messagesService.listenToMessages(
-            input.channelId,
-            (payload) => {
-              // When a message arrives, add to queue
-              messageQueue.push(payload);
+          // Add this client as a listener
+          const subscription = channelSubscriptions.get(channelId)!;
+          subscription.listeners.add(emit.next);
+          subscription.refCount++;
 
-              // Notify waiting generator if needed
-              if (notifyMessage) {
-                notifyMessage();
-                notifyMessage = null;
+          // Return cleanup function
+          return () => {
+            const subscription = channelSubscriptions.get(channelId);
+            if (subscription) {
+              subscription.listeners.delete(emit.next);
+              subscription.refCount--;
+
+              // If no more listeners, clean up the subscription
+              if (subscription.refCount <= 0) {
+                if (subscription.unsubscribe) {
+                  subscription.unsubscribe();
+                }
+                channelSubscriptions.delete(channelId);
               }
             }
-          );
-
-          unsubscribe = result.unsubscribe;
-
-          // Yield messages as they arrive
-          while (true) {
-            if (messageQueue.length > 0) {
-              // If we have messages in queue, yield the next one
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              yield messageQueue.shift()!;
-            } else {
-              // Otherwise wait for new messages
-              await waitForMessage();
-            }
-          }
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error) {
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'Failed to subscribe to messages',
-          });
-        } finally {
-          // Ensure we clean up when the generator is done
-          if (unsubscribe) {
-            unsubscribe();
-          }
-        }
+          };
+        });
       }),
   };
 };
