@@ -1,6 +1,9 @@
 import { ChannelsService } from '@workspace/chat-supabase/channels';
 import { MessagesService } from '@workspace/chat-supabase/messages';
-import { SubscriptionsService } from '@workspace/chat-supabase/subscriptions';
+import {
+  subscribeToMessages,
+  SubscriptionsService,
+} from '@workspace/chat-supabase/subscriptions';
 import { UserManagementService } from '@workspace/chat-supabase/user-management';
 
 import {
@@ -9,6 +12,8 @@ import {
   TRPCError,
 } from '@workspace/trpc/init';
 import { z } from 'zod';
+import { observable } from '@trpc/server/observable';
+import { Message, MessageChangeEvent } from '@workspace/chat-supabase/types';
 
 type Context = {
   getUser: () => Promise<{ id: string } | null>;
@@ -241,6 +246,13 @@ export const createRouter = <
           user_id: ctx.user.id,
         });
 
+        if (!response) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'Failed to create message',
+          });
+        }
+
         return response;
       }),
 
@@ -353,6 +365,64 @@ export const createRouter = <
 
         return response;
       }),
+
+      onMessageChange: authedProcedure
+      .input(z.object({ channelId: z.number() }))
+      .subscription(async function* ({ ctx, input }) {
+        // Message queue and signal for waiting
+        const messageQueue: MessageChangeEvent[] = [];
+        let notifyMessage: (() => void) | null = null;
+        
+        // Create a waitForMessage function
+        const waitForMessage = () => new Promise<void>(resolve => {
+          notifyMessage = resolve;
+        });
+        
+        let unsubscribe: (() => void) | undefined = undefined;
+        
+        try {
+          // Set up subscription
+          const result = await ctx.messagesService.listenToMessages(
+            input.channelId,
+            (payload) => {
+              // When a message arrives, add to queue
+              messageQueue.push(payload);
+              
+              // Notify waiting generator if needed
+              if (notifyMessage) {
+                notifyMessage();
+                notifyMessage = null;
+              }
+            }
+          );
+          
+          unsubscribe = result.unsubscribe;
+          
+          // Yield messages as they arrive
+          while (true) {
+            if (messageQueue.length > 0) {
+              // If we have messages in queue, yield the next one
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              yield messageQueue.shift()!;
+            } else {
+              // Otherwise wait for new messages
+              await waitForMessage();
+            }
+          }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'Failed to subscribe to messages',
+          });
+        } finally {
+          // Ensure we clean up when the generator is done
+          if (unsubscribe) {
+            unsubscribe();
+          }
+        }
+      }),
+      
   };
 };
 

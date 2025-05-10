@@ -2,8 +2,6 @@ import {
   createTRPCClient as createTRPCClientBase,
   HTTPBatchLinkOptions,
   httpBatchStreamLink,
-  httpSubscriptionLink,
-  splitLink,
 } from '@trpc/client';
 import superjson from 'superjson';
 import { AnyTRPCRouter } from '@trpc/server';

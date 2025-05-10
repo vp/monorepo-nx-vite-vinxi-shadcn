@@ -2,6 +2,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { RequestResponse } from '@workspace/core/request';
 import {
   Message,
+  MessageChangeEvent,
   MessageToAdd,
   MessageToDelete,
   MessageToUpdate,
@@ -200,6 +201,43 @@ export async function deleteMessage(
   };
 }
 
+export function listenToMessages(
+  supabase: SupabaseClient<Database>,
+  channelId: number,
+  callback: (payload: MessageChangeEvent) => void,
+  schema = 'chat_app'
+): {
+  unsubscribe: () => void;
+} {
+  const messageListener = supabase
+    .channel(`${schema}:messages:channel_id=${channelId}`) // Use schema to create a unique channel name
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema,
+        table: 'messages',
+        filter: `channel_id=eq.${channelId}`,
+      },
+      (payload) => callback({ event: 'INSERT', data: payload.new as Message })
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: 'DELETE',
+        schema,
+        table: 'messages',
+        filter: `channel_id=eq.${channelId}`,
+      },
+      (payload) => callback({ event: 'DELETE', data: payload.old as Message })
+    )
+    .subscribe();
+
+  return {
+    unsubscribe: () => messageListener.unsubscribe(),
+  };
+}
+
 export const createMessagesService = (
   createClient: ReturnType<typeof createServerClient>,
   schema = 'chat_app'
@@ -214,6 +252,10 @@ export const createMessagesService = (
     updateMessage(await createClient(), data, schema),
   deleteMessage: async (data: MessageToDelete) =>
     deleteMessage(await createClient(), data, schema),
+  listenToMessages: async (
+    channelId: number,
+    callback: (payload: MessageChangeEvent) => void
+  ) => listenToMessages(await createClient(), channelId, callback, schema),
 });
 
 export type MessagesService = ReturnType<typeof createMessagesService>;
