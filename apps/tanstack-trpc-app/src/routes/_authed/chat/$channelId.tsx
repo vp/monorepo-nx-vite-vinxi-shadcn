@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTRPC } from '@/integrations/trpc/react';
 import { ChannelProvider } from '@workspace/chat-ui/components/channel-provider';
@@ -28,6 +28,7 @@ function RouteComponent() {
   const trpc = useTRPC();
   const { channelId } = Route.useParams();
   const [messages, setMessages] = useState<Message[]>([]);
+  const queryClient = useQueryClient()
 
   const { data: channels } = useQuery(
     trpc.chat.getChannel.queryOptions({ channelId: Number(channelId) })
@@ -38,17 +39,22 @@ function RouteComponent() {
 
   useEffect(() => {
     if (queriedMessages?.data) {
-      setMessages(queriedMessages.data);
+      setMessages(queriedMessages.data.sort((a, b) => {
+        return (
+          new Date(a.inserted_at).getTime() -
+          new Date(b.inserted_at).getTime()
+        );
+      }));
     }
   }, [queriedMessages]);
 
   const messageSendMutation = useMutation({
     ...trpc.chat.sendMessage.mutationOptions(),
-    // onSuccess: () => {
-    //   queryClient.invalidateQueries({
-    //     queryKey: trpc.chat.getMessages.queryKey(),
-    //   });
-    // },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: trpc.chat.getMessages.queryKey(),
+      });
+    },
   });
 
   const subscription = useSubscription(
