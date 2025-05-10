@@ -24,7 +24,7 @@ export async function getMessages(
       'id, message, channel_id, inserted_at, user_id, author:user_id(username)'
     )
     .eq('channel_id', channel_id)
-    .order('inserted_at', { ascending: true })
+    .order('inserted_at', { ascending: false })
     .range(startIndex, startIndex + limit - 1);
 
   if (error) {
