@@ -1,7 +1,6 @@
 import { ChannelsService } from '@workspace/chat-supabase/channels';
 import { MessagesService } from '@workspace/chat-supabase/messages';
 import {
-  subscribeToMessages,
   SubscriptionsService,
 } from '@workspace/chat-supabase/subscriptions';
 import { UserManagementService } from '@workspace/chat-supabase/user-management';
@@ -12,8 +11,7 @@ import {
   TRPCError,
 } from '@workspace/trpc/init';
 import { z } from 'zod';
-import { observable } from '@trpc/server/observable';
-import { Message, MessageChangeEvent } from '@workspace/chat-supabase/types';
+import { MessageChangeEvent } from '@workspace/chat-supabase/types';
 
 type Context = {
   getUser: () => Promise<{ id: string } | null>;
@@ -366,20 +364,21 @@ export const createRouter = <
         return response;
       }),
 
-      onMessageChange: authedProcedure
+    onMessageChange: authedProcedure
       .input(z.object({ channelId: z.number() }))
       .subscription(async function* ({ ctx, input }) {
         // Message queue and signal for waiting
         const messageQueue: MessageChangeEvent[] = [];
         let notifyMessage: (() => void) | null = null;
-        
+
         // Create a waitForMessage function
-        const waitForMessage = () => new Promise<void>(resolve => {
-          notifyMessage = resolve;
-        });
-        
+        const waitForMessage = () =>
+          new Promise<void>((resolve) => {
+            notifyMessage = resolve;
+          });
+
         let unsubscribe: (() => void) | undefined = undefined;
-        
+
         try {
           // Set up subscription
           const result = await ctx.messagesService.listenToMessages(
@@ -387,7 +386,7 @@ export const createRouter = <
             (payload) => {
               // When a message arrives, add to queue
               messageQueue.push(payload);
-              
+
               // Notify waiting generator if needed
               if (notifyMessage) {
                 notifyMessage();
@@ -395,9 +394,9 @@ export const createRouter = <
               }
             }
           );
-          
+
           unsubscribe = result.unsubscribe;
-          
+
           // Yield messages as they arrive
           while (true) {
             if (messageQueue.length > 0) {
@@ -409,7 +408,7 @@ export const createRouter = <
               await waitForMessage();
             }
           }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           throw new TRPCError({
             code: 'INTERNAL_SERVER_ERROR',
@@ -422,7 +421,6 @@ export const createRouter = <
           }
         }
       }),
-      
   };
 };
 
