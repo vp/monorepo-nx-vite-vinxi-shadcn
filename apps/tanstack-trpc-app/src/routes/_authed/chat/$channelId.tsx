@@ -50,11 +50,11 @@ function RouteComponent() {
 
   const messageSendMutation = useMutation({
     ...trpc.chat.sendMessage.mutationOptions(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: trpc.chat.getMessages.queryKey(),
-      });
-    },
+    // onSuccess: () => {
+    //   queryClient.invalidateQueries({
+    //     queryKey: trpc.chat.getMessages.queryKey(),
+    //   });
+    // },
   });
 
   const subscription = useSubscription(
