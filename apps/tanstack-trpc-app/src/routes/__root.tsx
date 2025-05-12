@@ -35,13 +35,15 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async ({ context }) => {
-    const user = await getUserInfo();
+    // Use stale-while-revalidate pattern with caching
+    const user = await context.queryClient.ensureQueryData({
+      queryKey: ['user-info'],
+      queryFn: getUserInfo,
+      staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
+    });
 
     logger.log('user', user);
-
-    return {
-      user
-    };
+    return { user };
   },
   head: () => ({
     meta: [
