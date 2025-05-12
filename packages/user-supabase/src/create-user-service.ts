@@ -5,6 +5,7 @@ import { signIn, SignInRequest } from './sign-in.js';
 import { getUser } from './get-user.js';
 import { updateUser, UpdateUserRequest } from './update-user.js';
 import { updateAvatar, UpdateAvatarRequest } from './update-avatar.js';
+import { refreshSession } from './refresh-session.js';
 
 export const createUserService = (
   createClient: ReturnType<typeof createServerClient>
@@ -18,6 +19,7 @@ export const createUserService = (
       updateAvatar(createClient(), data),
     signOut: async () => signOut(createClient()),
     getUser: async () => getUser(createClient()),
+    refreshSession: async () => refreshSession(createClient()),
   };
 };
 
