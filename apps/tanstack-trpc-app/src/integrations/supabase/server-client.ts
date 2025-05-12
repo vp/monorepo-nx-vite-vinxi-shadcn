@@ -16,7 +16,17 @@ export default function getSupabaseServerClient() {
         },
         setAll(cookies) {
           cookies.forEach((cookie) => {
-            setCookie(cookie.name, cookie.value);
+            try {
+              setCookie(cookie.name, cookie.value);
+            } catch (error) {
+              const message = error instanceof Error ? error.message : String(error);
+              if (message.includes('headers already sent') || message.includes('Headers already sent')) {
+                console.warn(`Failed to set cookie "${cookie.name}": Headers already sent to client`);
+              } else {
+                // Re-throw if it's a different error
+                throw error;
+              }
+            }
           });
         },
       },
