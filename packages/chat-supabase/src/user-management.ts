@@ -6,6 +6,7 @@ import {
   UserRole,
   UserUpdateStatus,
   UserUpdateUsername,
+  UserProfile,
 } from '@workspace/chat-supabase/types';
 import { createServerClient } from '@supabase/ssr';
 import { Database } from '@workspace/chat-supabase/database.types';
@@ -34,6 +35,38 @@ export async function getUser(
     error: false,
     message: 'User fetched successfully',
     data,
+  };
+}
+
+export async function getUserProfile(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  schema = 'chat_app'
+): Promise<RequestResponse<UserProfile>> {
+  const { data, error } = await supabase
+    .schema(schema as keyof Database)
+    .from('users')
+    .select('username, status, roles:user_roles(role)')
+    .eq('id', userId)
+    .single();
+
+  if (error) {
+    console.error('Error fetching user profile:', error);
+    return {
+      error: true,
+      message: error.message,
+    };
+  }
+
+  return {
+    error: false,
+    message: 'User profile fetched successfully',
+    data: {
+      ...data,
+      roles: Array.isArray(data.roles)
+        ? data.roles.map((r: { role: 'admin' | 'moderator' }) => r.role)
+        : [],
+    },
   };
 }
 
@@ -158,16 +191,16 @@ export const createUserManagementService = (
   schema = 'chat_app'
 ) => ({
   getUser: (userId: string) => getUser(createClient(), userId, schema),
+  getUserProfile: (userId: string) =>
+    getUserProfile(createClient(), userId, schema),
   updateUserStatus: (data: UserUpdateStatus) =>
     updateUserStatus(createClient(), data, schema),
   updateUsername: (data: UserUpdateUsername) =>
     updateUsername(createClient(), data, schema),
   getUserRoles: (userId: string) =>
     getUserRoles(createClient(), userId, schema),
-  hasPermission: (
-    userId: string,
-    permission: Permission
-  ) => hasPermission(createClient(), userId, permission, schema),
+  hasPermission: (userId: string, permission: Permission) =>
+    hasPermission(createClient(), userId, permission, schema),
 });
 
 export type UserManagementService = ReturnType<

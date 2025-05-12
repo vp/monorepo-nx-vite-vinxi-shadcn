@@ -1,6 +1,6 @@
 import { ChannelWithLink, ChannelToDelete } from '@workspace/chat-ui/types';
 import { Link } from '@tanstack/react-router';
-import { useUser } from '@workspace/chat-ui/chat-context';
+import { useChatUser } from '@workspace/chat-ui/chat-context';
 import { Button } from '@workspace/ui/components/ui/button';
 import { HashIcon, TrashIcon } from 'lucide-react';
 
@@ -11,7 +11,7 @@ export const SidebarItem = ({
   channel: ChannelWithLink;
   onDeleteChannel?: (data: ChannelToDelete) => Promise<void>;
 }) => {
-  const user = useUser();
+  const user = useChatUser();
   const showDeleteButton = onDeleteChannel && id !== 1 && (created_by === user?.id || user?.role === 'admin');
 
   return (

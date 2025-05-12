@@ -6,5 +6,11 @@ export const getUserInfo = createServerFn({ method: 'GET' })
   .handler(async ({ context }) => {
     const { userService } = context;
 
-    return await userService.getUser();
+    const user = await userService.getUser();
+    const chatProfile = user ? await context.getChatUser(user.id) : null;
+
+    return user && {
+      ...user,
+      chatProfile: chatProfile && chatProfile.data,
+    };
   });

@@ -27,7 +27,7 @@ export const useChatContext = () => {
   return context;
 };
 
-export const useUser = () => {
+export const useChatUser = () => {
   const { user } = useChatContext();
 
   return user;

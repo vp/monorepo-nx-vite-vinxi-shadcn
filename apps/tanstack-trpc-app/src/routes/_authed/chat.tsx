@@ -23,18 +23,20 @@ function RouteComponent() {
       params: { channelId: channel.id.toString() },
     } as LinkProps,
   }));
+
   const user = Route.useRouteContext().user;
 
-  console.log('[USER]', user);
-
-  return user && (
-    <ChatProvider
-      channels={channelsWithLinks}
-      user={{ id: user?.id, role: 'member' }}
-    >
-      <ChatLayout basePath="/chat">
-        <Outlet />
-      </ChatLayout>
-    </ChatProvider>
+  return (
+    user &&
+    user.chatProfile && (
+      <ChatProvider
+        channels={channelsWithLinks}
+        user={{ id: user.id, ...user.chatProfile }}
+      >
+        <ChatLayout basePath="/chat">
+          <Outlet />
+        </ChatLayout>
+      </ChatProvider>
+    )
   );
 }

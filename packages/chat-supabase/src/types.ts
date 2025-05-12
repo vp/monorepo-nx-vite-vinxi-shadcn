@@ -1,6 +1,7 @@
 import { Database } from '@workspace/chat-supabase/database.types';
 
 export type User = Database['chat_app']['Tables']['users']['Row'];
+export type UserProfile = Omit<User, 'id' | 'inserted_at'> & { roles: Database['chat_app']['Enums']['app_role'][] };
 export type UserToAdd = Required<Omit<User, 'id' | 'inserted_at'>>;
 export type UserUpdateUsername = Required<Omit<User, 'inserted_at' | 'status'>>;
 export type UserUpdateStatus = Required<Omit<User, 'inserted_at' | 'username'>>;

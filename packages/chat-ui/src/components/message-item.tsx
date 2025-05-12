@@ -1,5 +1,4 @@
-
-import { useUser } from '@workspace/chat-ui/chat-context';
+import { useChatUser } from '@workspace/chat-ui/chat-context';
 import { Message, MessageOnDelete } from '@workspace/chat-ui/types';
 import {
   Avatar,
@@ -16,23 +15,32 @@ export const MessageItem = ({
   message: Message;
   onDeleteMessage?: MessageOnDelete;
 }) => {
-  const user = useUser();
+  const user = useChatUser();
 
   return (
     <div className="grid gap-2">
       <div className="flex items-center gap-2 text-sm font-medium">
         <Avatar className="h-8 w-8">
           <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-          <AvatarFallback><PersonStanding /></AvatarFallback>
+          <AvatarFallback>
+            <PersonStanding />
+          </AvatarFallback>
         </Avatar>
         <span>{message.author?.username} </span>
         <span className="text-gray-500 dark:text-gray-400">12:34 PM</span>
         <div className="w-4">
           {(user?.id === message.user_id ||
-            (user && ['admin', 'moderator'].includes(user.role))) &&
+            (user?.roles &&
+              user.roles.some((role) =>
+                ['admin', 'moderator'].includes(role)
+              ))) &&
             onDeleteMessage && (
-              <Button onClick={() => onDeleteMessage({ id: message.id })} variant="ghost" className="m-0 p-0 min-w-[24px]">
-                <TrashIcon size={20}/>
+              <Button
+                onClick={() => onDeleteMessage({ id: message.id })}
+                variant="ghost"
+                className="m-0 p-0 min-w-[24px]"
+              >
+                <TrashIcon size={20} />
               </Button>
             )}
         </div>

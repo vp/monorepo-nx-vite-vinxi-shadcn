@@ -15,9 +15,11 @@ export type ChannelWithLink = Channel & {
   link: LinkProps;
 };
 
+export type Role = 'admin' | 'moderator';
+
 export type User = {
   id: string;
-  role: string;
+  roles: Role[];
 };
 
 export type ChannelToAdd = {
