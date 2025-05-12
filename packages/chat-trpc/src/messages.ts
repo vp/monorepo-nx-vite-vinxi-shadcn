@@ -194,8 +194,6 @@ export const createMessagesRoutes = <
           subscription.listeners.add(emit.next);
           subscription.refCount++;
 
-          console.log('Added listener for channelId:', channelId, subscription.refCount);
-
           // Return cleanup function
           return () => {
             const subscription = channelSubscriptions.get(channelId);

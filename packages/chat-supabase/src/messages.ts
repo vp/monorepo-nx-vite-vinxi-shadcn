@@ -228,8 +228,6 @@ export function listenToMessages(
           .eq('id', payload.new.id)
           .single();
 
-        console.log('Message payload with author:', data);
-          
         if (data) {
           callback({ event: 'INSERT', data: data as Message });
         } else {
