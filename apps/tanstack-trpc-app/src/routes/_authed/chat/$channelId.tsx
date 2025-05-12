@@ -9,42 +9,47 @@ import { Message } from '@workspace/chat-supabase/types';
 
 export const Route = createFileRoute('/_authed/chat/$channelId')({
   component: RouteComponent,
-  loader: async ({ context, params: { channelId } }) => {
-    await context.queryClient.prefetchQuery(
-      context.trpc.chat.getChannel.queryOptions({
-        channelId: Number(channelId),
-      })
-    );
+  // TODO: doesn't work, no param channelId in context params
+  // loader: async ({ context, params }) => {
+  //   const { channelId } = params;
+  //   await context.queryClient.prefetchQuery(
+  //     context.trpc.chat.getChannel.queryOptions({
+  //       channelId: Number(channelId),
+  //     })
+  //   );
 
-    await context.queryClient.prefetchQuery(
-      context.trpc.chat.getMessages.queryOptions({
-        channelId: Number(channelId),
-      })
-    );
-  },
+  //   await context.queryClient.prefetchQuery(
+  //     context.trpc.chat.getMessages.queryOptions({
+  //       channelId: Number(channelId),
+  //     })
+  //   );
+  // },
 });
 
 function RouteComponent() {
   const trpc = useTRPC();
   const { channelId } = Route.useParams();
   const [messages, setMessages] = useState<Message[]>([]);
-  const queryClient = useQueryClient()
+  //const queryClient = useQueryClient()
 
   const { data: channels } = useQuery(
     trpc.chat.getChannel.queryOptions({ channelId: Number(channelId) })
   );
+
   const { data: queriedMessages } = useQuery(
     trpc.chat.getMessages.queryOptions({ channelId: Number(channelId) })
   );
 
   useEffect(() => {
     if (queriedMessages?.data) {
-      setMessages(queriedMessages.data.sort((a, b) => {
-        return (
-          new Date(a.inserted_at).getTime() -
-          new Date(b.inserted_at).getTime()
-        );
-      }));
+      setMessages(
+        queriedMessages.data.sort((a, b) => {
+          return (
+            new Date(a.inserted_at).getTime() -
+            new Date(b.inserted_at).getTime()
+          );
+        })
+      );
     }
   }, [queriedMessages]);
 
@@ -57,13 +62,13 @@ function RouteComponent() {
     // },
   });
 
-  const subscription = useSubscription(
+  useSubscription(
     trpc.chat.onMessageChange.subscriptionOptions(
       {
         channelId: Number(channelId),
       },
       {
-        enabled: true,
+        enabled: typeof window !== 'undefined',
         onStarted: () => {
           console.log('subscription started');
         },

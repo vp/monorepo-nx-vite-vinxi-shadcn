@@ -1,5 +1,5 @@
-import { getSupabaseBrowserClient } from '../supabase/browser-client';
-import { getSupabaseServerClient } from '../supabase/server-client';
+import { getSupabaseBrowserClient } from '@/integrations/supabase/browser-client';
+import getSupabaseServerClient from '@/integrations/supabase/server-client';
 import { createChannelsService } from '@workspace/chat-supabase/channels';
 import { createUserManagementService } from '@workspace/chat-supabase/user-management';
 import { createMessagesService } from '@workspace/chat-supabase/messages';
