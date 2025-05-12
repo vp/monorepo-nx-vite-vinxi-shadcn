@@ -20,7 +20,7 @@ export default function getSupabaseServerClient() {
               setCookie(cookie.name, cookie.value);
             } catch (error) {
               const message = error instanceof Error ? error.message : String(error);
-              if (message.includes('headers already sent') || message.includes('Headers already sent')) {
+              if (message.toLowerCase().includes('headers already sent')) {
                 console.warn(`Failed to set cookie "${cookie.name}": Headers already sent to client`);
               } else {
                 // Re-throw if it's a different error
