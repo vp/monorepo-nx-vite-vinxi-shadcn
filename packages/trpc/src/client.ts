@@ -2,6 +2,8 @@ import {
   createTRPCClient as createTRPCClientBase,
   HTTPBatchLinkOptions,
   httpBatchStreamLink,
+  httpSubscriptionLink,
+  splitLink,
 } from '@trpc/client';
 import superjson from 'superjson';
 import { AnyTRPCRouter } from '@trpc/server';
@@ -13,19 +15,7 @@ export const createTRPCClient = <TRouter extends AnyTRPCRouter>() =>
       httpBatchStreamLink({
         transformer: superjson,
         url: getUrl(),
-        headers: () => {
-          // Include cookies in the headers
-          if (typeof window === 'undefined') {
-            // On the server, use `cookie` from the request
-            // this is crucal for SSR and calling trpc from server
-            return {
-              cookie: getTrpcServerHeaders(),
-            };
-          }
-
-          // On the client, cookies are automatically sent with requests
-          return {};
-        },
+        headers: getTrpcServerHeaders,
       } as unknown as HTTPBatchLinkOptions<TRouter['_def']['_config']['$types']>),
     ],
   });
