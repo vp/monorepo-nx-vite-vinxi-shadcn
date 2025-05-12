@@ -6,14 +6,15 @@ import {
   CardTitle,
 } from '@workspace/ui/components/ui/card';
 import { AuthForm } from '@workspace/user-ui/components/auth-form';
-import { useTRPC } from '@/integrations/trpc/react';
-
+import { signIn } from '@/integrations/user/fn/sign-in';
+import { useServerFn } from '@tanstack/react-start';
+import { signUp } from '@/integrations/user/fn/sign-up';
 
 export function SignIn() {
   const router = useRouter();
-  const trpc = useTRPC();
 
-  const loginMutation = useMutation(trpc.user.signIn.mutationOptions({
+  const loginMutation = useMutation({
+    mutationFn: signIn,
     onSuccess: async (ctx) => {
       if (!ctx?.error) {
         await router.invalidate();
@@ -21,16 +22,18 @@ export function SignIn() {
         return;
       }
     },
-  }));
+  });
 
-  const signupMutation = useMutation(trpc.user.signUp.mutationOptions());
+  const signupMutation = useMutation({
+    mutationFn: useServerFn(signUp),
+  });
 
   return (
     <AuthForm
       actionText="Login"
       status={loginMutation.status}
       onSubmit={(data) => {
-        loginMutation.mutate(data);
+        loginMutation.mutate({ data });
       }}
       afterSubmit={
         loginMutation.data ? (
@@ -47,9 +50,11 @@ export function SignIn() {
                       (e.target as HTMLButtonElement).form!
                     );
 
-                    signupMutation.mutate( {
-                      email: formData.get('email') as string,
-                      password: formData.get('password') as string,
+                    signupMutation.mutate({
+                      data: {
+                        email: formData.get('email') as string,
+                        password: formData.get('password') as string,
+                      },
                     });
                   }}
                   type="button"

@@ -10,14 +10,14 @@ export const createUserService = (
   createClient: ReturnType<typeof createServerClient>
 ) => {
   return {
-    signUp: async (data: SignUpRequest) => signUp(await createClient(), data),
-    signIn: async (data: SignInRequest) => signIn(await createClient(), data),
+    signUp: async (data: SignUpRequest) => signUp(createClient(), data),
+    signIn: async (data: SignInRequest) => signIn(createClient(), data),
     updateUser: async (data: UpdateUserRequest) =>
-      updateUser(await createClient(), data),
+      updateUser(createClient(), data),
     updateAvatar: async (data: UpdateAvatarRequest) =>
-      updateAvatar(await createClient(), data),
-    signOut: async () => signOut(await createClient()),
-    getUser: async () => getUser(await createClient()),
+      updateAvatar(createClient(), data),
+    signOut: async () => signOut(createClient()),
+    getUser: async () => getUser(createClient()),
   };
 };
 

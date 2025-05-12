@@ -7,11 +7,11 @@ import { TodoToUpdate, updateTodo } from '@workspace/todos-supabase/update-todo'
 export const createTodosService = (
   createClient: ReturnType<typeof createServerClient>
 ) => ({
-  addTodo: async (data: TodoToAdd) => addTodo(await createClient(), data),
+  addTodo: async (data: TodoToAdd) => addTodo(createClient(), data),
   updateTodo: async (data: TodoToUpdate) =>
-    updateTodo(await createClient(), data),
-  getTodos: async () => getTodos(await createClient()),
-  deleteTodo: async (id: number) => deleteTodo(await createClient(), id),
+    updateTodo(createClient(), data),
+  getTodos: async () => getTodos(createClient()),
+  deleteTodo: async (id: number) => deleteTodo(createClient(), id),
 });
 
 export type TodosService = ReturnType<typeof createTodosService>;

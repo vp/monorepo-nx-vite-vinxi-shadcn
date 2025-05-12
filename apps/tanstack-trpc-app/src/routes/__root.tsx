@@ -24,6 +24,7 @@ import { TRPCClient } from '@/integrations/trpc/client';
 import { NotFound } from '@/components/NotFound';
 import { DefaultCatchBoundary } from '@workspace/tanstack-router/ui/default-catch-boundary';
 import { UserNav } from '@/components/UserNav';
+import { getUserInfo } from '@/integrations/user/fn/get-user-info';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -32,9 +33,8 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-
   beforeLoad: async ({ context }) => {
-    const user = await context.trpcClient.user.getUser.query();
+    const user = await getUserInfo();
 
     return {
       user,
@@ -82,10 +82,15 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     <RootDocument>
       <ThemeProvider>
         <AppLayout>
-          <AppHeader left={<TopMenu />} right={<>
-            <ModeSwitcher />
-            <UserNav />
-          </>} />
+          <AppHeader
+            left={<TopMenu />}
+            right={
+              <>
+                <ModeSwitcher />
+                <UserNav />
+              </>
+            }
+          />
           <Outlet />
         </AppLayout>
       </ThemeProvider>

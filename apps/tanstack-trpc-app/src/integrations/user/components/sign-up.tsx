@@ -5,19 +5,20 @@ import {
 } from '@workspace/ui/components/ui/card';
 import { SignUpForm } from '@workspace/user-ui/components/sign-up-form';
 import { useMutation } from '@tanstack/react-query';
-import { useTRPC } from '@/integrations/trpc/react';
+import { signUp } from '@/integrations/user/fn/sign-up';
+import { useServerFn } from '@tanstack/react-start';
 
 export const SignUp = () => {
-   const trpc = useTRPC();
-
-  const signupMutation = useMutation(trpc.user.signUp.mutationOptions() );
+  const signupMutation = useMutation({
+    mutationFn: useServerFn(signUp),
+  });
 
   return (
     <SignUpForm
       actionText="Sign Up"
       status={signupMutation.status}
       onSubmit={(data) => {
-        void signupMutation.mutate(data);
+        void signupMutation.mutate({ data });
       }}
       afterSubmit={
         signupMutation.data?.error ? (
