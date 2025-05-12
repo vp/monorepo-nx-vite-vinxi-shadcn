@@ -136,7 +136,7 @@ export async function deleteMessage(
   supabase: SupabaseClient<Database>,
   { message_id: messageId, user_id: userId }: MessageToDelete,
   schema = 'chat_app'
-): Promise<RequestResponse<null>> {
+): Promise<RequestResponse<{ id: number }>> {
   // Check if user is the author of the message or has admin privileges
   const { data: message, error: fetchError } = await supabase
     .schema(schema as keyof Database)
@@ -197,7 +197,7 @@ export async function deleteMessage(
   return {
     error: false,
     message: 'Message deleted successfully',
-    data: null,
+    data: { id: messageId },
   };
 }
 

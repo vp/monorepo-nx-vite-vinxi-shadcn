@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTRPC } from '@/integrations/trpc/react';
 import { ChannelProvider } from '@workspace/chat-ui/components/channel-provider';
@@ -6,6 +6,7 @@ import { Channel } from '@workspace/chat-ui/components/channel';
 import { useSubscription } from '@trpc/tanstack-react-query';
 import { useEffect, useState } from 'react';
 import { Message } from '@workspace/chat-supabase/types';
+import { logger } from '@/utils';
 
 export const Route = createFileRoute('/_authed/chat/$channelId')({
   component: RouteComponent,
@@ -53,14 +54,13 @@ function RouteComponent() {
     }
   }, [queriedMessages]);
 
-  const messageSendMutation = useMutation({
-    ...trpc.chat.sendMessage.mutationOptions(),
-    // onSuccess: () => {
-    //   queryClient.invalidateQueries({
-    //     queryKey: trpc.chat.getMessages.queryKey(),
-    //   });
-    // },
-  });
+  const messageSendMutation = useMutation(
+    trpc.chat.sendMessage.mutationOptions()
+  );
+
+  const messageDeleteMutation = useMutation(
+    trpc.chat.deleteMessage.mutationOptions()
+  );
 
   useSubscription(
     trpc.chat.onMessageChange.subscriptionOptions(
@@ -70,12 +70,10 @@ function RouteComponent() {
       {
         enabled: typeof window !== 'undefined',
         onStarted: () => {
-          console.log('subscription started');
+          logger.log('subscription started');
         },
         onData: (event) => {
-          console.log('subscription data', event);
           if (event.event === 'INSERT') {
-            console.log('subscription data', event.data);
             setMessages((prevMessages) => {
               if (event.data) {
                 return [...prevMessages, event.data];
@@ -83,12 +81,24 @@ function RouteComponent() {
               return prevMessages;
             });
           }
+
+          if (event.event === 'DELETE') {
+            setMessages((prevMessages) => {
+              if (event.data && event.data.id) {
+                return prevMessages.filter(
+                  (message) => event.data && message.id !== event.data.id
+                );
+              }
+
+              return prevMessages;
+            });
+          }
         },
         onError: (error) => {
-          console.error('subscription error', error);
+          logger.error('subscription error', error);
         },
         onConnectionStateChange: (state) => {
-          console.log('subscription connection state', state);
+          logger.log('subscription connection state', state);
         },
       }
     )
@@ -100,6 +110,7 @@ function RouteComponent() {
         channel={channels.data}
         messages={messages}
         messageSend={messageSendMutation.mutateAsync}
+        messageDelete={messageDeleteMutation.mutateAsync}
       >
         <Channel />
       </ChannelProvider>

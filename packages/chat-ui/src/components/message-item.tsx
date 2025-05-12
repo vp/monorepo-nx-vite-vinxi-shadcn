@@ -7,7 +7,7 @@ import {
   AvatarImage,
 } from '@workspace/ui/components/ui/avatar';
 import { Button } from '@workspace/ui/components/ui/button';
-import { TrashIcon } from 'lucide-react';
+import { PersonStanding, TrashIcon } from 'lucide-react';
 
 export const MessageItem = ({
   message,
@@ -23,9 +23,9 @@ export const MessageItem = ({
       <div className="flex items-center gap-2 text-sm font-medium">
         <Avatar className="h-8 w-8">
           <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-          <AvatarFallback>JP</AvatarFallback>
+          <AvatarFallback><PersonStanding /></AvatarFallback>
         </Avatar>
-        <span>{message.author?.username}</span>
+        <span>{message.author?.username} </span>
         <span className="text-gray-500 dark:text-gray-400">12:34 PM</span>
         <div className="w-4">
           {(user?.id === message.user_id ||

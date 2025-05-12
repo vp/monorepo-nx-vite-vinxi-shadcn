@@ -23,11 +23,14 @@ function RouteComponent() {
       params: { channelId: channel.id.toString() },
     } as LinkProps,
   }));
+  const user = Route.useRouteContext().user;
 
-  return (
+  console.log('[USER]', user);
+
+  return user && (
     <ChatProvider
       channels={channelsWithLinks}
-      user={{ id: '1', role: 'admin' }}
+      user={{ id: user?.id, role: 'member' }}
     >
       <ChatLayout basePath="/chat">
         <Outlet />

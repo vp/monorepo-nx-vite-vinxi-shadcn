@@ -131,12 +131,12 @@ export const createMessagesRoutes = <
     deleteMessage: procedure
       .input(
         z.object({
-          messageId: z.number(),
+          id: z.number(),
         })
       )
       .mutation(async ({ ctx, input }) => {
         const response = await ctx.messagesService.deleteMessage({
-          message_id: input.messageId,
+          message_id: input.id,
           user_id: ctx.user.id,
         });
 
