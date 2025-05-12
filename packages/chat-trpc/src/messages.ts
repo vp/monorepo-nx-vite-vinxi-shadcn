@@ -186,9 +186,15 @@ export const createMessagesRoutes = <
           }
 
           // Add this client as a listener
-          const subscription = channelSubscriptions.get(channelId)!;
+          const subscription = channelSubscriptions.get(channelId);
+          if (!subscription) {
+            throw new Error(`Subscription for channelId ${channelId} was not initialized.`);
+          }
+
           subscription.listeners.add(emit.next);
           subscription.refCount++;
+
+          console.log('Added listener for channelId:', channelId, subscription.refCount);
 
           // Return cleanup function
           return () => {

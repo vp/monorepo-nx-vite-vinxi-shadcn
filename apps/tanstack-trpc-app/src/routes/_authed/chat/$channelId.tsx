@@ -75,6 +75,7 @@ function RouteComponent() {
         onData: (event) => {
           console.log('subscription data', event);
           if (event.event === 'INSERT') {
+            console.log('subscription data', event.data);
             setMessages((prevMessages) => {
               if (event.data) {
                 return [...prevMessages, event.data];

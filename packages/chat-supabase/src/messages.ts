@@ -219,7 +219,24 @@ export function listenToMessages(
         table: 'messages',
         filter: `channel_id=eq.${channelId}`,
       },
-      (payload) => callback({ event: 'INSERT', data: payload.new as Message })
+       async (payload) => {
+        // Fetch the complete message with user information
+        const { data } = await supabase
+          .schema(schema as keyof Database)
+          .from('messages')
+          .select('id, message, channel_id, inserted_at, user_id, author:user_id(username)')
+          .eq('id', payload.new.id)
+          .single();
+
+        console.log('Message payload with author:', data);
+          
+        if (data) {
+          callback({ event: 'INSERT', data: data as Message });
+        } else {
+          // Fallback to raw payload if query fails
+          callback({ event: 'INSERT', data: payload.new as Message });
+        }
+      }
     )
     .on(
       'postgres_changes',
