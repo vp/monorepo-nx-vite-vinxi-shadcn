@@ -17,8 +17,10 @@
   "dependencies": {
     "zod": "^3.24.2",
     "@supabase/ssr": "^0.6.1",
-    "@supabase/supabase-js": "^2.49.4",
     "@workspace/user-supabase": "workspace:*",
     "@workspace/trpc": "workspace:*"
+  },
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.49.4"
   }
 }

@@ -1,6 +1,6 @@
 {
-    "extends": "./tsconfig.lib.json",
-    "compilerOptions": {
-     "jsx": "react-jsx"
-    }
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
 }
