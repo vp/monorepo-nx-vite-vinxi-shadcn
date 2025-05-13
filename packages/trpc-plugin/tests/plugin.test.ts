@@ -24,13 +24,37 @@ describe('viteTrpcPlugin', () => {
     expect(plugin.name).toBe('vite-plugin-trpc');
   });
 
-  it('should transform code when id includes "trcp-server-headers"', () => {
+  it('should transform code when id includes "trcp-server-headers" and is client', () => {
     const code = 'some code';
     const id = '/path/to/trcp-server-headers.ts';
+
+    callPluginHook(plugin.configResolved, {
+      router: {
+        name: 'client',
+      },
+    } as any);
 
     const result = callPluginHook(plugin.transform, code, id);
 
     expect(result).toEqual({
+      code: 'export const getTrpcServerHeaders = () => ({});',
+      map: null,
+    });
+  });
+
+   it('should not transform code when id includes "trcp-server-headers" but is ssr', () => {
+    const code = 'some code';
+    const id = '/path/to/trcp-server-headers.ts';
+
+    callPluginHook(plugin.configResolved, {
+      router: {
+        name: 'ssr',
+      },
+    } as any);
+
+    const result = callPluginHook(plugin.transform, code, id);
+
+    expect(result).not.toEqual({
       code: 'export const getTrpcServerHeaders = () => ({});',
       map: null,
     });

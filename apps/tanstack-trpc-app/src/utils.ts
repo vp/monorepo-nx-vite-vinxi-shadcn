@@ -19,3 +19,9 @@ export const error = (...args: any[]) => {
     console.error(logPrefix(), ...args);
   }
 };
+
+export const logger = {
+  log,
+  warn,
+  error,
+};

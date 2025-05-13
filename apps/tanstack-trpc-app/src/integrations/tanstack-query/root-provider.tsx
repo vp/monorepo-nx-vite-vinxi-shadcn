@@ -3,30 +3,35 @@ import superjson from 'superjson';
 import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
 
 import { TRPCProvider } from '@/integrations/trpc/react';
-import { trpcClient } from '../trpc/client';
+import { createTRPCRouterClient } from '@/integrations/trpc/client';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    dehydrate: { serializeData: superjson.serialize },
-    hydrate: { deserializeData: superjson.deserialize },
-    queries: {
-      // Set default options for queries
-      refetchOnWindowFocus: true,
-      retry: 1,
+export function createQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      dehydrate: { serializeData: superjson.serialize },
+      hydrate: { deserializeData: superjson.deserialize },
+      queries: {
+        // Set default options for queries
+        refetchOnWindowFocus: true,
+        retry: 1,
 
-      // Set the default cache time for queries, but set stale time to 0 for server-side rendering
-      // This is important for SSR to work correctly!!!
-      staleTime: typeof window !== 'undefined' ? 1000 * 60 * 5 : undefined, // 5 minutes
+        // Set the default cache time for queries, but set stale time to 0 for server-side rendering
+        // This is important for SSR to work correctly!!!
+        staleTime: typeof window !== 'undefined' ? 1000 * 60 * 5 : undefined, // 5 minutes
+      },
     },
-  },
-});
+  });
+}
 
-const serverHelpers = createTRPCOptionsProxy({
-  client: trpcClient,
-  queryClient: queryClient,
-});
+export function createContext() {
+  const queryClient = createQueryClient();
+  const trpcClient = createTRPCRouterClient();
 
-export function getContext() {
+  const serverHelpers = createTRPCOptionsProxy({
+    client: trpcClient,
+    queryClient: queryClient,
+  });
+
   return {
     queryClient,
     trpc: serverHelpers,
@@ -34,9 +39,9 @@ export function getContext() {
   };
 }
 
-export function Provider({ children }: { children: React.ReactNode }) {
+export function Provider({ children, context }: { children: React.ReactNode, context: Omit<ReturnType<typeof createContext>, 'trpc'> }) {
   return (
-    <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
+    <TRPCProvider trpcClient={context.trpcClient} queryClient={context.queryClient}>
       {children}
     </TRPCProvider>
   );

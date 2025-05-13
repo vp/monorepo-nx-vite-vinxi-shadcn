@@ -34,11 +34,10 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async ({ context }) => {
+    // Use stale-while-revalidate pattern with caching
     const user = await getUserInfo();
 
-    return {
-      user,
-    };
+    return { user };
   },
   head: () => ({
     meta: [

@@ -18,6 +18,10 @@ const ITEMS = [
   {
     title: 'Todos',
     to: '/todos',
+  },
+  {
+    title: 'Chat',
+    to: '/chat',
   }
 ] as AppTopMenuItem[];
 

@@ -18,8 +18,11 @@ import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
 import { Route as AuthedUserImport } from './routes/_authed/user'
 import { Route as AuthedTodosImport } from './routes/_authed/todos'
 import { Route as AuthedSignOutImport } from './routes/_authed/sign-out'
+import { Route as AuthedChatImport } from './routes/_authed/chat'
 import { Route as AuthSignUpImport } from './routes/_auth/sign-up'
 import { Route as AuthSignInImport } from './routes/_auth/sign-in'
+import { Route as AuthedChatIndexImport } from './routes/_authed/chat/index'
+import { Route as AuthedChatChannelIdImport } from './routes/_authed/chat/$channelId'
 
 // Create/Update Routes
 
@@ -63,6 +66,12 @@ const AuthedSignOutRoute = AuthedSignOutImport.update({
   getParentRoute: () => AuthedRoute,
 } as any)
 
+const AuthedChatRoute = AuthedChatImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AuthedRoute,
+} as any)
+
 const AuthSignUpRoute = AuthSignUpImport.update({
   id: '/sign-up',
   path: '/sign-up',
@@ -73,6 +82,18 @@ const AuthSignInRoute = AuthSignInImport.update({
   id: '/sign-in',
   path: '/sign-in',
   getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthedChatIndexRoute = AuthedChatIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthedChatRoute,
+} as any)
+
+const AuthedChatChannelIdRoute = AuthedChatChannelIdImport.update({
+  id: '/$channelId',
+  path: '/$channelId',
+  getParentRoute: () => AuthedChatRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -114,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpImport
       parentRoute: typeof AuthImport
     }
+    '/_authed/chat': {
+      id: '/_authed/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AuthedChatImport
+      parentRoute: typeof AuthedImport
+    }
     '/_authed/sign-out': {
       id: '/_authed/sign-out'
       path: '/sign-out'
@@ -142,6 +170,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryImport
       parentRoute: typeof rootRoute
     }
+    '/_authed/chat/$channelId': {
+      id: '/_authed/chat/$channelId'
+      path: '/$channelId'
+      fullPath: '/chat/$channelId'
+      preLoaderRoute: typeof AuthedChatChannelIdImport
+      parentRoute: typeof AuthedChatImport
+    }
+    '/_authed/chat/': {
+      id: '/_authed/chat/'
+      path: '/'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof AuthedChatIndexImport
+      parentRoute: typeof AuthedChatImport
+    }
   }
 }
 
@@ -159,13 +201,29 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface AuthedChatRouteChildren {
+  AuthedChatChannelIdRoute: typeof AuthedChatChannelIdRoute
+  AuthedChatIndexRoute: typeof AuthedChatIndexRoute
+}
+
+const AuthedChatRouteChildren: AuthedChatRouteChildren = {
+  AuthedChatChannelIdRoute: AuthedChatChannelIdRoute,
+  AuthedChatIndexRoute: AuthedChatIndexRoute,
+}
+
+const AuthedChatRouteWithChildren = AuthedChatRoute._addFileChildren(
+  AuthedChatRouteChildren,
+)
+
 interface AuthedRouteChildren {
+  AuthedChatRoute: typeof AuthedChatRouteWithChildren
   AuthedSignOutRoute: typeof AuthedSignOutRoute
   AuthedTodosRoute: typeof AuthedTodosRoute
   AuthedUserRoute: typeof AuthedUserRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
+  AuthedChatRoute: AuthedChatRouteWithChildren,
   AuthedSignOutRoute: AuthedSignOutRoute,
   AuthedTodosRoute: AuthedTodosRoute,
   AuthedUserRoute: AuthedUserRoute,
@@ -179,10 +237,13 @@ export interface FileRoutesByFullPath {
   '': typeof AuthedRouteWithChildren
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
+  '/chat': typeof AuthedChatRouteWithChildren
   '/sign-out': typeof AuthedSignOutRoute
   '/todos': typeof AuthedTodosRoute
   '/user': typeof AuthedUserRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/chat/$channelId': typeof AuthedChatChannelIdRoute
+  '/chat/': typeof AuthedChatIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -194,6 +255,8 @@ export interface FileRoutesByTo {
   '/todos': typeof AuthedTodosRoute
   '/user': typeof AuthedUserRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/chat/$channelId': typeof AuthedChatChannelIdRoute
+  '/chat': typeof AuthedChatIndexRoute
 }
 
 export interface FileRoutesById {
@@ -203,10 +266,13 @@ export interface FileRoutesById {
   '/_authed': typeof AuthedRouteWithChildren
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
+  '/_authed/chat': typeof AuthedChatRouteWithChildren
   '/_authed/sign-out': typeof AuthedSignOutRoute
   '/_authed/todos': typeof AuthedTodosRoute
   '/_authed/user': typeof AuthedUserRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/_authed/chat/$channelId': typeof AuthedChatChannelIdRoute
+  '/_authed/chat/': typeof AuthedChatIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -216,10 +282,13 @@ export interface FileRouteTypes {
     | ''
     | '/sign-in'
     | '/sign-up'
+    | '/chat'
     | '/sign-out'
     | '/todos'
     | '/user'
     | '/demo/tanstack-query'
+    | '/chat/$channelId'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -230,6 +299,8 @@ export interface FileRouteTypes {
     | '/todos'
     | '/user'
     | '/demo/tanstack-query'
+    | '/chat/$channelId'
+    | '/chat'
   id:
     | '__root__'
     | '/'
@@ -237,10 +308,13 @@ export interface FileRouteTypes {
     | '/_authed'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
+    | '/_authed/chat'
     | '/_authed/sign-out'
     | '/_authed/todos'
     | '/_authed/user'
     | '/demo/tanstack-query'
+    | '/_authed/chat/$channelId'
+    | '/_authed/chat/'
   fileRoutesById: FileRoutesById
 }
 
@@ -287,6 +361,7 @@ export const routeTree = rootRoute
     "/_authed": {
       "filePath": "_authed.tsx",
       "children": [
+        "/_authed/chat",
         "/_authed/sign-out",
         "/_authed/todos",
         "/_authed/user"
@@ -299,6 +374,14 @@ export const routeTree = rootRoute
     "/_auth/sign-up": {
       "filePath": "_auth/sign-up.tsx",
       "parent": "/_auth"
+    },
+    "/_authed/chat": {
+      "filePath": "_authed/chat.tsx",
+      "parent": "/_authed",
+      "children": [
+        "/_authed/chat/$channelId",
+        "/_authed/chat/"
+      ]
     },
     "/_authed/sign-out": {
       "filePath": "_authed/sign-out.tsx",
@@ -314,6 +397,14 @@ export const routeTree = rootRoute
     },
     "/demo/tanstack-query": {
       "filePath": "demo.tanstack-query.tsx"
+    },
+    "/_authed/chat/$channelId": {
+      "filePath": "_authed/chat/$channelId.tsx",
+      "parent": "/_authed/chat"
+    },
+    "/_authed/chat/": {
+      "filePath": "_authed/chat/index.tsx",
+      "parent": "/_authed/chat"
     }
   }
 }

@@ -1,5 +1,13 @@
 {
   "extends": "./packages/typescript-config/tsconfig.base.json",
   "compileOnSave": false,
-  "files": []
+  "files": [],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
 }

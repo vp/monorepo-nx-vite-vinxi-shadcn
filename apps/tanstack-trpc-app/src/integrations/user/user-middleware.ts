@@ -1,11 +1,22 @@
 import { createMiddleware } from '@tanstack/react-start';
-import { userService } from '@/integrations/user/user-service';
+import { isServer } from '@/utils';
+import { getSupabaseBrowserClient } from '../supabase/browser-client';
+import getSupabaseServerClient from '../supabase/server-client';
+import { createUserService } from '@workspace/user-supabase/create-user-service';
+import { createUserManagementService } from '@workspace/chat-supabase/user-management';
 
 
 export const userMiddleware = createMiddleware().server(async ({ next }) =>
-  next({
-    context: {
-      userService,
-    },
-  })
+  {
+    const getSupabaseClient = () => isServer() ? getSupabaseServerClient() : getSupabaseBrowserClient();
+    const userService = createUserService(getSupabaseClient);
+    const userManagementService = createUserManagementService(getSupabaseClient);
+
+    return next({
+      context: {
+        userService,
+        getChatUser: userManagementService.getUserProfile
+      },
+    });
+  }
 );
