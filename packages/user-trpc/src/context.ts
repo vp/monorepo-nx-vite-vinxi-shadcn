@@ -1,4 +1,4 @@
-import { createServerClient } from "@supabase/ssr";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { createUserService, UserService } from "@workspace/user-supabase/create-user-service";
 
 export type Context = {
@@ -9,7 +9,7 @@ export type Context = {
   } | null;
 };
 
-export const createUserTRPCContext = (getSupabaseClient: ReturnType<typeof createServerClient>) => {
+export const createUserTRPCContext = (getSupabaseClient: () => SupabaseClient) => {
   const userService = createUserService(getSupabaseClient);
   return ({
     userService,

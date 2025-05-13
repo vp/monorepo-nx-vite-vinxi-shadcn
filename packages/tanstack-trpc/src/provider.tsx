@@ -1,6 +1,7 @@
 import { AnyTRPCRouter } from '@trpc/server';
 import { createTRPCContext } from '@trpc/tanstack-react-query';
 import { createContext } from '@workspace/tanstack-trpc/context';
+import React from 'react';
 
 export const createProvider = <TRouter extends AnyTRPCRouter>() => {
   const { TRPCProvider, useTRPC } = createTRPCContext<TRouter>();
