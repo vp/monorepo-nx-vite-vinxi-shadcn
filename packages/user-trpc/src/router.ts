@@ -3,16 +3,8 @@ import {
   getTRPCInstance,
   TRPCError,
 } from '@workspace/trpc/init';
-import { UserService } from '@workspace/user-supabase/create-user-service';
 import { z } from 'zod';
-
-type Context = {
-  userService: UserService;
-  user: {
-    id: string;
-    email: string;
-  } | null;
-};
+import { Context } from '@workspace/user-trpc/context'; 
 
 export const createRouter = <
   TContext extends ReturnType<typeof getTRPCInstance<Context>>

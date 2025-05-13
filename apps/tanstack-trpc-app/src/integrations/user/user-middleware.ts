@@ -1,7 +1,7 @@
 import { createMiddleware } from '@tanstack/react-start';
 import { isServer } from '@/utils';
-import { getSupabaseBrowserClient } from '../supabase/browser-client';
-import getSupabaseServerClient from '../supabase/server-client';
+import { getSupabaseBrowserClient } from '@workspace/supabase/browser-client';
+import { getSupabaseServerClient } from '@workspace/supabase/server-client';
 import { createUserService } from '@workspace/user-supabase/create-user-service';
 import { createUserManagementService } from '@workspace/chat-supabase/user-management';
 

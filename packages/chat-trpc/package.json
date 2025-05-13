@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "zod": "^3.24.2",
+    "@supabase/supabase-js": "^2.49.4",
     "@workspace/chat-supabase": "workspace:*",
     "@workspace/trpc": "workspace:*",
     "@trpc/server": "^11.1.1"

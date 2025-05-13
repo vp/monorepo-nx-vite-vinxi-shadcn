@@ -3,15 +3,9 @@ import {
   getTRPCInstance,
   TRPCError,
 } from '@workspace/trpc/init';
-import { TodosService } from '@workspace/todos-supabase/create-todos-service';
-import { TodolistsService } from '@workspace/todos-supabase/create-todolists-service';
 import { z } from 'zod';
+import { Context } from '@workspace/todos-trpc/todos-context';
 
-type Context = {
-  todosService: TodosService;
-  todolistsService: TodolistsService;
-  getUser: () => Promise<{ id: string } | null>;
-};
 
 export const createRouter = <
   TContext extends ReturnType<typeof getTRPCInstance<Context>>
