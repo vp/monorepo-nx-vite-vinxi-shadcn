@@ -45,6 +45,13 @@ const lib = [
       parser: await import('jsonc-eslint-parser'),
     },
   },
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    // Override or add rules here
+    rules: {
+      '@nx/enforce-module-boundaries': ['off'],
+    },
+  },
 ];
 
 const react = [...nx.configs['flat/react']];
