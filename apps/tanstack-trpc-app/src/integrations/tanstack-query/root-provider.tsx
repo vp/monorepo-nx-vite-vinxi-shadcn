@@ -24,7 +24,6 @@ export function createQueryClient() {
 }
 
 export function createContext() {
-  console.log('Creating context');
   const queryClient = createQueryClient();
   const trpcClient = createTRPCRouterClient();
 
