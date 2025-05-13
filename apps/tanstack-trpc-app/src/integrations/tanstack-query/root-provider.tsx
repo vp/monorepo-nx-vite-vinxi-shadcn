@@ -3,7 +3,7 @@ import superjson from 'superjson';
 import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
 
 import { TRPCProvider } from '@/integrations/trpc/react';
-import { trpcClient } from '../trpc/client';
+import { createTRPCRouterClient } from '@/integrations/trpc/client';
 import { logger } from '@/utils';
 
 export function createQueryClient() {
@@ -28,6 +28,7 @@ export function createQueryClient() {
 
 export function createContext() {
   const queryClient = createQueryClient();
+  const trpcClient = createTRPCRouterClient();
 
   const serverHelpers = createTRPCOptionsProxy({
     client: trpcClient,

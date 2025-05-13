@@ -7,10 +7,10 @@
     "shadcn": "TS_NODE_PROJECT=tsconfig.ui.json pnpx shadcn@latest"
   },
   "dependencies": {
-    "@workspace/ui": "workspace:*",
-    "@tanstack/react-form": "^1.0.5",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.0.11",
+    "@tanstack/react-form": "^1.11.1",
+    "@workspace/ui": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

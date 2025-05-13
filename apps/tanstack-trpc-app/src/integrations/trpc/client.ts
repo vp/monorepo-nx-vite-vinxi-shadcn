@@ -1,6 +1,6 @@
 import { createTRPCClient } from '@workspace/trpc/client';
 import type { TRPCRouter } from './router';
 
-export const trpcClient = createTRPCClient<TRPCRouter>();
+export const createTRPCRouterClient = createTRPCClient<TRPCRouter>;
 
-export type TRPCClient = typeof trpcClient;
+export type TRPCClient = ReturnType<typeof createTRPCRouterClient>;
