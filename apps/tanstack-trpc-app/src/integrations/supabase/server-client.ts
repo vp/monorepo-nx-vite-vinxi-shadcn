@@ -4,7 +4,7 @@ import { createServerClient, parseCookieHeader } from '@supabase/ssr';
 export default function getSupabaseServerClient(request?: Request) {
   // Use provided cookies or get them from the current request
   const cookies = request
-    ? parseCookieHeader(request?.headers.get('cookie') || '').reduce((acc, {name, value}) => ({
+    ? parseCookieHeader(request?.headers.get('cookie') || request?.headers.get('Cookie') || '').reduce((acc, {name, value}) => ({
       ...acc,
       [name]: value as string, 
     }), {} as Record<string, string>)

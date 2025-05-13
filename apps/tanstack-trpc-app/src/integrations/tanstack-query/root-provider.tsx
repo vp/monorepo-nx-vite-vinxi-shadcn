@@ -4,11 +4,8 @@ import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
 
 import { TRPCProvider } from '@/integrations/trpc/react';
 import { createTRPCRouterClient } from '@/integrations/trpc/client';
-import { logger } from '@/utils';
 
 export function createQueryClient() {
-  logger.log('Creating query client');
-  
   return new QueryClient({
     defaultOptions: {
       dehydrate: { serializeData: superjson.serialize },
@@ -27,6 +24,7 @@ export function createQueryClient() {
 }
 
 export function createContext() {
+  console.log('Creating context');
   const queryClient = createQueryClient();
   const trpcClient = createTRPCRouterClient();
 
@@ -42,7 +40,7 @@ export function createContext() {
   };
 }
 
-export function Provider({ children, context }: { children: React.ReactNode, context: ReturnType<typeof createContext> }) {
+export function Provider({ children, context }: { children: React.ReactNode, context: Omit<ReturnType<typeof createContext>, 'trpc'> }) {
   return (
     <TRPCProvider trpcClient={context.trpcClient} queryClient={context.queryClient}>
       {children}

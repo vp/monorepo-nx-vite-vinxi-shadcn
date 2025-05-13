@@ -5,6 +5,7 @@ import { createFileRoute } from '@tanstack/react-router';
 export const Route = createFileRoute('/_authed/user')({
   component: RouteComponent,
   loader: async ({ context }) => {
+   
     await context.queryClient.prefetchQuery(
       context.trpc.user.getUser.queryOptions()
     );

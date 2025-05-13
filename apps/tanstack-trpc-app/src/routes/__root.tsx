@@ -25,7 +25,6 @@ import { NotFound } from '@/components/NotFound';
 import { DefaultCatchBoundary } from '@workspace/tanstack-router/ui/default-catch-boundary';
 import { UserNav } from '@/components/UserNav';
 import { getUserInfo } from '@/integrations/user/fn/get-user-info';
-import { logger } from '@/utils';
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -38,7 +37,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     // Use stale-while-revalidate pattern with caching
     const user = await getUserInfo();
 
-    logger.log('user', user);
     return { user };
   },
   head: () => ({

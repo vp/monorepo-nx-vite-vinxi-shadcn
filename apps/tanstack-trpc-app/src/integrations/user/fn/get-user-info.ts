@@ -13,6 +13,7 @@ export const getUserInfo = createServerFn({ method: 'GET' })
     if (refreshResponse.error) {
       console.error('Error refreshing session:', refreshResponse.message, refreshResponse.data?.error);
       userService.signOut(); 
+
       return null;
     }
 
