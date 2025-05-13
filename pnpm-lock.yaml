@@ -1294,18 +1294,9 @@ importers:
 
   packages/tanstack-trpc:
     dependencies:
-      '@supabase/ssr':
-        specifier: ^0.6.1
-        version: 0.6.1(@supabase/supabase-js@2.49.4)
-      '@supabase/supabase-js':
-        specifier: ^2.49.4
-        version: 2.49.4
       '@tanstack/react-query':
         specifier: ^5.76.0
         version: 5.76.0(react@19.0.0)
-      '@tanstack/react-query-devtools':
-        specifier: ^5.76.0
-        version: 5.76.0(@tanstack/react-query@5.76.0(react@19.0.0))(react@19.0.0)
       '@trpc/client':
         specifier: ^11.1.1
         version: 11.1.2(@trpc/server@11.1.1(typescript@5.8.3))(typescript@5.8.3)
@@ -1324,15 +1315,9 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.0.0
-      react-dom:
-        specifier: ^19.0.0
-        version: 19.0.0(react@19.0.0)
       superjson:
         specifier: ^1.0.0
         version: 1.13.3
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.4
     devDependencies:
       '@types/node':
         specifier: ^22.9.0
