@@ -1,13 +1,13 @@
 import { PropsWithChildren } from 'react';
 import { Sidebar } from '@workspace/chat-ui/components/sidebar';
 import { useChatContext } from '../chat-context.js';
-import { Link } from '@tanstack/react-router';
+import { Link, LinkProps } from '@tanstack/react-router';
 import { MessageSquare } from 'lucide-react';
 
 export const ChatLayout = ({
   children,
   basePath,
-}: PropsWithChildren & { basePath: string }) => {
+}: PropsWithChildren & { basePath: LinkProps['from'] }) => {
   const { channels, channelAdd, deleteChannel } = useChatContext();
 
   return (

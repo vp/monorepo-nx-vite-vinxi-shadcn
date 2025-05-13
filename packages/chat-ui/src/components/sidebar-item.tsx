@@ -12,7 +12,7 @@ export const SidebarItem = ({
   onDeleteChannel?: (data: ChannelToDelete) => Promise<void>;
 }) => {
   const user = useChatUser();
-  const showDeleteButton = onDeleteChannel && id !== 1 && (created_by === user?.id || user?.role === 'admin');
+  const showDeleteButton = onDeleteChannel && id !== 1 && (created_by === user?.id || user?.roles.includes('admin'));
 
   return (
     <div className="flex items-center gap-2">
