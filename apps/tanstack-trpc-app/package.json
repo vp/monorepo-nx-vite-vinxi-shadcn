@@ -49,6 +49,8 @@
     "@workspace/user-supabase": "workspace:*",
     "@workspace/user-trpc": "workspace:*",
     "@workspace/user-ui": "workspace:*",
+    "@workspace/supabase": "workspace:*",
+    "@workspace/tanstack-trpc": "workspace:*",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

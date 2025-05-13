@@ -1,17 +1,15 @@
 import { createAPIFileRoute } from '@tanstack/react-start/api';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { trpcRouter } from '@/integrations/trpc/router';
-import { getTRPCApiContext } from '@/integrations/supabase/trpc';
-import { createUserTRPCContext } from '@/integrations/user/trpc';
-import { createTodosTRPCContext } from '@/integrations/todos/todos-trpc';
-import { createChatTRPCContext } from '@/integrations/chat/chat-trpc';
-import getSupabaseServerClient from '@/integrations/supabase/server-client';
+import { getTRPCApiContext } from '@workspace/trpc/context';
+import { createUserTRPCContext } from '@workspace/user-trpc/context';
+import { createTodosTRPCContext } from '@workspace/todos-trpc/todos-context';
+import { getSupabaseServerClient } from '@workspace/supabase/server-client';
+import { createChatTRPCContext } from '@workspace/chat-trpc/chat-context';
 
 function handler({ request }: { request: Request; }) {
-  const supabase = getSupabaseServerClient(request);
-  const getSupabaseClient = () => supabase;
+  const getSupabaseClient = () => getSupabaseServerClient(request);
   
-
   return fetchRequestHandler({
     req: request,
     router: trpcRouter,

@@ -1,7 +1,7 @@
 import { MessageChangeEvent } from '@workspace/chat-supabase/types';
 import { getTRPCInstance, TRPCError } from '@workspace/trpc/init';
 import { z } from 'zod';
-import { Context } from './chat-context.js';
+import { Context } from '@workspace/chat-trpc/chat-context';
 import { observable } from '@trpc/server/observable';
 
 // Add this shared subscription manager at the top of your file, outside the router creation

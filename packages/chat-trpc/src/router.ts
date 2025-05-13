@@ -6,8 +6,7 @@ import {
 } from '@workspace/trpc/init';
 import { z } from 'zod';
 import { createMessagesRoutes } from './messages.js';
-import { Context } from './chat-context.js';
-
+import { Context } from '@workspace/chat-trpc/chat-context';
 
 export const createRouter = <
   TContext extends ReturnType<typeof getTRPCInstance<Context>>

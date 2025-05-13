@@ -1,14 +1,15 @@
 import { createRouter as createTanstackRouter } from '@tanstack/react-router';
 import { routerWithQueryClient } from '@tanstack/react-router-with-query';
-import * as TanstackQuery from './integrations/tanstack-query/root-provider';
+import { createContext } from '@workspace/tanstack-trpc/context';
+import { TRPCRouter } from '@/integrations/trpc/router';
+import { TRPCProvider } from '@/integrations/trpc/react';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
 
-
 // Create a new router instance
 export const createRouter = () => {
-  const context = TanstackQuery.createContext();
+  const context = createContext<TRPCRouter>();
 
   const router = routerWithQueryClient(
     createTanstackRouter({
@@ -19,16 +20,20 @@ export const createRouter = () => {
 
       Wrap: (props: { children: React.ReactNode }) => {
         return (
-          <TanstackQuery.Provider context={{
-            queryClient: context.queryClient,
-            trpcClient: context.trpcClient,
-          }}>{props.children}</TanstackQuery.Provider>
+          <TRPCProvider
+            context={{
+              queryClient: context.queryClient,
+              trpcClient: context.trpcClient,
+            }}
+          >
+            {props.children}
+          </TRPCProvider>
         );
       },
     }),
     context.queryClient
   );
-  
+
   return router;
 };
 

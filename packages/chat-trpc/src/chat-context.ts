@@ -1,7 +1,8 @@
-import { ChannelsService } from '@workspace/chat-supabase/channels';
-import { MessagesService } from '@workspace/chat-supabase/messages';
-import { SubscriptionsService } from '@workspace/chat-supabase/subscriptions';
-import { UserManagementService } from '@workspace/chat-supabase/user-management';
+import { createServerClient } from '@supabase/ssr';
+import { ChannelsService, createChannelsService } from '@workspace/chat-supabase/channels';
+import { createMessagesService, MessagesService } from '@workspace/chat-supabase/messages';
+import { createSubscriptionsService, SubscriptionsService } from '@workspace/chat-supabase/subscriptions';
+import { createUserManagementService, UserManagementService } from '@workspace/chat-supabase/user-management';
 
 
 export type Context = {
@@ -12,3 +13,13 @@ export type Context = {
   userManagementService: UserManagementService;
   subscriptionsService: SubscriptionsService;
 };
+
+
+export const createChatTRPCContext = (
+  getSupabaseClient: ReturnType<typeof createServerClient>
+) => ({
+  channelsService: createChannelsService(getSupabaseClient),
+  messagesService: createMessagesService(getSupabaseClient),
+  userManagementService: createUserManagementService(getSupabaseClient),
+  subscriptionsService: createSubscriptionsService(getSupabaseClient),
+});

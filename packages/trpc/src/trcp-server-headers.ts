@@ -1,4 +1,4 @@
-import { getRequestHeader, parseCookies } from '@tanstack/react-start/server';
+import { parseCookies } from '@tanstack/react-start/server';
 
 export const getTrpcServerHeaders = () => process.env.COOKIE_HEADER || getHeaders();
 
