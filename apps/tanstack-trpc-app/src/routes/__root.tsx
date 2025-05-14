@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
-import TanstackQueryLayout from '../integrations/tanstack-query/layout';
+import { TanstackQueryLayoutAddition } from '@/integrations/tanstack-query/layout';
 
 import appCss from '@workspace/ui/globals.css?url';
 
@@ -37,7 +37,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     // Use stale-while-revalidate pattern with caching
     const user = await getUserInfo();
 
-    return { user };
+    return { user }
   },
   head: () => ({
     meta: [
@@ -94,8 +94,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         </AppLayout>
       </ThemeProvider>
       <TanStackRouterDevtools />
-
-      <TanstackQueryLayout />
+      <TanstackQueryLayoutAddition />
     </RootDocument>
   ),
 
