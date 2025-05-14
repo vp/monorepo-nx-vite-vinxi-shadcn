@@ -1,40 +1,22 @@
-import { createRouter as createTanstackRouter } from '@tanstack/react-router';
-import { routerWithQueryClient } from '@tanstack/react-router-with-query';
 import { createContext } from '@workspace/tanstack-trpc/context';
+import { createTanstackWithQueryAndTRPCRouter } from '@workspace/tanstack-trpc/router';
 import { TRPCRouter } from '@/integrations/trpc/router';
 import { TRPCProvider } from '@/integrations/trpc/react';
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen';
 
-// Create a new router instance
+// Create a new router instanc
 export const createRouter = () => {
   const context = createContext<TRPCRouter>();
 
-  const router = routerWithQueryClient(
-    createTanstackRouter({
-      routeTree,
-      context,
-      scrollRestoration: true,
-      defaultPreloadStaleTime: 0,
-
-      Wrap: (props: { children: React.ReactNode }) => {
-        return (
-          <TRPCProvider
-            context={{
-              queryClient: context.queryClient,
-              trpcClient: context.trpcClient,
-            }}
-          >
-            {props.children}
-          </TRPCProvider>
-        );
-      },
-    }),
-    context.queryClient
-  );
-
-  return router;
+  return createTanstackWithQueryAndTRPCRouter<TRPCRouter, typeof routeTree>({
+    routeTree,
+    context,
+    scrollRestoration: true,
+    defaultPreloadStaleTime: 0,
+    Provider: TRPCProvider,
+  });
 };
 
 // Register the router instance for type safety
